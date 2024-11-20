@@ -1,0 +1,1083 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		F0BCCC772C821E34007EA382 /* PTSLocate_ALL */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F0BCCC782C821E34007EA382 /* Build configuration list for PBXAggregateTarget "PTSLocate_ALL" */;
+			buildPhases = (
+			);
+			dependencies = (
+				F0BCCC7C2C8221B9007EA382 /* PBXTargetDependency */,
+				F0BCCC7E2C8221B9007EA382 /* PBXTargetDependency */,
+				F0BCCC802C8221B9007EA382 /* PBXTargetDependency */,
+				F0BCCC822C8221B9007EA382 /* PBXTargetDependency */,
+			);
+			name = PTSLocate_ALL;
+			productName = PTSLocate;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		F0002DC02C7C0ABF00520A9F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F0002DBF2C7C0ABF00520A9F /* README.md */; };
+		F00619A02C94A8060094614E /* MultipartRequestDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006199A2C94A8060094614E /* MultipartRequestDriver.swift */; };
+		F00619A12C94A8060094614E /* MultipartRequestDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006199A2C94A8060094614E /* MultipartRequestDriver.swift */; };
+		F00619A22C94A8060094614E /* MultipartDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006199B2C94A8060094614E /* MultipartDataExtension.swift */; };
+		F00619A32C94A8060094614E /* MultipartDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006199B2C94A8060094614E /* MultipartDataExtension.swift */; };
+		F00619A42C94A8060094614E /* MultipartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006199C2C94A8060094614E /* MultipartRequest.swift */; };
+		F00619A52C94A8060094614E /* MultipartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006199C2C94A8060094614E /* MultipartRequest.swift */; };
+		F00619A62C94A8060094614E /* MultipartRequestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006199D2C94A8060094614E /* MultipartRequestInfo.swift */; };
+		F00619A72C94A8060094614E /* MultipartRequestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006199D2C94A8060094614E /* MultipartRequestInfo.swift */; };
+		F00619A82C94AEBE0094614E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F091A2942C8F865700FB85D5 /* LaunchScreen.storyboard */; };
+		F0289D292C53D85B001B19CD /* JmUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0289D282C53D85B001B19CD /* JmUserDefaults.swift */; };
+		F0289D2B2C53D863001B19CD /* HelpBasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0289D2A2C53D863001B19CD /* HelpBasicView.swift */; };
+		F0289D2F2C53D933001B19CD /* HelpBasic.html in Resources */ = {isa = PBXBuildFile; fileRef = F0289D2D2C53D933001B19CD /* HelpBasic.html */; };
+		F0289D302C53D933001B19CD /* HelpBasic.md in Resources */ = {isa = PBXBuildFile; fileRef = F0289D2E2C53D933001B19CD /* HelpBasic.md */; };
+		F0289D332C53D98D001B19CD /* HelpBasicMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0289D312C53D98D001B19CD /* HelpBasicMode.swift */; };
+		F0289D342C53D98D001B19CD /* HelpBasicLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0289D322C53D98D001B19CD /* HelpBasicLoader.swift */; };
+		F028C5B12C48610A007C459E /* PTSLocateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028C5B02C48610A007C459E /* PTSLocateApp.swift */; };
+		F028C5B32C48610A007C459E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028C5B22C48610A007C459E /* ContentView.swift */; };
+		F028C5B52C48610B007C459E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F028C5B42C48610B007C459E /* Assets.xcassets */; };
+		F028C5B82C48610B007C459E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F028C5B72C48610B007C459E /* Preview Assets.xcassets */; };
+		F029E0B62C82386D00FC96B9 /* SettingsSingleViewIos.swift in Sources */ = {isa = PBXBuildFile; fileRef = F029E0B32C82386D00FC96B9 /* SettingsSingleViewIos.swift */; };
+		F029E0B72C82386D00FC96B9 /* SettingsSingleViewMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = F029E0B42C82386D00FC96B9 /* SettingsSingleViewMac.swift */; };
+		F029E0BB2C823ACB00FC96B9 /* AppAboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F029E0B92C823ACB00FC96B9 /* AppAboutView.swift */; };
+		F03240302C49672900ED9508 /* PTSLocateNSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032402F2C49672900ED9508 /* PTSLocateNSAppDelegate.swift */; };
+		F042521C2C59356600EA22D8 /* CalledObjCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F04252192C59356600EA22D8 /* CalledObjCModule.m */; };
+		F0474E592CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0474E582CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift */; };
+		F0474E5A2CDAA54A0079B1E0 /* JmAppUserNotificationIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0474E572CDAA54A0079B1E0 /* JmAppUserNotificationIdentifiers.swift */; };
+		F0474E5B2CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0474E582CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift */; };
+		F0474E5C2CDAA54A0079B1E0 /* JmAppUserNotificationIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0474E572CDAA54A0079B1E0 /* JmAppUserNotificationIdentifiers.swift */; };
+		F04D88A22CDAA8A00002AA0B /* MultipartZipFileCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04D88A12CDAA8A00002AA0B /* MultipartZipFileCreator.swift */; };
+		F04D88A32CDAA8A00002AA0B /* MultipartZipFileCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04D88A12CDAA8A00002AA0B /* MultipartZipFileCreator.swift */; };
+		F05B51552CE7D8B5008A0EEE /* ParsePFCscDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */; };
+		F05B51562CE7D8B5008A0EEE /* ParsePFCscDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */; };
+		F0601D932C77C73C00443D72 /* JmXcodeBuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0601D922C77C73C00443D72 /* JmXcodeBuildSettings.swift */; };
+		F0786E462CE68E9E0052A534 /* CoreLocationModelObservable2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0786E442CE68E9E0052A534 /* CoreLocationModelObservable2.swift */; };
+		F0786E472CE68E9E0052A534 /* CoreLocationSiteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0786E452CE68E9E0052A534 /* CoreLocationSiteItem.swift */; };
+		F0786E482CE68E9E0052A534 /* CoreLocationModelObservable2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0786E442CE68E9E0052A534 /* CoreLocationModelObservable2.swift */; };
+		F0786E492CE68E9E0052A534 /* CoreLocationSiteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0786E452CE68E9E0052A534 /* CoreLocationSiteItem.swift */; };
+		F07F7B952C94DB2D0094AE18 /* DefinesObjCOverrides.m in Sources */ = {isa = PBXBuildFile; fileRef = F07F7B942C94DB2D0094AE18 /* DefinesObjCOverrides.m */; };
+		F07F7B962C94DB2D0094AE18 /* DefinesObjCOverrides.m in Sources */ = {isa = PBXBuildFile; fileRef = F07F7B942C94DB2D0094AE18 /* DefinesObjCOverrides.m */; };
+		F08C00C72CE536430045A5CD /* JmAppParseCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08C00C62CE536430045A5CD /* JmAppParseCoreManager.swift */; };
+		F08C00C82CE536430045A5CD /* JmAppParseCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08C00C62CE536430045A5CD /* JmAppParseCoreManager.swift */; };
+		F08C00CB2CE537420045A5CD /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = F08C00CA2CE537420045A5CD /* ParseLiveQuery */; };
+		F08C00CD2CE537420045A5CD /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = F08C00CC2CE537420045A5CD /* ParseObjC */; };
+		F091A2842C8F6FEF00FB85D5 /* RestURLData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F091A2802C8F6FEE00FB85D5 /* RestURLData.swift */; };
+		F091A2852C8F6FEF00FB85D5 /* RestURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F091A2812C8F6FEF00FB85D5 /* RestURLResponse.swift */; };
+		F091A2862C8F6FEF00FB85D5 /* RestURLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F091A2822C8F6FEF00FB85D5 /* RestURLEndpoint.swift */; };
+		F091A2872C8F6FEF00FB85D5 /* RestURLProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F091A2832C8F6FEF00FB85D5 /* RestURLProcessor.swift */; };
+		F091A2882C8F73DD00FB85D5 /* RestURLData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F091A2802C8F6FEE00FB85D5 /* RestURLData.swift */; };
+		F091A2892C8F73DD00FB85D5 /* RestURLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F091A2822C8F6FEF00FB85D5 /* RestURLEndpoint.swift */; };
+		F091A28A2C8F73DD00FB85D5 /* RestURLProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F091A2832C8F6FEF00FB85D5 /* RestURLProcessor.swift */; };
+		F091A28B2C8F73DD00FB85D5 /* RestURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F091A2812C8F6FEF00FB85D5 /* RestURLResponse.swift */; };
+		F0981DB42C52C5AE0054CE7C /* PTSLocateAppGlobalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0981DB32C52C5AD0054CE7C /* PTSLocateAppGlobalInfo.swift */; };
+		F0A443392C498ED6005EEE81 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		F0A59E052C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A59E032C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift */; };
+		F0BCCC572C820EF1007EA382 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028C5B22C48610A007C459E /* ContentView.swift */; };
+		F0BCCC582C820EF1007EA382 /* HelpBasicMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0289D312C53D98D001B19CD /* HelpBasicMode.swift */; };
+		F0BCCC592C820EF1007EA382 /* PTSLocateUIAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BCCC4F2C820ECB007EA382 /* PTSLocateUIAppDelegate.swift */; };
+		F0BCCC5A2C820EF1007EA382 /* PTSLocateAppGlobalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0981DB32C52C5AD0054CE7C /* PTSLocateAppGlobalInfo.swift */; };
+		F0BCCC5B2C820EF1007EA382 /* CalledObjCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F04252192C59356600EA22D8 /* CalledObjCModule.m */; };
+		F0BCCC5C2C820EF1007EA382 /* LogFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B912C52E951000E5A52 /* LogFileView.swift */; };
+		F0BCCC5D2C820EF1007EA382 /* HelpBasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0289D2A2C53D863001B19CD /* HelpBasicView.swift */; };
+		F0BCCC5E2C820EF1007EA382 /* SettingsSingleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B902C52E951000E5A52 /* SettingsSingleView.swift */; };
+		F0BCCC602C820EF1007EA382 /* JmFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B872C52E414000E5A52 /* JmFileIO.swift */; };
+		F0BCCC612C820EF1007EA382 /* JmUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0289D282C53D85B001B19CD /* JmUserDefaults.swift */; };
+		F0BCCC632C820EF1007EA382 /* PTSLocateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028C5B02C48610A007C459E /* PTSLocateApp.swift */; };
+		F0BCCC642C820EF1007EA382 /* JmXcodeBuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0601D922C77C73C00443D72 /* JmXcodeBuildSettings.swift */; };
+		F0BCCC652C820EF1007EA382 /* JmAppDelegateVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D473972C7AD2960027F651 /* JmAppDelegateVisitor.swift */; };
+		F0BCCC662C820EF1007EA382 /* JmObjCSwiftEnvBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A59E032C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift */; };
+		F0BCCC672C820EF1007EA382 /* HelpBasicLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0289D322C53D98D001B19CD /* HelpBasicLoader.swift */; };
+		F0BCCC682C820EF1007EA382 /* JmStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B882C52E414000E5A52 /* JmStringExtensions.swift */; };
+		F0BCCC6A2C820EF1007EA382 /* ObjcExceptionBridging in Frameworks */ = {isa = PBXBuildFile; productRef = F0BCCC522C820EF1007EA382 /* ObjcExceptionBridging */; settings = {ATTRIBUTES = (Required, ); }; };
+		F0BCCC6B2C820EF1007EA382 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		F0BCCC6C2C820EF1007EA382 /* XCGLogger in Frameworks */ = {isa = PBXBuildFile; productRef = F0BCCC542C820EF1007EA382 /* XCGLogger */; };
+		F0BCCC6E2C820EF1007EA382 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F028C5B72C48610B007C459E /* Preview Assets.xcassets */; };
+		F0BCCC6F2C820EF1007EA382 /* HelpBasic.html in Resources */ = {isa = PBXBuildFile; fileRef = F0289D2D2C53D933001B19CD /* HelpBasic.html */; };
+		F0BCCC702C820EF1007EA382 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F0002DBF2C7C0ABF00520A9F /* README.md */; };
+		F0BCCC712C820EF1007EA382 /* HelpBasic.md in Resources */ = {isa = PBXBuildFile; fileRef = F0289D2E2C53D933001B19CD /* HelpBasic.md */; };
+		F0BCCC722C820EF1007EA382 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F028C5B42C48610B007C459E /* Assets.xcassets */; };
+		F0C6A8FF2C4AA2A40004606A /* ObjcExceptionBridging in Frameworks */ = {isa = PBXBuildFile; productRef = F0C6A8FE2C4AA2A40004606A /* ObjcExceptionBridging */; settings = {ATTRIBUTES = (Required, ); }; };
+		F0C6A9012C4AA2A40004606A /* XCGLogger in Frameworks */ = {isa = PBXBuildFile; productRef = F0C6A9002C4AA2A40004606A /* XCGLogger */; };
+		F0CBE9002CEBDD6E00B0625E /* AppLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBE8FF2CEBDD6E00B0625E /* AppLocationMapView.swift */; };
+		F0CBE9012CEBDD6E00B0625E /* AppLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBE8FF2CEBDD6E00B0625E /* AppLocationMapView.swift */; };
+		F0D17B892C52E414000E5A52 /* JmFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B872C52E414000E5A52 /* JmFileIO.swift */; };
+		F0D17B8A2C52E414000E5A52 /* JmStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B882C52E414000E5A52 /* JmStringExtensions.swift */; };
+		F0D17B8D2C52E572000E5A52 /* AppInfoCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B8C2C52E572000E5A52 /* AppInfoCommands.swift */; };
+		F0D17B8F2C52E942000E5A52 /* HelpCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B8E2C52E942000E5A52 /* HelpCommands.swift */; };
+		F0D17B922C52E951000E5A52 /* SettingsSingleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B902C52E951000E5A52 /* SettingsSingleView.swift */; };
+		F0D17B932C52E951000E5A52 /* LogFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B912C52E951000E5A52 /* LogFileView.swift */; };
+		F0D473982C7AD2960027F651 /* JmAppDelegateVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D473972C7AD2960027F651 /* JmAppDelegateVisitor.swift */; };
+		F0DC5D312CDBCE7A009F0090 /* MultipartZipFileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DC5D302CDBCE7A009F0090 /* MultipartZipFileService.swift */; };
+		F0DC5D322CDBCE7A009F0090 /* MultipartZipFileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DC5D302CDBCE7A009F0090 /* MultipartZipFileService.swift */; };
+		F0EDCABA2CE54444003A4D79 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = F0EDCAB92CE54444003A4D79 /* ParseLiveQuery */; };
+		F0EDCABC2CE54444003A4D79 /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = F0EDCABB2CE54444003A4D79 /* ParseObjC */; };
+		F0EEDD872CADC38400E437E8 /* JmAppMetricKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EEDD852CADC38400E437E8 /* JmAppMetricKitManager.swift */; };
+		F0EEDD882CADC38400E437E8 /* JmAppMetricKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EEDD852CADC38400E437E8 /* JmAppMetricKitManager.swift */; };
+		F0EF628B2C8B70BE00DB79DB /* DeveloperSupportEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EF628A2C8B70BD00DB79DB /* DeveloperSupportEmail.swift */; };
+		F0EF628C2C8B70BE00DB79DB /* DeveloperSupportEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EF628A2C8B70BD00DB79DB /* DeveloperSupportEmail.swift */; };
+		F0F1277D2CEB944D00656B7E /* AppLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F1277C2CEB944D00656B7E /* AppLocationView.swift */; };
+		F0F1277E2CEB944D00656B7E /* AppLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F1277C2CEB944D00656B7E /* AppLocationView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F0BCCC7B2C8221B9007EA382 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F028C5A52C486109007C459E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F028C5AC2C48610A007C459E;
+			remoteInfo = PTSLocate_Mac;
+		};
+		F0BCCC7D2C8221B9007EA382 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F028C5A52C486109007C459E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0BCCC512C820EF1007EA382;
+			remoteInfo = PTSLocate_iOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F0002DBF2C7C0ABF00520A9F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F006199A2C94A8060094614E /* MultipartRequestDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartRequestDriver.swift; sourceTree = "<group>"; };
+		F006199B2C94A8060094614E /* MultipartDataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartDataExtension.swift; sourceTree = "<group>"; };
+		F006199C2C94A8060094614E /* MultipartRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartRequest.swift; sourceTree = "<group>"; };
+		F006199D2C94A8060094614E /* MultipartRequestInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartRequestInfo.swift; sourceTree = "<group>"; };
+		F0289D282C53D85B001B19CD /* JmUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmUserDefaults.swift; sourceTree = "<group>"; };
+		F0289D2A2C53D863001B19CD /* HelpBasicView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpBasicView.swift; sourceTree = "<group>"; };
+		F0289D2D2C53D933001B19CD /* HelpBasic.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = HelpBasic.html; sourceTree = "<group>"; };
+		F0289D2E2C53D933001B19CD /* HelpBasic.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HelpBasic.md; sourceTree = "<group>"; };
+		F0289D312C53D98D001B19CD /* HelpBasicMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpBasicMode.swift; sourceTree = "<group>"; };
+		F0289D322C53D98D001B19CD /* HelpBasicLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpBasicLoader.swift; sourceTree = "<group>"; };
+		F028C5AD2C48610A007C459E /* PTSLocate_Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PTSLocate_Mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F028C5B02C48610A007C459E /* PTSLocateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTSLocateApp.swift; sourceTree = "<group>"; };
+		F028C5B22C48610A007C459E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F028C5B42C48610B007C459E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F028C5B72C48610B007C459E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F028C5B92C48610B007C459E /* PTSLocate.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PTSLocate.entitlements; sourceTree = "<group>"; };
+		F029E0B32C82386D00FC96B9 /* SettingsSingleViewIos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSingleViewIos.swift; sourceTree = "<group>"; };
+		F029E0B42C82386D00FC96B9 /* SettingsSingleViewMac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSingleViewMac.swift; sourceTree = "<group>"; };
+		F029E0B92C823ACB00FC96B9 /* AppAboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAboutView.swift; sourceTree = "<group>"; };
+		F032402F2C49672900ED9508 /* PTSLocateNSAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTSLocateNSAppDelegate.swift; sourceTree = "<group>"; };
+		F04252192C59356600EA22D8 /* CalledObjCModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalledObjCModule.m; sourceTree = "<group>"; };
+		F042521A2C59356600EA22D8 /* CalledObjCModule-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CalledObjCModule-Bridging-Header.h"; sourceTree = "<group>"; };
+		F042521B2C59356600EA22D8 /* CalledObjCModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalledObjCModule.h; sourceTree = "<group>"; };
+		F0474E572CDAA54A0079B1E0 /* JmAppUserNotificationIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JmAppUserNotificationIdentifiers.swift; sourceTree = "<group>"; };
+		F0474E582CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JmAppUserNotificationManager.swift; sourceTree = "<group>"; };
+		F04D88A12CDAA8A00002AA0B /* MultipartZipFileCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartZipFileCreator.swift; sourceTree = "<group>"; };
+		F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsePFCscDataItem.swift; sourceTree = "<group>"; };
+		F0601D922C77C73C00443D72 /* JmXcodeBuildSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmXcodeBuildSettings.swift; sourceTree = "<group>"; };
+		F0786E442CE68E9E0052A534 /* CoreLocationModelObservable2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationModelObservable2.swift; sourceTree = "<group>"; };
+		F0786E452CE68E9E0052A534 /* CoreLocationSiteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationSiteItem.swift; sourceTree = "<group>"; };
+		F07F7B932C94DB2D0094AE18 /* DefinesObjCOverrides.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinesObjCOverrides.h; sourceTree = "<group>"; };
+		F07F7B942C94DB2D0094AE18 /* DefinesObjCOverrides.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefinesObjCOverrides.m; sourceTree = "<group>"; };
+		F08C00C62CE536430045A5CD /* JmAppParseCoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JmAppParseCoreManager.swift; sourceTree = "<group>"; };
+		F091A2802C8F6FEE00FB85D5 /* RestURLData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestURLData.swift; sourceTree = "<group>"; };
+		F091A2812C8F6FEF00FB85D5 /* RestURLResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestURLResponse.swift; sourceTree = "<group>"; };
+		F091A2822C8F6FEF00FB85D5 /* RestURLEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestURLEndpoint.swift; sourceTree = "<group>"; };
+		F091A2832C8F6FEF00FB85D5 /* RestURLProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestURLProcessor.swift; sourceTree = "<group>"; };
+		F091A2922C8F849C00FB85D5 /* PTSLocate-Mac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "PTSLocate-Mac-Info.plist"; sourceTree = "<group>"; };
+		F091A2932C8F84E600FB85D5 /* PTSLocate-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "PTSLocate-iOS-Info.plist"; sourceTree = "<group>"; };
+		F091A2942C8F865700FB85D5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F0981DB32C52C5AD0054CE7C /* PTSLocateAppGlobalInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTSLocateAppGlobalInfo.swift; sourceTree = "<group>"; };
+		F0A59E032C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmObjCSwiftEnvBridge.swift; sourceTree = "<group>"; };
+		F0A59E042C5962E900302BA8 /* JmObjCSwiftEnvBridge-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JmObjCSwiftEnvBridge-Bridging-Header.h"; sourceTree = "<group>"; };
+		F0BCCC4F2C820ECB007EA382 /* PTSLocateUIAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTSLocateUIAppDelegate.swift; sourceTree = "<group>"; };
+		F0BCCC762C820EF1007EA382 /* PTSLocate_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PTSLocate_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0CBE8FF2CEBDD6E00B0625E /* AppLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationMapView.swift; sourceTree = "<group>"; };
+		F0D17B872C52E414000E5A52 /* JmFileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmFileIO.swift; sourceTree = "<group>"; };
+		F0D17B882C52E414000E5A52 /* JmStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmStringExtensions.swift; sourceTree = "<group>"; };
+		F0D17B8C2C52E572000E5A52 /* AppInfoCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoCommands.swift; sourceTree = "<group>"; };
+		F0D17B8E2C52E942000E5A52 /* HelpCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpCommands.swift; sourceTree = "<group>"; };
+		F0D17B902C52E951000E5A52 /* SettingsSingleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSingleView.swift; sourceTree = "<group>"; };
+		F0D17B912C52E951000E5A52 /* LogFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFileView.swift; sourceTree = "<group>"; };
+		F0D473972C7AD2960027F651 /* JmAppDelegateVisitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmAppDelegateVisitor.swift; sourceTree = "<group>"; };
+		F0DC5D302CDBCE7A009F0090 /* MultipartZipFileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartZipFileService.swift; sourceTree = "<group>"; };
+		F0EEDD842CADC38400E437E8 /* JmAppDelegateVisitor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JmAppDelegateVisitor-Bridging-Header.h"; sourceTree = "<group>"; };
+		F0EEDD852CADC38400E437E8 /* JmAppMetricKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JmAppMetricKitManager.swift; sourceTree = "<group>"; };
+		F0EEDD862CADC38400E437E8 /* JmUserDefaults-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JmUserDefaults-Bridging-Header.h"; sourceTree = "<group>"; };
+		F0EF628A2C8B70BD00DB79DB /* DeveloperSupportEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeveloperSupportEmail.swift; sourceTree = "<group>"; };
+		F0F1277C2CEB944D00656B7E /* AppLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F028C5AA2C48610A007C459E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0C6A8FF2C4AA2A40004606A /* ObjcExceptionBridging in Frameworks */,
+				F0EDCABC2CE54444003A4D79 /* ParseObjC in Frameworks */,
+				F0A443392C498ED6005EEE81 /* (null) in Frameworks */,
+				F0C6A9012C4AA2A40004606A /* XCGLogger in Frameworks */,
+				F0EDCABA2CE54444003A4D79 /* ParseLiveQuery in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0BCCC692C820EF1007EA382 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0BCCC6A2C820EF1007EA382 /* ObjcExceptionBridging in Frameworks */,
+				F08C00CD2CE537420045A5CD /* ParseObjC in Frameworks */,
+				F0BCCC6B2C820EF1007EA382 /* (null) in Frameworks */,
+				F0BCCC6C2C820EF1007EA382 /* XCGLogger in Frameworks */,
+				F08C00CB2CE537420045A5CD /* ParseLiveQuery in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F0289D272C53D84A001B19CD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F0289D2D2C53D933001B19CD /* HelpBasic.html */,
+				F0289D2E2C53D933001B19CD /* HelpBasic.md */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F0289D2C2C53D920001B19CD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */,
+				F0786E442CE68E9E0052A534 /* CoreLocationModelObservable2.swift */,
+				F0786E452CE68E9E0052A534 /* CoreLocationSiteItem.swift */,
+				F0DC5D302CDBCE7A009F0090 /* MultipartZipFileService.swift */,
+				F04D88A12CDAA8A00002AA0B /* MultipartZipFileCreator.swift */,
+				F006199B2C94A8060094614E /* MultipartDataExtension.swift */,
+				F006199C2C94A8060094614E /* MultipartRequest.swift */,
+				F006199A2C94A8060094614E /* MultipartRequestDriver.swift */,
+				F006199D2C94A8060094614E /* MultipartRequestInfo.swift */,
+				F0EF628A2C8B70BD00DB79DB /* DeveloperSupportEmail.swift */,
+				F0289D322C53D98D001B19CD /* HelpBasicLoader.swift */,
+				F0289D312C53D98D001B19CD /* HelpBasicMode.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F028C5A42C486109007C459E = {
+			isa = PBXGroup;
+			children = (
+				F091A2932C8F84E600FB85D5 /* PTSLocate-iOS-Info.plist */,
+				F091A2922C8F849C00FB85D5 /* PTSLocate-Mac-Info.plist */,
+				F028C5AF2C48610A007C459E /* PTSLocate */,
+				F028C5AE2C48610A007C459E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F028C5AE2C48610A007C459E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F028C5AD2C48610A007C459E /* PTSLocate_Mac.app */,
+				F0BCCC762C820EF1007EA382 /* PTSLocate_iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F028C5AF2C48610A007C459E /* PTSLocate */ = {
+			isa = PBXGroup;
+			children = (
+				F0981DB32C52C5AD0054CE7C /* PTSLocateAppGlobalInfo.swift */,
+				F028C5B02C48610A007C459E /* PTSLocateApp.swift */,
+				F032402F2C49672900ED9508 /* PTSLocateNSAppDelegate.swift */,
+				F0BCCC4F2C820ECB007EA382 /* PTSLocateUIAppDelegate.swift */,
+				F0D17B8B2C52E4BD000E5A52 /* Commands */,
+				F0D17B862C52E3D5000E5A52 /* JmUtils */,
+				F0289D2C2C53D920001B19CD /* Models */,
+				F04252182C59352800EA22D8 /* Objective-C */,
+				F0289D272C53D84A001B19CD /* Resources */,
+				F091A27F2C8F68A600FB85D5 /* RestApis */,
+				F028C5BF2C486134007C459E /* Views */,
+				F028C5B42C48610B007C459E /* Assets.xcassets */,
+				F091A2942C8F865700FB85D5 /* LaunchScreen.storyboard */,
+				F0002DBF2C7C0ABF00520A9F /* README.md */,
+				F028C5B92C48610B007C459E /* PTSLocate.entitlements */,
+				F028C5B62C48610B007C459E /* Preview Content */,
+			);
+			path = PTSLocate;
+			sourceTree = "<group>";
+		};
+		F028C5B62C48610B007C459E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F028C5B72C48610B007C459E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F028C5BF2C486134007C459E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F0CBE8FF2CEBDD6E00B0625E /* AppLocationMapView.swift */,
+				F0F1277C2CEB944D00656B7E /* AppLocationView.swift */,
+				F029E0B92C823ACB00FC96B9 /* AppAboutView.swift */,
+				F029E0B32C82386D00FC96B9 /* SettingsSingleViewIos.swift */,
+				F029E0B42C82386D00FC96B9 /* SettingsSingleViewMac.swift */,
+				F0289D2A2C53D863001B19CD /* HelpBasicView.swift */,
+				F0D17B912C52E951000E5A52 /* LogFileView.swift */,
+				F0D17B902C52E951000E5A52 /* SettingsSingleView.swift */,
+				F028C5B22C48610A007C459E /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F04252182C59352800EA22D8 /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				F07F7B932C94DB2D0094AE18 /* DefinesObjCOverrides.h */,
+				F07F7B942C94DB2D0094AE18 /* DefinesObjCOverrides.m */,
+				F042521A2C59356600EA22D8 /* CalledObjCModule-Bridging-Header.h */,
+				F042521B2C59356600EA22D8 /* CalledObjCModule.h */,
+				F04252192C59356600EA22D8 /* CalledObjCModule.m */,
+			);
+			path = "Objective-C";
+			sourceTree = "<group>";
+		};
+		F091A27F2C8F68A600FB85D5 /* RestApis */ = {
+			isa = PBXGroup;
+			children = (
+				F091A2802C8F6FEE00FB85D5 /* RestURLData.swift */,
+				F091A2822C8F6FEF00FB85D5 /* RestURLEndpoint.swift */,
+				F091A2832C8F6FEF00FB85D5 /* RestURLProcessor.swift */,
+				F091A2812C8F6FEF00FB85D5 /* RestURLResponse.swift */,
+			);
+			path = RestApis;
+			sourceTree = "<group>";
+		};
+		F0D17B862C52E3D5000E5A52 /* JmUtils */ = {
+			isa = PBXGroup;
+			children = (
+				F08C00C62CE536430045A5CD /* JmAppParseCoreManager.swift */,
+				F0474E572CDAA54A0079B1E0 /* JmAppUserNotificationIdentifiers.swift */,
+				F0474E582CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift */,
+				F0EEDD842CADC38400E437E8 /* JmAppDelegateVisitor-Bridging-Header.h */,
+				F0EEDD852CADC38400E437E8 /* JmAppMetricKitManager.swift */,
+				F0EEDD862CADC38400E437E8 /* JmUserDefaults-Bridging-Header.h */,
+				F0D473972C7AD2960027F651 /* JmAppDelegateVisitor.swift */,
+				F0601D922C77C73C00443D72 /* JmXcodeBuildSettings.swift */,
+				F0289D282C53D85B001B19CD /* JmUserDefaults.swift */,
+				F0D17B872C52E414000E5A52 /* JmFileIO.swift */,
+				F0D17B882C52E414000E5A52 /* JmStringExtensions.swift */,
+				F0A59E042C5962E900302BA8 /* JmObjCSwiftEnvBridge-Bridging-Header.h */,
+				F0A59E032C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift */,
+			);
+			path = JmUtils;
+			sourceTree = "<group>";
+		};
+		F0D17B8B2C52E4BD000E5A52 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				F0D17B8E2C52E942000E5A52 /* HelpCommands.swift */,
+				F0D17B8C2C52E572000E5A52 /* AppInfoCommands.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F028C5AC2C48610A007C459E /* PTSLocate_Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F028C5BC2C48610B007C459E /* Build configuration list for PBXNativeTarget "PTSLocate_Mac" */;
+			buildPhases = (
+				F028C5A92C48610A007C459E /* Sources */,
+				F028C5AA2C48610A007C459E /* Frameworks */,
+				F028C5AB2C48610A007C459E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PTSLocate_Mac;
+			packageProductDependencies = (
+				F0C6A8FE2C4AA2A40004606A /* ObjcExceptionBridging */,
+				F0C6A9002C4AA2A40004606A /* XCGLogger */,
+				F0EDCAB92CE54444003A4D79 /* ParseLiveQuery */,
+				F0EDCABB2CE54444003A4D79 /* ParseObjC */,
+			);
+			productName = PTSLocate;
+			productReference = F028C5AD2C48610A007C459E /* PTSLocate_Mac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F0BCCC512C820EF1007EA382 /* PTSLocate_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0BCCC732C820EF1007EA382 /* Build configuration list for PBXNativeTarget "PTSLocate_iOS" */;
+			buildPhases = (
+				F0BCCC552C820EF1007EA382 /* Sources */,
+				F0BCCC692C820EF1007EA382 /* Frameworks */,
+				F0BCCC6D2C820EF1007EA382 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PTSLocate_iOS;
+			packageProductDependencies = (
+				F0BCCC522C820EF1007EA382 /* ObjcExceptionBridging */,
+				F0BCCC542C820EF1007EA382 /* XCGLogger */,
+				F08C00CA2CE537420045A5CD /* ParseLiveQuery */,
+				F08C00CC2CE537420045A5CD /* ParseObjC */,
+			);
+			productName = PTSLocate;
+			productReference = F0BCCC762C820EF1007EA382 /* PTSLocate_iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F028C5A52C486109007C459E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					F028C5AC2C48610A007C459E = {
+						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
+					};
+					F0BCCC772C821E34007EA382 = {
+						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1610;
+					};
+				};
+			};
+			buildConfigurationList = F028C5A82C486109007C459E /* Build configuration list for PBXProject "PTSLocate" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F028C5A42C486109007C459E;
+			packageReferences = (
+				F0C6A8FD2C4AA2A40004606A /* XCRemoteSwiftPackageReference "XCGLogger" */,
+				F08C00C92CE537420045A5CD /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */,
+			);
+			productRefGroup = F028C5AE2C48610A007C459E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F028C5AC2C48610A007C459E /* PTSLocate_Mac */,
+				F0BCCC512C820EF1007EA382 /* PTSLocate_iOS */,
+				F0BCCC772C821E34007EA382 /* PTSLocate_ALL */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F028C5AB2C48610A007C459E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F028C5B82C48610B007C459E /* Preview Assets.xcassets in Resources */,
+				F0289D2F2C53D933001B19CD /* HelpBasic.html in Resources */,
+				F0002DC02C7C0ABF00520A9F /* README.md in Resources */,
+				F0289D302C53D933001B19CD /* HelpBasic.md in Resources */,
+				F028C5B52C48610B007C459E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0BCCC6D2C820EF1007EA382 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0BCCC6E2C820EF1007EA382 /* Preview Assets.xcassets in Resources */,
+				F0BCCC6F2C820EF1007EA382 /* HelpBasic.html in Resources */,
+				F0BCCC702C820EF1007EA382 /* README.md in Resources */,
+				F00619A82C94AEBE0094614E /* LaunchScreen.storyboard in Resources */,
+				F0BCCC712C820EF1007EA382 /* HelpBasic.md in Resources */,
+				F0BCCC722C820EF1007EA382 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F028C5A92C48610A007C459E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0D17B8F2C52E942000E5A52 /* HelpCommands.swift in Sources */,
+				F029E0B72C82386D00FC96B9 /* SettingsSingleViewMac.swift in Sources */,
+				F0EEDD882CADC38400E437E8 /* JmAppMetricKitManager.swift in Sources */,
+				F0474E592CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift in Sources */,
+				F0474E5A2CDAA54A0079B1E0 /* JmAppUserNotificationIdentifiers.swift in Sources */,
+				F08C00C72CE536430045A5CD /* JmAppParseCoreManager.swift in Sources */,
+				F091A2872C8F6FEF00FB85D5 /* RestURLProcessor.swift in Sources */,
+				F028C5B32C48610A007C459E /* ContentView.swift in Sources */,
+				F0F1277E2CEB944D00656B7E /* AppLocationView.swift in Sources */,
+				F0289D332C53D98D001B19CD /* HelpBasicMode.swift in Sources */,
+				F00619A62C94A8060094614E /* MultipartRequestInfo.swift in Sources */,
+				F091A2862C8F6FEF00FB85D5 /* RestURLEndpoint.swift in Sources */,
+				F00619A02C94A8060094614E /* MultipartRequestDriver.swift in Sources */,
+				F0981DB42C52C5AE0054CE7C /* PTSLocateAppGlobalInfo.swift in Sources */,
+				F00619A42C94A8060094614E /* MultipartRequest.swift in Sources */,
+				F05B51552CE7D8B5008A0EEE /* ParsePFCscDataItem.swift in Sources */,
+				F00619A22C94A8060094614E /* MultipartDataExtension.swift in Sources */,
+				F042521C2C59356600EA22D8 /* CalledObjCModule.m in Sources */,
+				F091A2842C8F6FEF00FB85D5 /* RestURLData.swift in Sources */,
+				F04D88A22CDAA8A00002AA0B /* MultipartZipFileCreator.swift in Sources */,
+				F0D17B932C52E951000E5A52 /* LogFileView.swift in Sources */,
+				F0786E462CE68E9E0052A534 /* CoreLocationModelObservable2.swift in Sources */,
+				F0CBE9012CEBDD6E00B0625E /* AppLocationMapView.swift in Sources */,
+				F0786E472CE68E9E0052A534 /* CoreLocationSiteItem.swift in Sources */,
+				F07F7B952C94DB2D0094AE18 /* DefinesObjCOverrides.m in Sources */,
+				F0289D2B2C53D863001B19CD /* HelpBasicView.swift in Sources */,
+				F0D17B922C52E951000E5A52 /* SettingsSingleView.swift in Sources */,
+				F03240302C49672900ED9508 /* PTSLocateNSAppDelegate.swift in Sources */,
+				F0D17B892C52E414000E5A52 /* JmFileIO.swift in Sources */,
+				F0289D292C53D85B001B19CD /* JmUserDefaults.swift in Sources */,
+				F0DC5D312CDBCE7A009F0090 /* MultipartZipFileService.swift in Sources */,
+				F0D17B8D2C52E572000E5A52 /* AppInfoCommands.swift in Sources */,
+				F091A2852C8F6FEF00FB85D5 /* RestURLResponse.swift in Sources */,
+				F028C5B12C48610A007C459E /* PTSLocateApp.swift in Sources */,
+				F0601D932C77C73C00443D72 /* JmXcodeBuildSettings.swift in Sources */,
+				F0D473982C7AD2960027F651 /* JmAppDelegateVisitor.swift in Sources */,
+				F0A59E052C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift in Sources */,
+				F0EF628B2C8B70BE00DB79DB /* DeveloperSupportEmail.swift in Sources */,
+				F0289D342C53D98D001B19CD /* HelpBasicLoader.swift in Sources */,
+				F0D17B8A2C52E414000E5A52 /* JmStringExtensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0BCCC552C820EF1007EA382 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F091A2882C8F73DD00FB85D5 /* RestURLData.swift in Sources */,
+				F08C00C82CE536430045A5CD /* JmAppParseCoreManager.swift in Sources */,
+				F091A2892C8F73DD00FB85D5 /* RestURLEndpoint.swift in Sources */,
+				F091A28A2C8F73DD00FB85D5 /* RestURLProcessor.swift in Sources */,
+				F091A28B2C8F73DD00FB85D5 /* RestURLResponse.swift in Sources */,
+				F00619A72C94A8060094614E /* MultipartRequestInfo.swift in Sources */,
+				F0BCCC572C820EF1007EA382 /* ContentView.swift in Sources */,
+				F0BCCC582C820EF1007EA382 /* HelpBasicMode.swift in Sources */,
+				F0BCCC592C820EF1007EA382 /* PTSLocateUIAppDelegate.swift in Sources */,
+				F0BCCC5A2C820EF1007EA382 /* PTSLocateAppGlobalInfo.swift in Sources */,
+				F0BCCC5B2C820EF1007EA382 /* CalledObjCModule.m in Sources */,
+				F0BCCC5C2C820EF1007EA382 /* LogFileView.swift in Sources */,
+				F0BCCC5D2C820EF1007EA382 /* HelpBasicView.swift in Sources */,
+				F0BCCC5E2C820EF1007EA382 /* SettingsSingleView.swift in Sources */,
+				F0EF628C2C8B70BE00DB79DB /* DeveloperSupportEmail.swift in Sources */,
+				F0CBE9002CEBDD6E00B0625E /* AppLocationMapView.swift in Sources */,
+				F0F1277D2CEB944D00656B7E /* AppLocationView.swift in Sources */,
+				F0474E5B2CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift in Sources */,
+				F0474E5C2CDAA54A0079B1E0 /* JmAppUserNotificationIdentifiers.swift in Sources */,
+				F00619A52C94A8060094614E /* MultipartRequest.swift in Sources */,
+				F05B51562CE7D8B5008A0EEE /* ParsePFCscDataItem.swift in Sources */,
+				F0BCCC602C820EF1007EA382 /* JmFileIO.swift in Sources */,
+				F00619A32C94A8060094614E /* MultipartDataExtension.swift in Sources */,
+				F0BCCC612C820EF1007EA382 /* JmUserDefaults.swift in Sources */,
+				F029E0B62C82386D00FC96B9 /* SettingsSingleViewIos.swift in Sources */,
+				F0BCCC632C820EF1007EA382 /* PTSLocateApp.swift in Sources */,
+				F07F7B962C94DB2D0094AE18 /* DefinesObjCOverrides.m in Sources */,
+				F029E0BB2C823ACB00FC96B9 /* AppAboutView.swift in Sources */,
+				F0EEDD872CADC38400E437E8 /* JmAppMetricKitManager.swift in Sources */,
+				F0786E482CE68E9E0052A534 /* CoreLocationModelObservable2.swift in Sources */,
+				F0786E492CE68E9E0052A534 /* CoreLocationSiteItem.swift in Sources */,
+				F00619A12C94A8060094614E /* MultipartRequestDriver.swift in Sources */,
+				F0BCCC642C820EF1007EA382 /* JmXcodeBuildSettings.swift in Sources */,
+				F0BCCC652C820EF1007EA382 /* JmAppDelegateVisitor.swift in Sources */,
+				F0DC5D322CDBCE7A009F0090 /* MultipartZipFileService.swift in Sources */,
+				F0BCCC662C820EF1007EA382 /* JmObjCSwiftEnvBridge.swift in Sources */,
+				F04D88A32CDAA8A00002AA0B /* MultipartZipFileCreator.swift in Sources */,
+				F0BCCC672C820EF1007EA382 /* HelpBasicLoader.swift in Sources */,
+				F0BCCC682C820EF1007EA382 /* JmStringExtensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F0BCCC7C2C8221B9007EA382 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F028C5AC2C48610A007C459E /* PTSLocate_Mac */;
+			targetProxy = F0BCCC7B2C8221B9007EA382 /* PBXContainerItemProxy */;
+		};
+		F0BCCC7E2C8221B9007EA382 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0BCCC512C820EF1007EA382 /* PTSLocate_iOS */;
+			targetProxy = F0BCCC7D2C8221B9007EA382 /* PBXContainerItemProxy */;
+		};
+		F0BCCC802C8221B9007EA382 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = F0BCCC7F2C8221B9007EA382 /* ObjcExceptionBridging */;
+		};
+		F0BCCC822C8221B9007EA382 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = F0BCCC812C8221B9007EA382 /* XCGLogger */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F028C5BA2C48610B007C459E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F028C5BB2C48610B007C459E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		F028C5BD2C48610B007C459E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 05.21.24C324;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
+				DEVELOPMENT_TEAM = J434W9VGHF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "PTSLocate-Mac-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PTSLocate;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App uses your Location to provice City information";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.02;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = net.justmacapps.PTSLocate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PTSLocate/Objective-C/CalledObjCModule-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F028C5BE2C48610B007C459E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 05.21.24C324;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
+				DEVELOPMENT_TEAM = J434W9VGHF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "PTSLocate-Mac-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PTSLocate;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App uses your Location to provice City information";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.02;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = net.justmacapps.PTSLocate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PTSLocate/Objective-C/CalledObjCModule-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		F0BCCC742C820EF1007EA382 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 06.01.24C325;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
+				DEVELOPMENT_TEAM = J434W9VGHF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "PTSLocate-iOS-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PTSLocate;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.03;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = net.justmacapps.PTSLocate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PTSLocate/Objective-C/CalledObjCModule-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F0BCCC752C820EF1007EA382 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 06.01.24C325;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
+				DEVELOPMENT_TEAM = J434W9VGHF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "PTSLocate-iOS-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PTSLocate;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App uses your Location to provice City information";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.03;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = net.justmacapps.PTSLocate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PTSLocate/Objective-C/CalledObjCModule-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F0BCCC792C821E34007EA382 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J434W9VGHF;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = driverkit;
+				SUPPORTED_PLATFORMS = "xrsimulator xros watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F0BCCC7A2C821E34007EA382 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J434W9VGHF;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = driverkit;
+				SUPPORTED_PLATFORMS = "xrsimulator xros watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F028C5A82C486109007C459E /* Build configuration list for PBXProject "PTSLocate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F028C5BA2C48610B007C459E /* Debug */,
+				F028C5BB2C48610B007C459E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F028C5BC2C48610B007C459E /* Build configuration list for PBXNativeTarget "PTSLocate_Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F028C5BD2C48610B007C459E /* Debug */,
+				F028C5BE2C48610B007C459E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0BCCC732C820EF1007EA382 /* Build configuration list for PBXNativeTarget "PTSLocate_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0BCCC742C820EF1007EA382 /* Debug */,
+				F0BCCC752C820EF1007EA382 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0BCCC782C821E34007EA382 /* Build configuration list for PBXAggregateTarget "PTSLocate_ALL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0BCCC792C821E34007EA382 /* Debug */,
+				F0BCCC7A2C821E34007EA382 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F08C00C92CE537420045A5CD /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/parse-community/Parse-SDK-iOS-OSX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.2;
+			};
+		};
+		F0BCCC532C820EF1007EA382 /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.5;
+			};
+		};
+		F0C6A8FD2C4AA2A40004606A /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F08C00CA2CE537420045A5CD /* ParseLiveQuery */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F08C00C92CE537420045A5CD /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */;
+			productName = ParseLiveQuery;
+		};
+		F08C00CC2CE537420045A5CD /* ParseObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F08C00C92CE537420045A5CD /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */;
+			productName = ParseObjC;
+		};
+		F0BCCC522C820EF1007EA382 /* ObjcExceptionBridging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0BCCC532C820EF1007EA382 /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			productName = ObjcExceptionBridging;
+		};
+		F0BCCC542C820EF1007EA382 /* XCGLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0BCCC532C820EF1007EA382 /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			productName = XCGLogger;
+		};
+		F0BCCC7F2C8221B9007EA382 /* ObjcExceptionBridging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0C6A8FD2C4AA2A40004606A /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			productName = ObjcExceptionBridging;
+		};
+		F0BCCC812C8221B9007EA382 /* XCGLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0C6A8FD2C4AA2A40004606A /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			productName = XCGLogger;
+		};
+		F0C6A8FE2C4AA2A40004606A /* ObjcExceptionBridging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0C6A8FD2C4AA2A40004606A /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			productName = ObjcExceptionBridging;
+		};
+		F0C6A9002C4AA2A40004606A /* XCGLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0C6A8FD2C4AA2A40004606A /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			productName = XCGLogger;
+		};
+		F0EDCAB92CE54444003A4D79 /* ParseLiveQuery */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F08C00C92CE537420045A5CD /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */;
+			productName = ParseLiveQuery;
+		};
+		F0EDCABB2CE54444003A4D79 /* ParseObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F08C00C92CE537420045A5CD /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */;
+			productName = ParseObjC;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F028C5A52C486109007C459E /* Project object */;
+}

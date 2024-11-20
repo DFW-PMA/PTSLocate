@@ -1,0 +1,4 @@
+module ObjcExceptionBridging {
+umbrella header "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/ObjcExceptionBridging/include/ObjcExceptionBridging.h"
+export *
+}

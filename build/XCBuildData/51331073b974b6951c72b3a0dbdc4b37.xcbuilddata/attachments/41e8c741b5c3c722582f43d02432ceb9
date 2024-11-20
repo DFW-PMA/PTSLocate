@@ -1,0 +1,135 @@
+{
+  "" : {
+    "const-values" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XCGLogger-master.swiftconstvalues",
+    "dependencies" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XCGLogger-master.d",
+    "diagnostics" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XCGLogger-master.dia",
+    "emit-module-dependencies" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XCGLogger-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XCGLogger-master-emit-module.dia",
+    "swift-dependencies" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XCGLogger-master.swiftdeps"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/resource_bundle_accessor.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/resource_bundle_accessor.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/resource_bundle_accessor.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Destinations/AppleSystemLogDestination.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/AppleSystemLogDestination.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/AppleSystemLogDestination.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/AppleSystemLogDestination.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Destinations/AutoRotatingFileDestination.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/AutoRotatingFileDestination.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/AutoRotatingFileDestination.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/AutoRotatingFileDestination.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Destinations/BaseDestination.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/BaseDestination.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/BaseDestination.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/BaseDestination.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Destinations/BaseQueuedDestination.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/BaseQueuedDestination.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/BaseQueuedDestination.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/BaseQueuedDestination.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Destinations/ConsoleDestination.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/ConsoleDestination.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/ConsoleDestination.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/ConsoleDestination.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Destinations/DestinationProtocol.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/DestinationProtocol.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/DestinationProtocol.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/DestinationProtocol.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Destinations/FileDestination.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/FileDestination.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/FileDestination.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/FileDestination.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Destinations/TestDestination.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/TestDestination.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/TestDestination.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/TestDestination.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Extensions/DispatchQueue+XCGAdditions.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/DispatchQueue+XCGAdditions.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/DispatchQueue+XCGAdditions.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/DispatchQueue+XCGAdditions.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Extensions/URL+XCGAdditions.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/URL+XCGAdditions.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/URL+XCGAdditions.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/URL+XCGAdditions.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Filters/DevFilter.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/DevFilter.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/DevFilter.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/DevFilter.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Filters/FileNameFilter.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/FileNameFilter.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/FileNameFilter.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/FileNameFilter.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Filters/FilterProtocol.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/FilterProtocol.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/FilterProtocol.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/FilterProtocol.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Filters/TagFilter.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/TagFilter.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/TagFilter.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/TagFilter.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Filters/UserInfoFilter.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/UserInfoFilter.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/UserInfoFilter.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/UserInfoFilter.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/LogFormatters/ANSIColorLogFormatter.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/ANSIColorLogFormatter.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/ANSIColorLogFormatter.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/ANSIColorLogFormatter.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/LogFormatters/Base64LogFormatter.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/Base64LogFormatter.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/Base64LogFormatter.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/Base64LogFormatter.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/LogFormatters/LogFormatterProtocol.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/LogFormatterProtocol.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/LogFormatterProtocol.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/LogFormatterProtocol.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/LogFormatters/PrePostFixLogFormatter.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/PrePostFixLogFormatter.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/PrePostFixLogFormatter.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/PrePostFixLogFormatter.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/LogFormatters/XcodeColorsLogFormatter.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XcodeColorsLogFormatter.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XcodeColorsLogFormatter.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XcodeColorsLogFormatter.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Misc/HelperFunctions.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/HelperFunctions.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/HelperFunctions.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/HelperFunctions.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Misc/LogDetails.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/LogDetails.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/LogDetails.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/LogDetails.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/Misc/Optional/UserInfoHelpers.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/UserInfoHelpers.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/UserInfoHelpers.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/UserInfoHelpers.o"
+  },
+  "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/Sources/XCGLogger/XCGLogger.swift" : {
+    "index-unit-output-path" : "/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XCGLogger.o",
+    "llvm-bc" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XCGLogger.bc",
+    "object" : "/Users/dcox/Library/Developer/Xcode/DerivedData/PTSLocate-fbnyjxefzhrheseuggoryjbgwhak/SourcePackages/checkouts/XCGLogger/build/XCGLogger.build/Release/XCGLogger.build/Objects-normal/x86_64/XCGLogger.o"
+  }
+}

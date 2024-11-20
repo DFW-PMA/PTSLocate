@@ -1,0 +1,44 @@
+{
+  "buildCommand" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "53aa5c245a7f2a335fe6c12a95bd39d2a7dd9fc8662d379920882ecb9a34280a"
+    },
+    {
+      "guid" : "53aa5c245a7f2a335fe6c12a95bd39d24041eb4a57db827f4888bb6caf2c2572"
+    }
+  ],
+  "containerPath" : "/Volumes/Crucial-X6-2-SSD/Users/Shared/public_hda2/JWeb.Software/JWeb_MacOSx_apps/SwiftUI_GUI_tools/DrcSwiftUI4MastersWork1/PTSLocate/PTSLocate.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "build",
+          "COLOR_DIAGNOSTICS" : "YES",
+          "diagnostic_message_length" : "80",
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_XOJIT_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : false,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
