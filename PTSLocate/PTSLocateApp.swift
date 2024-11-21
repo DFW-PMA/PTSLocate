@@ -16,7 +16,7 @@ struct PTSLocateApp: App
     {
         
         static let sClsId        = "PTSLocateApp"
-        static let sClsVers      = "v1.1001"
+        static let sClsVers      = "v1.1101"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -92,12 +92,12 @@ struct PTSLocateApp: App
         WindowGroup 
         {
             
-            ContentView()
+            AuthenticateView()
                 .navigationTitle(AppGlobalInfo.sGlobalInfoAppId)
                 .onOpenURL(perform: 
                 { url in
                     
-                    xcgLogMsg("\(ClassInfo.sClsDisp):ContentView.onOpenURL() performed for the URL of [\(url)]...")
+                    xcgLogMsg("\(ClassInfo.sClsDisp):AuthenticateView.onOpenURL() performed for the URL of [\(url)]...")
 
                 })
 

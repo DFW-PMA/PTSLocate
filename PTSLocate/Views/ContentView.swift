@@ -25,7 +25,7 @@ struct ContentView: View
     {
         
         static let sClsId        = "ContentView"
-        static let sClsVers      = "v1.2201"
+        static let sClsVers      = "v1.2301"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -81,9 +81,9 @@ struct ContentView: View
         
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
 
-        // Check if we have a JmAppParseCoreManager...
-
-        let _ = checkIfAppParseCoreHasPFInstallationCurrent()
+    //  // Check if we have a JmAppParseCoreManager...
+    //
+    //  let _ = checkIfAppParseCoreHasPFInstallationCurrent()
 
         // Get some 'internal' Dev Detail(s)...
 
@@ -411,7 +411,7 @@ struct ContentView: View
 
                     let _ = self.xcgLogMsg("...\(ClassInfo.sClsDisp)ContentView in Button(Xcode).'Refresh'.#(\(self.cContentViewRefreshButtonPresses))...")
 
-                    let _ = self.checkIfAppParseCoreHasPFInstallationCurrent()
+                //  let _ = self.checkIfAppParseCoreHasPFInstallationCurrent()
 
                 }
                 label:
@@ -700,89 +700,89 @@ struct ContentView: View
   
     }   // End of uploadPreviousAppLogToDevs().
 
-    func checkIfAppParseCoreHasPFInstallationCurrent() -> Bool
-    {
-  
-        let sCurrMethod:String = #function
-        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
-        
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
-  
-        self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppDelegateVisitor' is [\(String(describing: jmAppDelegateVisitor))] - details are [\(jmAppDelegateVisitor.toString())]...")
-  
-        if (jmAppDelegateVisitor.jmAppParseCoreManager != nil)
-        {
-
-            self.xcgLogMsg("\(sCurrMethodDisp) Calling the 'jmAppParseCoreManager' method 'getJmAppParsePFInstallationCurrentInstance()' to get a 'pfInstallationCurrent'...")
-
-            let _ = jmAppDelegateVisitor.jmAppParseCoreManager?.getJmAppParsePFInstallationCurrentInstance()
-
-            self.xcgLogMsg("\(sCurrMethodDisp) Called  the 'jmAppParseCoreManager' method 'getJmAppParsePFInstallationCurrentInstance()' to get a 'pfInstallationCurrent'...")
-
-        }
-        else
-        {
-
-            self.xcgLogMsg("\(sCurrMethodDisp) Could NOT call the 'jmAppParseCoreManager' method 'getJmAppParsePFInstallationCurrentInstance()' to get a 'pfInstallationCurrent' - 'jmAppParseCoreManager' is nil - Error!")
-
-        }
-
-        var bWasAppPFInstallationCurrentPresent:Bool = false
-
-        if (jmAppDelegateVisitor.jmAppParseCoreManager == nil)
-        {
-
-            self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppDelegateVisitor' has a 'jmAppParseCoreManager' that is nil - 'bWasAppPFInstallationCurrentPresent' is [\(String(describing: bWasAppPFInstallationCurrentPresent))]...")
-
-            bWasAppPFInstallationCurrentPresent = false
-
-        }
-        else
-        {
-
-        //  self.jmAppParseCoreManager = (jmAppDelegateVisitor.jmAppParseCoreManager?)!
-
-            if (jmAppDelegateVisitor.jmAppParseCoreManager?.pfInstallationCurrent == nil)
-            {
-
-                self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppParseCoreManager' has a 'pfInstallationCurrent' that is nil...")
-
-                if (jmAppDelegateVisitor.jmAppParseCoreManager?.pfInstallationCurrent == nil)
-                {
-
-                    self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppParseCoreManager' has a 'pfInstallationCurrent' that is STILL nil...")
-
-                    bWasAppPFInstallationCurrentPresent = false
-
-                }
-                else
-                {
-
-                    self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppParseCoreManager' has a 'pfInstallationCurrent' that is [\(String(describing: jmAppDelegateVisitor.jmAppParseCoreManager?.pfInstallationCurrent))]...")
-
-                    bWasAppPFInstallationCurrentPresent = true
-
-                }
-
-            }
-            else
-            {
-
-                self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppParseCoreManager' has a 'pfInstallationCurrent' that is [\(String(describing: jmAppDelegateVisitor.jmAppParseCoreManager?.pfInstallationCurrent))]...")
-
-                bWasAppPFInstallationCurrentPresent = true
-
-            }
-
-        }
-        
-        // Exit...
-  
-        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'bWasAppPFInstallationCurrentPresent' is [\(String(describing: bWasAppPFInstallationCurrentPresent))]...")
-  
-        return bWasAppPFInstallationCurrentPresent
-  
-    }   // End of checkIfAppParseCoreHasPFInstallationCurrent().
+//  func checkIfAppParseCoreHasPFInstallationCurrent() -> Bool
+//  {
+//
+//      let sCurrMethod:String = #function
+//      let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+//      
+//      self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+//
+//      self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppDelegateVisitor' is [\(String(describing: jmAppDelegateVisitor))] - details are [\(jmAppDelegateVisitor.toString())]...")
+//
+//      if (jmAppDelegateVisitor.jmAppParseCoreManager != nil)
+//      {
+//
+//          self.xcgLogMsg("\(sCurrMethodDisp) Calling the 'jmAppParseCoreManager' method 'getJmAppParsePFInstallationCurrentInstance()' to get a 'pfInstallationCurrent'...")
+//
+//          let _ = jmAppDelegateVisitor.jmAppParseCoreManager?.getJmAppParsePFInstallationCurrentInstance()
+//
+//          self.xcgLogMsg("\(sCurrMethodDisp) Called  the 'jmAppParseCoreManager' method 'getJmAppParsePFInstallationCurrentInstance()' to get a 'pfInstallationCurrent'...")
+//
+//      }
+//      else
+//      {
+//
+//          self.xcgLogMsg("\(sCurrMethodDisp) Could NOT call the 'jmAppParseCoreManager' method 'getJmAppParsePFInstallationCurrentInstance()' to get a 'pfInstallationCurrent' - 'jmAppParseCoreManager' is nil - Error!")
+//
+//      }
+//
+//      var bWasAppPFInstallationCurrentPresent:Bool = false
+//
+//      if (jmAppDelegateVisitor.jmAppParseCoreManager == nil)
+//      {
+//
+//          self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppDelegateVisitor' has a 'jmAppParseCoreManager' that is nil - 'bWasAppPFInstallationCurrentPresent' is [\(String(describing: bWasAppPFInstallationCurrentPresent))]...")
+//
+//          bWasAppPFInstallationCurrentPresent = false
+//
+//      }
+//      else
+//      {
+//
+//      //  self.jmAppParseCoreManager = (jmAppDelegateVisitor.jmAppParseCoreManager?)!
+//
+//          if (jmAppDelegateVisitor.jmAppParseCoreManager?.pfInstallationCurrent == nil)
+//          {
+//
+//              self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppParseCoreManager' has a 'pfInstallationCurrent' that is nil...")
+//
+//              if (jmAppDelegateVisitor.jmAppParseCoreManager?.pfInstallationCurrent == nil)
+//              {
+//
+//                  self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppParseCoreManager' has a 'pfInstallationCurrent' that is STILL nil...")
+//
+//                  bWasAppPFInstallationCurrentPresent = false
+//
+//              }
+//              else
+//              {
+//
+//                  self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppParseCoreManager' has a 'pfInstallationCurrent' that is [\(String(describing: jmAppDelegateVisitor.jmAppParseCoreManager?.pfInstallationCurrent))]...")
+//
+//                  bWasAppPFInstallationCurrentPresent = true
+//
+//              }
+//
+//          }
+//          else
+//          {
+//
+//              self.xcgLogMsg("\(sCurrMethodDisp) 'jmAppParseCoreManager' has a 'pfInstallationCurrent' that is [\(String(describing: jmAppDelegateVisitor.jmAppParseCoreManager?.pfInstallationCurrent))]...")
+//
+//              bWasAppPFInstallationCurrentPresent = true
+//
+//          }
+//
+//      }
+//      
+//      // Exit...
+//
+//      self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'bWasAppPFInstallationCurrentPresent' is [\(String(describing: bWasAppPFInstallationCurrentPresent))]...")
+//
+//      return bWasAppPFInstallationCurrentPresent
+//
+//  }   // End of checkIfAppParseCoreHasPFInstallationCurrent().
 
     func getAppParseCoreManagerInstance()->JmAppParseCoreManager
     {

@@ -17,7 +17,7 @@ class ParsePFAdminsDataItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ParsePFAdminsDataItem"
-        static let sClsVers      = "v1.0101"
+        static let sClsVers      = "v1.0102"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -78,7 +78,7 @@ class ParsePFAdminsDataItem: NSObject, Identifiable
 
     var sPFAdminsParseName:String               = "-N/A-"  // This will come from 'tid' lookup in 'TherapistFile'...
     var sPFAdminsParseTID:String                = "-N/A-"
-    var sPFAdminsParsePassword:String           = "-N/A-"
+    var sPFAdminsParsePassword:String           = ""
     var sPFAdminsParseNewLvl:String             = "-N/A-"
     var sPFAdminsParseLevel:String              = "-N/A-"
 
@@ -234,7 +234,7 @@ class ParsePFAdminsDataItem: NSObject, Identifiable
 
         self.sPFAdminsParseName              = "-N/A-"
         self.sPFAdminsParseTID               = String(describing: (pfAdminsObject.object(forKey:"tid")      ?? "-N/A-"))
-        self.sPFAdminsParsePassword          = String(describing: (pfAdminsObject.object(forKey:"password") ?? "-N/A-"))
+        self.sPFAdminsParsePassword          = String(describing: (pfAdminsObject.object(forKey:"password") ?? ""))
         self.sPFAdminsParseNewLvl            = String(describing: (pfAdminsObject.object(forKey:"newLvl")   ?? "-N/A-"))
         self.sPFAdminsParseLevel             = String(describing: (pfAdminsObject.object(forKey:"level")    ?? "-N/A-"))
         

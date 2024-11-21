@@ -18,7 +18,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.0706"
+        static let sClsVers      = "v1.0709"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -355,48 +355,30 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     }
 
-                //  self.dictPFAdminsDataItems.append(parsePFAdminsDataItem)
                     self.dictPFAdminsDataItems[sPFAdminsParseTID] = parsePFAdminsDataItem
 
                     self.xcgLogMsg("\(sCurrMethodDisp) Added object #(\(cPFAdminsObjects)) 'parsePFAdminsDataItem' keyed by 'sPFAdminsParseTID' of [\(sPFAdminsParseTID)] to the dictionary of item(s)...")
 
                 }
                 
-                self.xcgLogMsg("\(sCurrMethodDisp) Displaying the list of 'parsePFAdminsDataItem' item(s)...")
-
-                for (sPFAdminsParseTID, parsePFAdminsDataItem) in self.dictPFAdminsDataItems
+                if (self.dictPFAdminsDataItems.count > 0)
                 {
 
-                    parsePFAdminsDataItem.displayParsePFAdminsDataItemToLog()
+                    self.xcgLogMsg("\(sCurrMethodDisp) Adding the 'TherapistFile' query data to the dictionary of 'parsePFAdminsDataItem' item(s)...")
+
+                    self.getJmAppParsePFQueryForTherapistFileToAddToAdmins()
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Displaying the dictionary of 'parsePFAdminsDataItem' item(s)...")
+
+                    for (_, parsePFAdminsDataItem) in self.dictPFAdminsDataItems
+                    {
+
+                        parsePFAdminsDataItem.displayParsePFAdminsDataItemToLog()
+
+                    }
 
                 }
 
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject' is [\(pfAdminsObject)]...")
-                //
-                //  // ------------------------------------------------------------------------------------------
-                //  //  'pfAdminsObject' is [<Admins: 0x60000262b5a0, objectId: a3CGlDFIWJ, localId: (null)> 
-                //  //                       {
-                //  //                           level    = 1;
-                //  //                           newLvl   = 1;
-                //  //                           password = GabyReports;
-                //  //                           tid      = 229;
-                //  //                        }]...
-                //  // ------------------------------------------------------------------------------------------
-                //
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.parseClassName'  is [\(String(describing: pfAdminsObject.parseClassName))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.objectId'        is [\(String(describing: pfAdminsObject.objectId))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.createdAt'       is [\(String(describing: pfAdminsObject.createdAt))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.updatedAt'       is [\(String(describing: pfAdminsObject.updatedAt))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.acl'             is [\(String(describing: pfAdminsObject.acl))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.isDataAvailable' is [\(String(describing: pfAdminsObject.isDataAvailable))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.isDirty'         is [\(String(describing: pfAdminsObject.isDirty))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.allKeys'         is [\(String(describing: pfAdminsObject.allKeys))]...")
-                //
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[tid]'            is [\(String(describing: pfAdminsObject.object(forKey:"tid")))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[password]'       is [\(String(describing: pfAdminsObject.object(forKey:"password")))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[newLvl]'         is [\(String(describing: pfAdminsObject.object(forKey:"newLvl")))]...")
-                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[level]'          is [\(String(describing: pfAdminsObject.object(forKey:"level")))]...")
-                
             }
             
         }
@@ -414,6 +396,111 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         return
 
     } // End of public func getJmAppParsePFQueryForAdmins().
+
+    public func getJmAppParsePFQueryForTherapistFileToAddToAdmins()
+    {
+        
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+
+        // Issue a PFQuery for the 'TherapistFile' class...
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Calling PFQuery to construct an instance for the 'TherapistFile' class...")
+
+        let pfQueryTherapist:PFQuery = PFQuery(className:"TherapistFile")
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Called  PFQuery to construct an instance for the 'TherapistFile' class...")
+
+        // Set the query parameter(s) and issue the 'find' then (possibly) iterate the result(s)...
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Returned query of 'pfQueryTherapist' is [\(String(describing: pfQueryTherapist))]...")
+
+        do
+        {
+            
+            pfQueryTherapist.whereKeyExists("ID")
+            pfQueryTherapist.whereKeyExists("name")
+            
+            pfQueryTherapist.limit = 1000
+            
+            let listPFTherapistObjects:[PFObject]? = try pfQueryTherapist.findObjects()
+            
+            if (listPFTherapistObjects != nil &&
+                listPFTherapistObjects!.count > 0)
+            {
+                
+                self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryTherapist' returned a count of #(\(listPFTherapistObjects!.count)) PFObject(s)...")
+                self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the result(s) of query of 'pfQueryTherapist'...")
+
+                var cPFTherapistObjects:Int   = 0
+
+                for pfTherapistObject in listPFTherapistObjects!
+                {
+
+                    cPFTherapistObjects += 1
+
+                    let sPFTherapistParseTID:String = String(describing: (pfTherapistObject.object(forKey:"ID")  ?? "-N/A-"))
+
+                    if (sPFTherapistParseTID.count  < 1 ||
+                        sPFTherapistParseTID       == "-N/A-")
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistObjects)) 'pfTherapistObject' - the 'tid' field is nil or '-N/A-' - Warning!")
+
+                        continue
+
+                    }
+
+                    let sPFTherapistParseName:String = String(describing: (pfTherapistObject.object(forKey:"name") ?? "-N/A-"))
+
+                    if (sPFTherapistParseName.count  < 1 ||
+                        sPFTherapistParseName       == "-N/A-")
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistObjects)) 'pfTherapistObject' - the 'name' field is nil or '-N/A-' - Warning!")
+
+                        continue
+
+                    }
+
+                    if let parsePFAdminsDataItem:ParsePFAdminsDataItem = self.dictPFAdminsDataItems[sPFTherapistParseTID]
+                    {
+
+                        parsePFAdminsDataItem.sPFAdminsParseName = sPFTherapistParseName
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Using object #(\(cPFTherapistObjects)) 'pfTherapistObject' - to set the 'name' field of [\(sPFTherapistParseName)] in the dictionary of 'parsePFAdminsDataItem' item(s)...")
+
+                    }
+                    else
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistObjects)) 'pfTherapistObject' - the 'tid' field of [\(sPFTherapistParseTID)] is NOT in the dictionary of 'parsePFAdminsDataItem' item(s)...")
+
+                        continue
+
+                    }
+
+                }
+                
+            }
+            
+        }
+        catch
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed execute the query 'pfQueryAdmins' - Details: \(error) - Error!")
+            
+        }
+
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+    
+        return
+
+    } // End of public func getJmAppParsePFQueryForTherapistFileToAddToAdmins().
 
     public func getJmAppParsePFQueryForCSC()
     {
