@@ -58,6 +58,8 @@
 		F05B51552CE7D8B5008A0EEE /* ParsePFCscDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */; };
 		F05B51562CE7D8B5008A0EEE /* ParsePFCscDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */; };
 		F0601D932C77C73C00443D72 /* JmXcodeBuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0601D922C77C73C00443D72 /* JmXcodeBuildSettings.swift */; };
+		F069E2AC2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F069E2AB2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift */; };
+		F069E2AD2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F069E2AB2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift */; };
 		F0786E462CE68E9E0052A534 /* CoreLocationModelObservable2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0786E442CE68E9E0052A534 /* CoreLocationModelObservable2.swift */; };
 		F0786E472CE68E9E0052A534 /* CoreLocationSiteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0786E452CE68E9E0052A534 /* CoreLocationSiteItem.swift */; };
 		F0786E482CE68E9E0052A534 /* CoreLocationModelObservable2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0786E442CE68E9E0052A534 /* CoreLocationModelObservable2.swift */; };
@@ -173,6 +175,7 @@
 		F04D88A12CDAA8A00002AA0B /* MultipartZipFileCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartZipFileCreator.swift; sourceTree = "<group>"; };
 		F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsePFCscDataItem.swift; sourceTree = "<group>"; };
 		F0601D922C77C73C00443D72 /* JmXcodeBuildSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmXcodeBuildSettings.swift; sourceTree = "<group>"; };
+		F069E2AB2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsePFAdminsDataItem.swift; sourceTree = "<group>"; };
 		F0786E442CE68E9E0052A534 /* CoreLocationModelObservable2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationModelObservable2.swift; sourceTree = "<group>"; };
 		F0786E452CE68E9E0052A534 /* CoreLocationSiteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationSiteItem.swift; sourceTree = "<group>"; };
 		F07F7B932C94DB2D0094AE18 /* DefinesObjCOverrides.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinesObjCOverrides.h; sourceTree = "<group>"; };
@@ -246,6 +249,7 @@
 		F0289D2C2C53D920001B19CD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F069E2AB2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift */,
 				F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */,
 				F0786E442CE68E9E0052A534 /* CoreLocationModelObservable2.swift */,
 				F0786E452CE68E9E0052A534 /* CoreLocationSiteItem.swift */,
@@ -507,6 +511,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0D17B8F2C52E942000E5A52 /* HelpCommands.swift in Sources */,
+				F069E2AD2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift in Sources */,
 				F029E0B72C82386D00FC96B9 /* SettingsSingleViewMac.swift in Sources */,
 				F0EEDD882CADC38400E437E8 /* JmAppMetricKitManager.swift in Sources */,
 				F0474E592CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift in Sources */,
@@ -565,6 +570,7 @@
 				F0BCCC5A2C820EF1007EA382 /* PTSLocateAppGlobalInfo.swift in Sources */,
 				F0BCCC5B2C820EF1007EA382 /* CalledObjCModule.m in Sources */,
 				F0BCCC5C2C820EF1007EA382 /* LogFileView.swift in Sources */,
+				F069E2AC2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift in Sources */,
 				F0BCCC5D2C820EF1007EA382 /* HelpBasicView.swift in Sources */,
 				F0BCCC5E2C820EF1007EA382 /* SettingsSingleView.swift in Sources */,
 				F0EF628C2C8B70BE00DB79DB /* DeveloperSupportEmail.swift in Sources */,
@@ -749,7 +755,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 06.05.24C325;
+				CURRENT_PROJECT_VERSION = 07.03.24C326;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
@@ -793,7 +799,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 06.05.24C325;
+				CURRENT_PROJECT_VERSION = 07.03.24C326;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
@@ -836,7 +842,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 06.05.24C325;
+				CURRENT_PROJECT_VERSION = 07.05.24C326;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
@@ -886,7 +892,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 06.05.24C325;
+				CURRENT_PROJECT_VERSION = 07.05.24C326;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";

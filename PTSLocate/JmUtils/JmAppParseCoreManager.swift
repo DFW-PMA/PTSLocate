@@ -18,7 +18,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.0602"
+        static let sClsVers      = "v1.0703"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -28,34 +28,35 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
     // App Data field(s):
 
-    let timerPublisher                                        = Timer.publish(every: (5 * 60), on: .main, in: .common).autoconnect()
-                                                                // Note: implement .onReceive() on a field within the displaying 'View'...
-                                                                // 
-                                                                // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
-                                                                // ...
-                                                                // .onReceive(jmAppParseCoreManager.timerPublisher,
-                                                                //     perform:
-                                                                //     { dtObserved in
-                                                                //         ...
-                                                                //     })
+    let timerPublisher                                            = Timer.publish(every: (5 * 60), on: .main, in: .common).autoconnect()
+                                                                    // Note: implement .onReceive() on a field within the displaying 'View'...
+                                                                    // 
+                                                                    // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
+                                                                    // ...
+                                                                    // .onReceive(jmAppParseCoreManager.timerPublisher,
+                                                                    //     perform:
+                                                                    //     { dtObserved in
+                                                                    //         ...
+                                                                    //     })
 
-       public  var parseConfig:ParseClientConfiguration?      = nil       
-       public  var pfInstallationCurrent:PFInstallation?      = nil
-       public  var bPFInstallationHasBeenEnumerated:Bool      = false
+       public  var parseConfig:ParseClientConfiguration?          = nil       
+       public  var pfInstallationCurrent:PFInstallation?          = nil
+       public  var bPFInstallationHasBeenEnumerated:Bool          = false
 
-    @Published var cPFCscObjectsRefresh:Int                   = 0
-    @Published var cPFCscObjects:Int                          = 0
-    @Published var listPFCscDataItems:[ParsePFCscDataItem]    = []
+    @Published var cPFCscObjectsRefresh:Int                       = 0
+    @Published var cPFCscObjects:Int                              = 0
+    @Published var listPFAdminsDataItems:[ParsePFAdminsDataItem]  = []
+    @Published var listPFCscDataItems:[ParsePFCscDataItem]        = []
 
-               var jmAppDelegateVisitor:JmAppDelegateVisitor? = nil
-                                                              // 'jmAppDelegateVisitor' MUST remain declared this way
-                                                              // as having it reference the 'shared' instance of 
-                                                              // JmAppDelegateVisitor causes a circular reference
-                                                              // between the 'init()' methods of the 2 classes...
+               var jmAppDelegateVisitor:JmAppDelegateVisitor?     = nil
+                                                                  // 'jmAppDelegateVisitor' MUST remain declared this way
+                                                                  // as having it reference the 'shared' instance of 
+                                                                  // JmAppDelegateVisitor causes a circular reference
+                                                                  // between the 'init()' methods of the 2 classes...
 
     // App <global> Message(s) 'stack' cached before XCGLogger is available:
 
-               var listPreXCGLoggerMessages:[String]          = Array()
+               var listPreXCGLoggerMessages:[String]              = Array()
 
     override init()
     {
@@ -132,6 +133,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         asToString.append("'bPFInstallationHasBeenEnumerated': [\(String(describing: self.bPFInstallationHasBeenEnumerated))]")
         asToString.append("'cPFCscObjectsRefresh': [\(String(describing: self.cPFCscObjectsRefresh))]")
         asToString.append("'cPFCscObjects': [\(String(describing: self.cPFCscObjects))]")
+        asToString.append("'listPFAdminsDataItems': [\(String(describing: self.listPFAdminsDataItems))]")
         asToString.append("'listPFCscDataItems': [\(String(describing: self.listPFCscDataItems))]")
         asToString.append("],")
         asToString.append("]")
@@ -280,7 +282,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
         // TESTING: Always call the various 'testing' method(s)...
 
-    //  self.getJmAppParsePFQueryForAdmins()
+        self.getJmAppParsePFQueryForAdmins()
         self.getJmAppParsePFQueryForCSC()
 
         // Exit:
@@ -314,6 +316,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         do
         {
             
+            pfQueryAdmins.whereKeyExists("tid")
             pfQueryAdmins.whereKeyExists("password")
             
             pfQueryAdmins.limit = 1000
@@ -327,40 +330,58 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                 self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryAdmins' returned a count of #(\(listPFAdminsObjects!.count)) PFObject(s)...")
                 self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the result(s) of query of 'pfQueryAdmins'...")
 
-                var cPFAdminsObjects:Int = 0
+                var cPFAdminsObjects:Int   = 0
+                self.listPFAdminsDataItems = []
 
                 for pfAdminsObject in listPFAdminsObjects!
                 {
 
                     cPFAdminsObjects += 1
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject' is [\(pfAdminsObject)]...")
+                    let parsePFAdminsDataItem:ParsePFAdminsDataItem = ParsePFAdminsDataItem()
 
-                // ------------------------------------------------------------------------------------------
-                //  'pfAdminsObject' is [<Admins: 0x60000262b5a0, objectId: a3CGlDFIWJ, localId: (null)> 
-                //                       {
-                //                           level    = 1;
-                //                           newLvl   = 1;
-                //                           password = GabyReports;
-                //                           tid      = 229;
-                //                        }]...
-                // ------------------------------------------------------------------------------------------
+                    parsePFAdminsDataItem.constructParsePFAdminsDataItemFromPFObject(idPFAdminsObject:cPFAdminsObjects, pfAdminsObject:pfAdminsObject)
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.parseClassName'  is [\(String(describing: pfAdminsObject.parseClassName))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.objectId'        is [\(String(describing: pfAdminsObject.objectId))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.createdAt'       is [\(String(describing: pfAdminsObject.createdAt))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.updatedAt'       is [\(String(describing: pfAdminsObject.updatedAt))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.acl'             is [\(String(describing: pfAdminsObject.acl))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.isDataAvailable' is [\(String(describing: pfAdminsObject.isDataAvailable))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.isDirty'         is [\(String(describing: pfAdminsObject.isDirty))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.allKeys'         is [\(String(describing: pfAdminsObject.allKeys))]...")
+                    self.listPFAdminsDataItems.append(parsePFAdminsDataItem)
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[tid]'            is [\(String(describing: pfAdminsObject.object(forKey:"tid")))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[password]'       is [\(String(describing: pfAdminsObject.object(forKey:"password")))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[newLvl]'         is [\(String(describing: pfAdminsObject.object(forKey:"newLvl")))]...")
-                    self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[level]'          is [\(String(describing: pfAdminsObject.object(forKey:"level")))]...")
+                    self.xcgLogMsg("\(sCurrMethodDisp) Added object #(\(cPFAdminsObjects)) 'parsePFAdminsDataItem' to the list of item(s)...")
 
                 }
+                
+                self.xcgLogMsg("\(sCurrMethodDisp) Displaying the list of 'parsePFAdminsDataItem' item(s)...")
+
+                for parsePFAdminsDataItem in self.listPFAdminsDataItems
+                {
+
+                    parsePFAdminsDataItem.displayParsePFAdminsDataItemToLog()
+
+                }
+
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject' is [\(pfAdminsObject)]...")
+                //
+                //  // ------------------------------------------------------------------------------------------
+                //  //  'pfAdminsObject' is [<Admins: 0x60000262b5a0, objectId: a3CGlDFIWJ, localId: (null)> 
+                //  //                       {
+                //  //                           level    = 1;
+                //  //                           newLvl   = 1;
+                //  //                           password = GabyReports;
+                //  //                           tid      = 229;
+                //  //                        }]...
+                //  // ------------------------------------------------------------------------------------------
+                //
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.parseClassName'  is [\(String(describing: pfAdminsObject.parseClassName))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.objectId'        is [\(String(describing: pfAdminsObject.objectId))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.createdAt'       is [\(String(describing: pfAdminsObject.createdAt))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.updatedAt'       is [\(String(describing: pfAdminsObject.updatedAt))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.acl'             is [\(String(describing: pfAdminsObject.acl))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.isDataAvailable' is [\(String(describing: pfAdminsObject.isDataAvailable))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.isDirty'         is [\(String(describing: pfAdminsObject.isDirty))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject.allKeys'         is [\(String(describing: pfAdminsObject.allKeys))]...")
+                //
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[tid]'            is [\(String(describing: pfAdminsObject.object(forKey:"tid")))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[password]'       is [\(String(describing: pfAdminsObject.object(forKey:"password")))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[newLvl]'         is [\(String(describing: pfAdminsObject.object(forKey:"newLvl")))]...")
+                //  self.xcgLogMsg("\(sCurrMethodDisp) #(\(cPFAdminsObjects)): 'pfAdminsObject[level]'          is [\(String(describing: pfAdminsObject.object(forKey:"level")))]...")
                 
             }
             

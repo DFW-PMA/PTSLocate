@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0222"
+        static let sClsVers      = "v1.0301"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -125,7 +125,7 @@ struct AppLocationMapView: View
 
                     }
 
-                    let sMapLocationName:String                       = "#(\(parsePFCscDataItem.idPFCscObject))::\(parsePFCscDataItem.sPFCscParseName)"
+                //  let sMapLocationName:String                       = "#(\(parsePFCscDataItem.idPFCscObject))::\(parsePFCscDataItem.sPFCscParseName)"
                     let clLocationCoordinate2D:CLLocationCoordinate2D = CLLocationCoordinate2D(
                                                                             latitude:  parsePFCscDataItem.dblConvertedLatitude,
                                                                             longitude: parsePFCscDataItem.dblConvertedLongitude)
@@ -138,7 +138,7 @@ struct AppLocationMapView: View
                     Map(initialPosition:mapPosition)
                     {
 
-                        Marker(".", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2D)
+                        Marker("+", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2D)
 
                     }
 
