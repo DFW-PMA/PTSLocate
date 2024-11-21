@@ -18,7 +18,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.0703"
+        static let sClsVers      = "v1.0706"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -28,35 +28,36 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
     // App Data field(s):
 
-    let timerPublisher                                            = Timer.publish(every: (5 * 60), on: .main, in: .common).autoconnect()
-                                                                    // Note: implement .onReceive() on a field within the displaying 'View'...
-                                                                    // 
-                                                                    // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
-                                                                    // ...
-                                                                    // .onReceive(jmAppParseCoreManager.timerPublisher,
-                                                                    //     perform:
-                                                                    //     { dtObserved in
-                                                                    //         ...
-                                                                    //     })
+    let timerPublisher                                                  = Timer.publish(every: (3 * 60), on: .main, in: .common).autoconnect()
+                                                                          // Note: implement .onReceive() on a field within the displaying 'View'...
+                                                                          // 
+                                                                          // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
+                                                                          // ...
+                                                                          // .onReceive(jmAppParseCoreManager.timerPublisher,
+                                                                          //     perform:
+                                                                          //     { dtObserved in
+                                                                          //         ...
+                                                                          //     })
 
-       public  var parseConfig:ParseClientConfiguration?          = nil       
-       public  var pfInstallationCurrent:PFInstallation?          = nil
-       public  var bPFInstallationHasBeenEnumerated:Bool          = false
+       public  var parseConfig:ParseClientConfiguration?                = nil       
+       public  var pfInstallationCurrent:PFInstallation?                = nil
+       public  var bPFInstallationHasBeenEnumerated:Bool                = false
 
-    @Published var cPFCscObjectsRefresh:Int                       = 0
-    @Published var cPFCscObjects:Int                              = 0
-    @Published var listPFAdminsDataItems:[ParsePFAdminsDataItem]  = []
-    @Published var listPFCscDataItems:[ParsePFCscDataItem]        = []
+    @Published var cPFCscObjectsRefresh:Int                             = 0
+    @Published var cPFCscObjects:Int                                    = 0
+    @Published var listPFCscDataItems:[ParsePFCscDataItem]              = []
 
-               var jmAppDelegateVisitor:JmAppDelegateVisitor?     = nil
-                                                                  // 'jmAppDelegateVisitor' MUST remain declared this way
-                                                                  // as having it reference the 'shared' instance of 
-                                                                  // JmAppDelegateVisitor causes a circular reference
-                                                                  // between the 'init()' methods of the 2 classes...
+    @Published var dictPFAdminsDataItems:[String:ParsePFAdminsDataItem] = [:]
+
+               var jmAppDelegateVisitor:JmAppDelegateVisitor?           = nil
+                                                                        // 'jmAppDelegateVisitor' MUST remain declared this way
+                                                                        // as having it reference the 'shared' instance of 
+                                                                        // JmAppDelegateVisitor causes a circular reference
+                                                                        // between the 'init()' methods of the 2 classes...
 
     // App <global> Message(s) 'stack' cached before XCGLogger is available:
 
-               var listPreXCGLoggerMessages:[String]              = Array()
+               var listPreXCGLoggerMessages:[String]                    = Array()
 
     override init()
     {
@@ -133,8 +134,8 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         asToString.append("'bPFInstallationHasBeenEnumerated': [\(String(describing: self.bPFInstallationHasBeenEnumerated))]")
         asToString.append("'cPFCscObjectsRefresh': [\(String(describing: self.cPFCscObjectsRefresh))]")
         asToString.append("'cPFCscObjects': [\(String(describing: self.cPFCscObjects))]")
-        asToString.append("'listPFAdminsDataItems': [\(String(describing: self.listPFAdminsDataItems))]")
         asToString.append("'listPFCscDataItems': [\(String(describing: self.listPFCscDataItems))]")
+        asToString.append("'dictPFAdminsDataItems': [\(String(describing: self.dictPFAdminsDataItems))]")
         asToString.append("],")
         asToString.append("]")
 
@@ -264,7 +265,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                 catch
                 {
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed to query 'pfInstallationCurrent' - Details: \(error) - Error!")
+                    self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed to query 'pfInstallationCurrent' (but this is 'normal') - Details: \(error) - Error!")
 
                 }
 
@@ -331,7 +332,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                 self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the result(s) of query of 'pfQueryAdmins'...")
 
                 var cPFAdminsObjects:Int   = 0
-                self.listPFAdminsDataItems = []
+                self.dictPFAdminsDataItems = [:]
 
                 for pfAdminsObject in listPFAdminsObjects!
                 {
@@ -342,15 +343,28 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     parsePFAdminsDataItem.constructParsePFAdminsDataItemFromPFObject(idPFAdminsObject:cPFAdminsObjects, pfAdminsObject:pfAdminsObject)
 
-                    self.listPFAdminsDataItems.append(parsePFAdminsDataItem)
+                    let sPFAdminsParseTID:String = parsePFAdminsDataItem.sPFAdminsParseTID
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) Added object #(\(cPFAdminsObjects)) 'parsePFAdminsDataItem' to the list of item(s)...")
+                    if (sPFAdminsParseTID.count  < 1 ||
+                        sPFAdminsParseTID       == "-N/A-")
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFAdminsObjects)) 'parsePFAdminsDataItem' - the 'tid' field is nil or '-N/A-' - Warning!")
+
+                        continue
+
+                    }
+
+                //  self.dictPFAdminsDataItems.append(parsePFAdminsDataItem)
+                    self.dictPFAdminsDataItems[sPFAdminsParseTID] = parsePFAdminsDataItem
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Added object #(\(cPFAdminsObjects)) 'parsePFAdminsDataItem' keyed by 'sPFAdminsParseTID' of [\(sPFAdminsParseTID)] to the dictionary of item(s)...")
 
                 }
                 
                 self.xcgLogMsg("\(sCurrMethodDisp) Displaying the list of 'parsePFAdminsDataItem' item(s)...")
 
-                for parsePFAdminsDataItem in self.listPFAdminsDataItems
+                for (sPFAdminsParseTID, parsePFAdminsDataItem) in self.dictPFAdminsDataItems
                 {
 
                     parsePFAdminsDataItem.displayParsePFAdminsDataItemToLog()
