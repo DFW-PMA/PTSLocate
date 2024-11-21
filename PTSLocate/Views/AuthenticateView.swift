@@ -1,5 +1,5 @@
 //
-//  AuthenticateView.swift
+//  AppAuthenticateView.swift
 //  JustALoginAppTest1
 //
 //  Created by Daryl Cox on 11/21/2024.
@@ -9,14 +9,14 @@
 import Foundation
 import SwiftUI
 
-struct AuthenticateView: View
+struct AppAuthenticateView: View
 {
     
     struct ClassInfo
     {
         
-        static let sClsId        = "AuthenticateView"
-        static let sClsVers      = "v1.0301"
+        static let sClsId        = "AppAuthenticateView"
+        static let sClsVers      = "v1.0303"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -96,6 +96,30 @@ struct AuthenticateView: View
                     
                     Spacer()
 
+                if #available(iOS 17.0, *)
+                {
+
+                    Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
+                        .resizable()
+                        .scaledToFit()
+                        .containerRelativeFrame(.horizontal)
+                            { size, axis in
+                                size * 0.15
+                            }
+
+                }
+                else
+                {
+
+                    Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width:75, height: 75, alignment:.center)
+
+                }
+
+                    Spacer()
+
                     Image(systemName: "person.badge.key")
                         .imageScale(.large)
                         .foregroundStyle(.tint)
@@ -154,7 +178,7 @@ struct AuthenticateView: View
         else
         {
 
-            ContentView()
+            ContentView(isUserLoggedIn:$isUserLoggedIn, sLoginUsername:$sLoginUsername, sLoginPassword:$sLoginPassword)
             
         //  VStack
         //  {
@@ -476,11 +500,11 @@ struct AuthenticateView: View
   
     }   // End of private func isUserPasswordValidForLogin()->Bool.
 
-}   // END of struct AuthenticateView(View).
+}   // END of struct AppAuthenticateView(View).
 
 #Preview
 {
     
-    AuthenticateView()
+    AppAuthenticateView()
     
 }

@@ -18,7 +18,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.0709"
+        static let sClsVers      = "v1.0710"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -281,10 +281,10 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
         }
 
-        // TESTING: Always call the various 'testing' method(s)...
-
-        self.getJmAppParsePFQueryForAdmins()
-        self.getJmAppParsePFQueryForCSC()
+    //  // TESTING: Always call the various 'testing' method(s)...for PRODUCTION this is handled in a View...
+    //
+    //  self.getJmAppParsePFQueryForAdmins()
+    //  self.getJmAppParsePFQueryForCSC()
 
         // Exit:
 

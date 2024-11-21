@@ -25,7 +25,7 @@ struct ContentView: View
     {
         
         static let sClsId        = "ContentView"
-        static let sClsVers      = "v1.2301"
+        static let sClsVers      = "v1.2303"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -36,6 +36,10 @@ struct ContentView: View
     @Environment(\.openURL) var openURL
 
     // App Data field(s):
+
+    @Binding       var isUserLoggedIn:Bool 
+    @Binding       var sLoginUsername:String
+    @Binding       var sLoginPassword:String
 
 #if os(iOS)
 
@@ -73,11 +77,19 @@ struct ContentView: View
     
                    var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
     
-    init()
+    init(isUserLoggedIn: Binding<Bool>, sLoginUsername: Binding<String>, sLoginPassword: Binding<String>)
     {
 
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        // Handle inbound parameter(s) before any 'self.' references...
+
+        _isUserLoggedIn = isUserLoggedIn
+        _sLoginUsername = sLoginUsername
+        _sLoginPassword = sLoginPassword
+
+        // Continue with 'init()'...
         
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
 
@@ -478,6 +490,35 @@ struct ContentView: View
 
                 Spacer()
 
+                Button
+                {
+                
+                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):ContentView in Button(Xcode).'Logout' pressed...")
+
+                    self.sLoginPassword = ""
+                    
+                    self.isUserLoggedIn.toggle()
+                
+                }
+                label:
+                {
+
+                    VStack(alignment:.center)
+                    {
+
+                        Label("", systemImage: "person.badge.key")
+                            .help(Text("App 'logout'"))
+                            .imageScale(.large)
+
+                        Text("Logout")
+                            .font(.caption)
+
+                    }
+
+                }
+                
+                Spacer()
+
             }
             
             Spacer()
@@ -805,11 +846,3 @@ struct ContentView: View
     }   // End of getAppParseCoreManagerInstance()->jmAppParseCoreManager.
 
 }
-
-#Preview 
-{
-    
-    ContentView()
-    
-}
-
