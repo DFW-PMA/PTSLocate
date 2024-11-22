@@ -1,1 +1,1 @@
-itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/DFW-PMA/PTSLocate/refs/heads/main/PTSLocate_Pre.plist?token=GHSAT0AAAAAACZD2BQ7V6O7LQLA7P6EFODEZ2A2QBA
+itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/DFW-PMA/PTSLocate/refs/heads/main/PTSLocate_Pre.plist
