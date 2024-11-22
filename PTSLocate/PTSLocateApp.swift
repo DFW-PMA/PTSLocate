@@ -6,6 +6,7 @@
 //  Copyright © JustMacApps 2023-2024. All rights reserved.
 //
 
+import Foundation
 import SwiftUI
 
 @main
@@ -16,7 +17,7 @@ struct PTSLocateApp: App
     {
         
         static let sClsId        = "PTSLocateApp"
-        static let sClsVers      = "v1.1103"
+        static let sClsVers      = "v1.1201"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -87,7 +88,7 @@ struct PTSLocateApp: App
     var body: some Scene 
     {
         
-        let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) - 'sAppBundlePath' is [\(sAppBundlePath)]...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) - 'sAppBundlePath' is [\(sAppBundlePath)]...")
         
         WindowGroup 
         {
@@ -97,7 +98,7 @@ struct PTSLocateApp: App
                 .onOpenURL(perform: 
                 { url in
                     
-                    xcgLogMsg("\(ClassInfo.sClsDisp):AuthenticateView.onOpenURL() performed for the URL of [\(url)]...")
+                    self.xcgLogMsg("\(ClassInfo.sClsDisp):AuthenticateView.onOpenURL() performed for the URL of [\(url)]...")
 
                 })
 
