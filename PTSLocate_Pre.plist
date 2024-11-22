@@ -11,13 +11,14 @@
                     <key>kind</key>
                     <string>software-package</string>
                     <key>url</key>
-                    <string>https://github.com/DFW-PMA/PTSLocate/releases/download/PTSLocate_PL-003.2/PTSLocate_iOS.1.03.06.05.24C325.ipa</string>
+                    <string>https://github.com/DFW-PMA/PTSLocate/releases/download/PTSLocate_PL003.3/PTSLocate_iOS.1.03.08.02.24C327.ipa</string>
+                <!--<string>https://github.com/DFW-PMA/PTSLocate/releases/download/PTSLocate_PL-003.2/PTSLocate_iOS.1.03.06.05.24C325.ipa</string> -->
                 </dict>
             </array>
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <string>com.PreferredMobileApplications.PTSLocateEnterprise</string>
+                <string>com.PreferredMobileApplications.PTSLocateEnterprise3</string>
                 <key>bundle-version</key>
                 <string>1.03</string>
                 <key>kind</key>
