@@ -16,7 +16,7 @@ struct AppAuthenticateView: View
     {
         
         static let sClsId        = "AppAuthenticateView"
-        static let sClsVers      = "v1.0416"
+        static let sClsVers      = "v1.0503"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -26,15 +26,23 @@ struct AppAuthenticateView: View
 
     // App Data field(s):
 
-    @State private var shouldContentViewChange:Bool              = false
-    @State private var isUserAuthenicationAvailable:Bool         = false
-    @State private var sCredentialsCheckReason:String            = ""
-    @State private var isUserLoginFailureShowing:Bool            = false
-    @State private var isUserLoggedIn:Bool                       = false
-    @State private var sLoginUsername:String                     = ""
-    @State private var sLoginPassword:String                     = ""
+    enum FocusedFields: Hashable
+    {
+       case fieldUsername
+       case fieldPassword
+    }
 
-                   var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
+    @FocusState private var focusedField:FocusedFields?
+
+    @State      private var shouldContentViewChange:Bool              = false
+    @State      private var isUserAuthenicationAvailable:Bool         = false
+    @State      private var sCredentialsCheckReason:String            = ""
+    @State      private var isUserLoginFailureShowing:Bool            = false
+    @State      private var isUserLoggedIn:Bool                       = false
+    @State      private var sLoginUsername:String                     = ""
+    @State      private var sLoginPassword:String                     = ""
+
+                        var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
 
     init()
     {
@@ -203,14 +211,29 @@ struct AppAuthenticateView: View
                         {
 
                             Text("Enter your Login information:")
+                                .onAppear
+                                {
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).Text #1 - Received an .onAppear()...")
+
+                                    if sLoginUsername.isEmpty
+                                    {
+                                        focusedField = .fieldUsername
+                                    }
+                                    else
+                                    {
+                                        focusedField = .fieldPassword
+                                    }
+                                }
 
                             TextField("Username", text: $sLoginUsername)
+                                .focused($focusedField, equals: .fieldUsername)
                                 .onSubmit
                                 {
-                                    let _ = self.isUserPasswordValidForLogin()
+                                    focusedField = .fieldPassword
                                 }
 
                             SecureField("Password", text: $sLoginPassword)
+                                .focused($focusedField, equals: .fieldPassword)
                                 .onSubmit
                                 {
                                     let _ = self.isUserPasswordValidForLogin()
@@ -220,6 +243,7 @@ struct AppAuthenticateView: View
                                     Button("Ok", role:.cancel)
                                     {
                                         let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp) User pressed 'Ok' to attempt the 'login' again...")
+                                        focusedField = .fieldPassword
                                     }
                                 }
 
@@ -230,7 +254,23 @@ struct AppAuthenticateView: View
 
                                 Button("Login")
                                 {
-                                    let _ = self.isUserPasswordValidForLogin()
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp) User pressed the 'Login' button...")
+
+                                    if sLoginUsername.isEmpty
+                                    {
+                                        focusedField = .fieldUsername
+                                    }
+                                    else
+                                    {
+                                        if sLoginPassword.isEmpty
+                                        {
+                                            focusedField = .fieldPassword
+                                        }
+                                        else
+                                        {
+                                            let _ = self.isUserPasswordValidForLogin()
+                                        }
+                                    }
                                 }
                                 .buttonStyle(.borderedProminent)
 
