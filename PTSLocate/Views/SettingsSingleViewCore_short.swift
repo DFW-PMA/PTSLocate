@@ -1,22 +1,21 @@
 //
-//  SettingsSingleViewMac.swift
+//  SettingsSingleViewCore.swift
 //  PTSLocate
 //
-//  Created by JustMacApps.net on 03/26/2024.
+//  Created by JustMacApps.net on 11/25/2024.
 //  Copyright © JustMacApps 2023-2024. All rights reserved.
 //
 
 import SwiftUI
 
-@available(iOS 16.0, *)
-struct SettingsSingleViewMac: View 
+struct SettingsSingleViewCore: View 
 {
     
     struct ClassInfo
     {
         
-        static let sClsId        = "SettingsSingleViewMac"
-        static let sClsVers      = "v1.0802"
+        static let sClsId        = "SettingsSingleViewCore"
+        static let sClsVers      = "v1.0105"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -29,6 +28,8 @@ struct SettingsSingleViewMac: View
 //  @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     
+           private var bInternalZipTest:Bool                     = false
+
                    var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
     
     init()
@@ -72,18 +73,31 @@ struct SettingsSingleViewMac: View
     var body: some View 
     {
         
-        let _ = self.xcgLogMsg("...'SettingsSingleViewMac(.swift):body' \(JmXcodeBuildSettings.jmAppVersionAndBuildNumber)...")
+        let _ = self.xcgLogMsg("...'SettingsSingleViewCore(.swift):body' \(JmXcodeBuildSettings.jmAppVersionAndBuildNumber)...")
 
-        SettingsSingleViewCore()
-        
+        Spacer()
+
+        VStack(alignment:.leading)
+        {
+
+            Spacer()
+                .frame(height:5)
+
+            Text("...setting(s) from 'core'...")
+            
+            Spacer()
+
+        }
+        .padding()
+
     }
-    
-}   // END of struct SettingsSingleViewMac(View). 
+
+}   // END of struct SettingsSingleViewCore(View). 
 
 #Preview 
 {
     
-    SettingsSingleViewMac()
+    SettingsSingleViewCore()
     
 }
 

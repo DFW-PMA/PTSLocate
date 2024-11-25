@@ -16,7 +16,7 @@ struct AppAuthenticateView: View
     {
         
         static let sClsId        = "AppAuthenticateView"
-        static let sClsVers      = "v1.0503"
+        static let sClsVers      = "v1.0609"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -35,7 +35,7 @@ struct AppAuthenticateView: View
     @FocusState private var focusedField:FocusedFields?
 
     @State      private var shouldContentViewChange:Bool              = false
-    @State      private var isUserAuthenicationAvailable:Bool         = false
+    @State      private var isUserAuthenticationAvailable:Bool        = false
     @State      private var sCredentialsCheckReason:String            = ""
     @State      private var isUserLoginFailureShowing:Bool            = false
     @State      private var isUserLoggedIn:Bool                       = false
@@ -54,7 +54,6 @@ struct AppAuthenticateView: View
 
         // Continue App 'initialization'...
 
-    //  let _ = checkIfAppParseCoreHasPFInstallationCurrent()
         let _ = self.finishAppInitializationInBackground()
 
         // Exit...
@@ -92,8 +91,10 @@ struct AppAuthenticateView: View
         
         let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) \(ClassInfo.sClsId)...")
 
-        if (isUserAuthenicationAvailable == false)
+        if (isUserAuthenticationAvailable == false)
         {
+
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggle 'isUserAuthenticationAvailable' is \(isUserAuthenticationAvailable)...")
 
             VStack(alignment:.center)
             {
@@ -135,11 +136,22 @@ struct AppAuthenticateView: View
                             { bChange in
                                 if (bChange == true)
                                 {
-                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Received a 'view(s)' SHOULD Change...")
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Received a 'view(s)' SHOULD Change - 'self.shouldContentViewChange' is [\(self.shouldContentViewChange)]...")
 
-                                //  self.shouldContentViewChange = true
                                     self.shouldContentViewChange.toggle()
-                                    self.isUserAuthenicationAvailable.toggle()
+
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Toggled 'self.shouldContentViewChange' which is now [\(self.shouldContentViewChange)]...")
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - 'self.isUserAuthenticationAvailable' is [\(self.isUserAuthenticationAvailable)]...")
+
+                                    if (isUserAuthenticationAvailable                           == false &&
+                                        self.jmAppDelegateVisitor.isUserAuthenticationAvailable == true)
+                                    {
+
+                                        self.isUserAuthenticationAvailable.toggle()
+
+                                        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Toggled 'self.isUserAuthenticationAvailable' value is now [\(self.isUserAuthenticationAvailable)]...")
+
+                                    }
 
                                     self.jmAppDelegateVisitor.resetAppDelegateVisitorSignalSwiftViewsShouldChange()
                                 }
@@ -160,15 +172,15 @@ struct AppAuthenticateView: View
         else
         {
 
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggle 'isUserAuthenticationAvailable' is \(isUserAuthenticationAvailable)...")
+
             if (isUserLoggedIn == false)
             {
 
-                Spacer()
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggle 'isUserLoggedIn' is \(isUserLoggedIn)...")
 
-                NavigationStack
+                ScrollView
                 {
-
-                    Spacer()
 
                     VStack(alignment:.center)
                     {
@@ -183,7 +195,7 @@ struct AppAuthenticateView: View
                             .scaledToFit()
                             .containerRelativeFrame(.horizontal)
                                 { size, axis in
-                                    size * 0.15
+                                    size * 0.10
                                 }
 
                     }
@@ -193,7 +205,7 @@ struct AppAuthenticateView: View
                         Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
                             .resizable()
                             .scaledToFit()
-                            .frame(width:75, height: 75, alignment:.center)
+                            .frame(width:50, height: 50, alignment:.center)
 
                     }
 
@@ -207,138 +219,86 @@ struct AppAuthenticateView: View
 
                         Spacer()
 
-                        Form
-                        {
+                        Text("Enter your Login information:")
+                            .onAppear
+                            {
+                                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).Text #1 - Received an .onAppear()...")
 
-                            Text("Enter your Login information:")
-                                .onAppear
+                                if sLoginUsername.isEmpty
                                 {
-                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).Text #1 - Received an .onAppear()...")
-
-                                    if sLoginUsername.isEmpty
-                                    {
-                                        focusedField = .fieldUsername
-                                    }
-                                    else
-                                    {
-                                        focusedField = .fieldPassword
-                                    }
+                                    focusedField = .fieldUsername
                                 }
-
-                            TextField("Username", text: $sLoginUsername)
-                                .focused($focusedField, equals: .fieldUsername)
-                                .onSubmit
+                                else
                                 {
                                     focusedField = .fieldPassword
                                 }
+                            }
 
-                            SecureField("Password", text: $sLoginPassword)
-                                .focused($focusedField, equals: .fieldPassword)
-                                .onSubmit
-                                {
-                                    let _ = self.isUserPasswordValidForLogin()
-                                }
-                                .alert("\(self.sCredentialsCheckReason) - try again...", isPresented:$isUserLoginFailureShowing)
-                                {
-                                    Button("Ok", role:.cancel)
-                                    {
-                                        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp) User pressed 'Ok' to attempt the 'login' again...")
-                                        focusedField = .fieldPassword
-                                    }
-                                }
-
-                            HStack
+                        TextField("Username", text: $sLoginUsername)
+                            .focused($focusedField, equals: .fieldUsername)
+                            .onSubmit
                             {
+                                focusedField = .fieldPassword
+                            }
 
-                                Spacer()
-
-                                Button("Login")
+                        SecureField("Password", text: $sLoginPassword)
+                            .focused($focusedField, equals: .fieldPassword)
+                            .onSubmit
+                            {
+                                let _ = self.isUserPasswordValidForLogin()
+                            }
+                            .alert("\(self.sCredentialsCheckReason) - try again...", isPresented:$isUserLoginFailureShowing)
+                            {
+                                Button("Ok", role:.cancel)
                                 {
-                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp) User pressed the 'Login' button...")
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp) User pressed 'Ok' to attempt the 'login' again...")
+                                    focusedField = .fieldPassword
+                                }
+                            }
 
-                                    if sLoginUsername.isEmpty
+                        HStack
+                        {
+
+                            Spacer()
+
+                            Button("Login")
+                            {
+                                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp) User pressed the 'Login' button...")
+
+                                if sLoginUsername.isEmpty
+                                {
+                                    focusedField = .fieldUsername
+                                }
+                                else
+                                {
+                                    if sLoginPassword.isEmpty
                                     {
-                                        focusedField = .fieldUsername
+                                        focusedField = .fieldPassword
                                     }
                                     else
                                     {
-                                        if sLoginPassword.isEmpty
-                                        {
-                                            focusedField = .fieldPassword
-                                        }
-                                        else
-                                        {
-                                            let _ = self.isUserPasswordValidForLogin()
-                                        }
+                                        let _ = self.isUserPasswordValidForLogin()
                                     }
                                 }
-                                .buttonStyle(.borderedProminent)
-
-                                Spacer()
-
                             }
+                            .buttonStyle(.borderedProminent)
+
+                            Spacer()
 
                         }
-                        .padding()
 
                     }
                     .padding()
 
                 }
-                .padding()
 
             }
             else
             {
 
-                ContentView(isUserLoggedIn:$isUserLoggedIn, sLoginUsername: $sLoginUsername, sLoginPassword: $sLoginPassword)
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggle 'isUserLoggedIn' is \(isUserLoggedIn)...")
 
-            //  VStack
-            //  {
-            //      
-            //      Spacer()
-            //      
-            //      Image(systemName: "person.badge.key")
-            //          .imageScale(.large)
-            //          .foregroundStyle(.tint)
-            //      
-            //      Text("")
-            //      
-            //      Divider()
-            //      
-            //      Text(" - - - - - ")
-            //      Text("\(ClassInfo.sClsDisp)")
-            //      Text(" - - - - - ")
-            //      Text("You are 'logged' in:")
-            //      Text("UserName -> '\(sLoginUsername)'")
-            //      Text("Password -> [\(sLoginPassword)]")
-            //      Text(" - - - - - ")
-            //      
-            //      Divider()
-            //      
-            //      HStack
-            //      {
-            //
-            //          Spacer()
-            //
-            //          Button("Logout")
-            //          {
-            //
-            //              self.sLoginPassword = ""
-            //              
-            //              isUserLoggedIn.toggle()
-            //
-            //          }
-            //          .buttonStyle(.borderedProminent)
-            //
-            //          Spacer()
-            //
-            //      }
-            //
-            //      Spacer()
-            //
-            //  }
-            //  .padding()
+                ContentView(isUserLoggedIn:$isUserLoggedIn, sLoginUsername: $sLoginUsername, sLoginPassword: $sLoginPassword)
 
             }
 
@@ -373,27 +333,23 @@ struct AppAuthenticateView: View
                 if (isPFAdminsAvailable == true)
                 {
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) Toggling the 'isUserAuthenicationAvailable' flag...");
+                    self.xcgLogMsg("\(sCurrMethodDisp) Toggling the 'isUserAuthenticationAvailable' flag...");
 
                     dispatchGroup.notify(queue: DispatchQueue.main, execute:
                     {
                     
-                        self.isUserAuthenicationAvailable.toggle()
+                        self.isUserAuthenticationAvailable.toggle()
 
-                        self.xcgLogMsg("\(sCurrMethodDisp) Toggled  the 'isUserAuthenicationAvailable' flag - value is now [\(self.isUserAuthenicationAvailable)]...");
+                        self.xcgLogMsg("\(sCurrMethodDisp) Toggled  the 'isUserAuthenticationAvailable' flag - value is now [\(self.isUserAuthenticationAvailable)]...");
+
+                        self.jmAppDelegateVisitor.isUserAuthenticationAvailable = true
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Set the 'self.jmAppDelegateVisitor.isUserAuthenticationAvailable' flag 'true' - value is now [\(self.jmAppDelegateVisitor.isUserAuthenticationAvailable)]...");
 
                         self.jmAppDelegateVisitor.setAppDelegateVisitorSignalSwiftViewsShouldChange()
 
-                        self.xcgLogMsg("\(sCurrMethodDisp) Toggled  the 'jmAppDelegateVisitor.setAppDelegateVisitorSignalSwiftViewsShouldChange()' method - value is now [\(self.jmAppDelegateVisitor.appDelegateVisitorSwiftViewsShouldChange)]...");
+                        self.xcgLogMsg("\(sCurrMethodDisp) Toggled  the 'self.jmAppDelegateVisitor.setAppDelegateVisitorSignalSwiftViewsShouldChange()' method - value is now [\(self.jmAppDelegateVisitor.appDelegateVisitorSwiftViewsShouldChange)]...");
 
-                    //  self.objectWillChange.send()    // NOT available in a View...
-
-                    //  NOTE: Directly setting the variable outside of 'init()' fails in the compiler...
-                    //
-                    //  self._isUserAuthenicationAvailable = true
-                    //
-                    //  self.xcgLogMsg("\(sCurrMethodDisp) Hard-set the '_isUserAuthenicationAvailable' flag to 'true' - value is now [\(self.isUserAuthenicationAvailable)]...");
-                    
                     })
 
                 }

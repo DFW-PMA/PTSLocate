@@ -83,6 +83,8 @@
 		F0981DB42C52C5AE0054CE7C /* PTSLocateAppGlobalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0981DB32C52C5AD0054CE7C /* PTSLocateAppGlobalInfo.swift */; };
 		F0A443392C498ED6005EEE81 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		F0A59E052C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A59E032C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift */; };
+		F0BB63FE2CF4DB6900B22F9D /* SettingsSingleViewCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB63FD2CF4DB6900B22F9D /* SettingsSingleViewCore.swift */; };
+		F0BB63FF2CF4DB6900B22F9D /* SettingsSingleViewCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB63FD2CF4DB6900B22F9D /* SettingsSingleViewCore.swift */; };
 		F0BCCC572C820EF1007EA382 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028C5B22C48610A007C459E /* ContentView.swift */; };
 		F0BCCC582C820EF1007EA382 /* HelpBasicMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0289D312C53D98D001B19CD /* HelpBasicMode.swift */; };
 		F0BCCC592C820EF1007EA382 /* PTSLocateUIAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BCCC4F2C820ECB007EA382 /* PTSLocateUIAppDelegate.swift */; };
@@ -194,6 +196,7 @@
 		F0981DB32C52C5AD0054CE7C /* PTSLocateAppGlobalInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTSLocateAppGlobalInfo.swift; sourceTree = "<group>"; };
 		F0A59E032C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmObjCSwiftEnvBridge.swift; sourceTree = "<group>"; };
 		F0A59E042C5962E900302BA8 /* JmObjCSwiftEnvBridge-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JmObjCSwiftEnvBridge-Bridging-Header.h"; sourceTree = "<group>"; };
+		F0BB63FD2CF4DB6900B22F9D /* SettingsSingleViewCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSingleViewCore.swift; sourceTree = "<group>"; };
 		F0BCCC4F2C820ECB007EA382 /* PTSLocateUIAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTSLocateUIAppDelegate.swift; sourceTree = "<group>"; };
 		F0BCCC762C820EF1007EA382 /* PTSLocate_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PTSLocate_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBE8FF2CEBDD6E00B0625E /* AppLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationMapView.swift; sourceTree = "<group>"; };
@@ -252,19 +255,19 @@
 		F0289D2C2C53D920001B19CD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F069E2AB2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift */,
-				F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */,
 				F0786E442CE68E9E0052A534 /* CoreLocationModelObservable2.swift */,
 				F0786E452CE68E9E0052A534 /* CoreLocationSiteItem.swift */,
-				F0DC5D302CDBCE7A009F0090 /* MultipartZipFileService.swift */,
-				F04D88A12CDAA8A00002AA0B /* MultipartZipFileCreator.swift */,
+				F0EF628A2C8B70BD00DB79DB /* DeveloperSupportEmail.swift */,
+				F0289D322C53D98D001B19CD /* HelpBasicLoader.swift */,
+				F0289D312C53D98D001B19CD /* HelpBasicMode.swift */,
 				F006199B2C94A8060094614E /* MultipartDataExtension.swift */,
 				F006199C2C94A8060094614E /* MultipartRequest.swift */,
 				F006199A2C94A8060094614E /* MultipartRequestDriver.swift */,
 				F006199D2C94A8060094614E /* MultipartRequestInfo.swift */,
-				F0EF628A2C8B70BD00DB79DB /* DeveloperSupportEmail.swift */,
-				F0289D322C53D98D001B19CD /* HelpBasicLoader.swift */,
-				F0289D312C53D98D001B19CD /* HelpBasicMode.swift */,
+				F04D88A12CDAA8A00002AA0B /* MultipartZipFileCreator.swift */,
+				F0DC5D302CDBCE7A009F0090 /* MultipartZipFileService.swift */,
+				F069E2AB2CEF8C42001F0A5E /* ParsePFAdminsDataItem.swift */,
+				F05B51542CE7D8B5008A0EEE /* ParsePFCscDataItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -272,10 +275,10 @@
 		F028C5A42C486109007C459E = {
 			isa = PBXGroup;
 			children = (
+				F028C5AE2C48610A007C459E /* Products */,
+				F028C5AF2C48610A007C459E /* PTSLocate */,
 				F091A2932C8F84E600FB85D5 /* PTSLocate-iOS-Info.plist */,
 				F091A2922C8F849C00FB85D5 /* PTSLocate-Mac-Info.plist */,
-				F028C5AF2C48610A007C459E /* PTSLocate */,
-				F028C5AE2C48610A007C459E /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -291,22 +294,22 @@
 		F028C5AF2C48610A007C459E /* PTSLocate */ = {
 			isa = PBXGroup;
 			children = (
-				F0981DB32C52C5AD0054CE7C /* PTSLocateAppGlobalInfo.swift */,
-				F028C5B02C48610A007C459E /* PTSLocateApp.swift */,
-				F032402F2C49672900ED9508 /* PTSLocateNSAppDelegate.swift */,
-				F0BCCC4F2C820ECB007EA382 /* PTSLocateUIAppDelegate.swift */,
+				F028C5B42C48610B007C459E /* Assets.xcassets */,
 				F0D17B8B2C52E4BD000E5A52 /* Commands */,
 				F0D17B862C52E3D5000E5A52 /* JmUtils */,
+				F091A2942C8F865700FB85D5 /* LaunchScreen.storyboard */,
 				F0289D2C2C53D920001B19CD /* Models */,
 				F04252182C59352800EA22D8 /* Objective-C */,
+				F028C5B62C48610B007C459E /* Preview Content */,
+				F028C5B92C48610B007C459E /* PTSLocate.entitlements */,
+				F028C5B02C48610A007C459E /* PTSLocateApp.swift */,
+				F0981DB32C52C5AD0054CE7C /* PTSLocateAppGlobalInfo.swift */,
+				F032402F2C49672900ED9508 /* PTSLocateNSAppDelegate.swift */,
+				F0BCCC4F2C820ECB007EA382 /* PTSLocateUIAppDelegate.swift */,
+				F0002DBF2C7C0ABF00520A9F /* README.md */,
 				F0289D272C53D84A001B19CD /* Resources */,
 				F091A27F2C8F68A600FB85D5 /* RestApis */,
 				F028C5BF2C486134007C459E /* Views */,
-				F028C5B42C48610B007C459E /* Assets.xcassets */,
-				F091A2942C8F865700FB85D5 /* LaunchScreen.storyboard */,
-				F0002DBF2C7C0ABF00520A9F /* README.md */,
-				F028C5B92C48610B007C459E /* PTSLocate.entitlements */,
-				F028C5B62C48610B007C459E /* Preview Content */,
 			);
 			path = PTSLocate;
 			sourceTree = "<group>";
@@ -322,16 +325,17 @@
 		F028C5BF2C486134007C459E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F029E0B92C823ACB00FC96B9 /* AppAboutView.swift */,
 				F069E2AE2CEFADE5001F0A5E /* AppAuthenticateView.swift */,
 				F0CBE8FF2CEBDD6E00B0625E /* AppLocationMapView.swift */,
 				F0F1277C2CEB944D00656B7E /* AppLocationView.swift */,
-				F029E0B92C823ACB00FC96B9 /* AppAboutView.swift */,
-				F029E0B32C82386D00FC96B9 /* SettingsSingleViewIos.swift */,
-				F029E0B42C82386D00FC96B9 /* SettingsSingleViewMac.swift */,
+				F028C5B22C48610A007C459E /* ContentView.swift */,
 				F0289D2A2C53D863001B19CD /* HelpBasicView.swift */,
 				F0D17B912C52E951000E5A52 /* LogFileView.swift */,
 				F0D17B902C52E951000E5A52 /* SettingsSingleView.swift */,
-				F028C5B22C48610A007C459E /* ContentView.swift */,
+				F0BB63FD2CF4DB6900B22F9D /* SettingsSingleViewCore.swift */,
+				F029E0B32C82386D00FC96B9 /* SettingsSingleViewIos.swift */,
+				F029E0B42C82386D00FC96B9 /* SettingsSingleViewMac.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -339,11 +343,11 @@
 		F04252182C59352800EA22D8 /* Objective-C */ = {
 			isa = PBXGroup;
 			children = (
-				F07F7B932C94DB2D0094AE18 /* DefinesObjCOverrides.h */,
-				F07F7B942C94DB2D0094AE18 /* DefinesObjCOverrides.m */,
-				F042521A2C59356600EA22D8 /* CalledObjCModule-Bridging-Header.h */,
 				F042521B2C59356600EA22D8 /* CalledObjCModule.h */,
 				F04252192C59356600EA22D8 /* CalledObjCModule.m */,
+				F042521A2C59356600EA22D8 /* CalledObjCModule-Bridging-Header.h */,
+				F07F7B932C94DB2D0094AE18 /* DefinesObjCOverrides.h */,
+				F07F7B942C94DB2D0094AE18 /* DefinesObjCOverrides.m */,
 			);
 			path = "Objective-C";
 			sourceTree = "<group>";
@@ -362,19 +366,19 @@
 		F0D17B862C52E3D5000E5A52 /* JmUtils */ = {
 			isa = PBXGroup;
 			children = (
+				F0D473972C7AD2960027F651 /* JmAppDelegateVisitor.swift */,
+				F0EEDD842CADC38400E437E8 /* JmAppDelegateVisitor-Bridging-Header.h */,
+				F0EEDD852CADC38400E437E8 /* JmAppMetricKitManager.swift */,
 				F08C00C62CE536430045A5CD /* JmAppParseCoreManager.swift */,
 				F0474E572CDAA54A0079B1E0 /* JmAppUserNotificationIdentifiers.swift */,
 				F0474E582CDAA54A0079B1E0 /* JmAppUserNotificationManager.swift */,
-				F0EEDD842CADC38400E437E8 /* JmAppDelegateVisitor-Bridging-Header.h */,
-				F0EEDD852CADC38400E437E8 /* JmAppMetricKitManager.swift */,
-				F0EEDD862CADC38400E437E8 /* JmUserDefaults-Bridging-Header.h */,
-				F0D473972C7AD2960027F651 /* JmAppDelegateVisitor.swift */,
-				F0601D922C77C73C00443D72 /* JmXcodeBuildSettings.swift */,
-				F0289D282C53D85B001B19CD /* JmUserDefaults.swift */,
 				F0D17B872C52E414000E5A52 /* JmFileIO.swift */,
-				F0D17B882C52E414000E5A52 /* JmStringExtensions.swift */,
-				F0A59E042C5962E900302BA8 /* JmObjCSwiftEnvBridge-Bridging-Header.h */,
 				F0A59E032C5962E900302BA8 /* JmObjCSwiftEnvBridge.swift */,
+				F0A59E042C5962E900302BA8 /* JmObjCSwiftEnvBridge-Bridging-Header.h */,
+				F0D17B882C52E414000E5A52 /* JmStringExtensions.swift */,
+				F0289D282C53D85B001B19CD /* JmUserDefaults.swift */,
+				F0EEDD862CADC38400E437E8 /* JmUserDefaults-Bridging-Header.h */,
+				F0601D922C77C73C00443D72 /* JmXcodeBuildSettings.swift */,
 			);
 			path = JmUtils;
 			sourceTree = "<group>";
@@ -382,8 +386,8 @@
 		F0D17B8B2C52E4BD000E5A52 /* Commands */ = {
 			isa = PBXGroup;
 			children = (
-				F0D17B8E2C52E942000E5A52 /* HelpCommands.swift */,
 				F0D17B8C2C52E572000E5A52 /* AppInfoCommands.swift */,
+				F0D17B8E2C52E942000E5A52 /* HelpCommands.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -532,6 +536,7 @@
 				F00619A42C94A8060094614E /* MultipartRequest.swift in Sources */,
 				F05B51552CE7D8B5008A0EEE /* ParsePFCscDataItem.swift in Sources */,
 				F00619A22C94A8060094614E /* MultipartDataExtension.swift in Sources */,
+				F0BB63FF2CF4DB6900B22F9D /* SettingsSingleViewCore.swift in Sources */,
 				F042521C2C59356600EA22D8 /* CalledObjCModule.m in Sources */,
 				F091A2842C8F6FEF00FB85D5 /* RestURLData.swift in Sources */,
 				F04D88A22CDAA8A00002AA0B /* MultipartZipFileCreator.swift in Sources */,
@@ -601,6 +606,7 @@
 				F0BCCC652C820EF1007EA382 /* JmAppDelegateVisitor.swift in Sources */,
 				F0DC5D322CDBCE7A009F0090 /* MultipartZipFileService.swift in Sources */,
 				F0BCCC662C820EF1007EA382 /* JmObjCSwiftEnvBridge.swift in Sources */,
+				F0BB63FE2CF4DB6900B22F9D /* SettingsSingleViewCore.swift in Sources */,
 				F04D88A32CDAA8A00002AA0B /* MultipartZipFileCreator.swift in Sources */,
 				F0BCCC672C820EF1007EA382 /* HelpBasicLoader.swift in Sources */,
 				F0BCCC682C820EF1007EA382 /* JmStringExtensions.swift in Sources */,
@@ -761,7 +767,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 08.07.24C327;
+				CURRENT_PROJECT_VERSION = 09.01.24C330;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
@@ -805,7 +811,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 08.07.24C327;
+				CURRENT_PROJECT_VERSION = 09.01.24C330;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
@@ -848,7 +854,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 08.09.24C327;
+				CURRENT_PROJECT_VERSION = 09.15.24C330;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
@@ -898,7 +904,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 08.09.24C327;
+				CURRENT_PROJECT_VERSION = 09.15.24C330;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";

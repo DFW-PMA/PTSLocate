@@ -23,7 +23,7 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     {
         
         static let sClsId        = "JmAppDelegateVisitor"
-        static let sClsVers      = "v1.2001"
+        static let sClsVers      = "v1.2102"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -77,6 +77,11 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
 
     @objc 
     var jmObjCSwiftEnvBridge:JmObjCSwiftEnvBridge?                 = nil
+
+    // App <global> 'Authentication' control(s):
+
+    public
+    var isUserAuthenticationAvailable:Bool                         = false
 
     // App <global> 'Alert' control(s):
 
@@ -191,6 +196,8 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("jmObjCSwiftEnvBridge': [\(String(describing: self.jmObjCSwiftEnvBridge))],")
         asToString.append("],")
         asToString.append("[")
+        asToString.append("isUserAuthenticationAvailable': [\(self.isUserAuthenticationAvailable)],")
+        asToString.append("appDelegateVisitorSwiftViewsShouldChange': [\(self.appDelegateVisitorSwiftViewsShouldChange)],")
         asToString.append("isAppDelegateVisitorShowingAlert': [\(self.isAppDelegateVisitorShowingAlert)],")
         asToString.append("sAppDelegateVisitorGlobalAlertMessage': [\(String(describing: self.sAppDelegateVisitorGlobalAlertMessage))],")
         asToString.append("sAppDelegateVisitorGlobalAlertButtonText': [\(String(describing: self.sAppDelegateVisitorGlobalAlertButtonText))],")
