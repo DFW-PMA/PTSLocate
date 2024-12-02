@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0301"
+        static let sClsVers      = "v1.0417"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -28,7 +28,19 @@ struct AppLocationMapView: View
 
 //  @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
+
+           private let fMapLatLongTolerance:Double               = 0.0025
+    @State private var fMapLatLongToleranceZoom:Double           = 0.0025
+    @State private var fCurrentZoom:Double                       = 0.0
+    @State private var fTotalZoom:Double                         = 0.0
+    @GestureState
+           private var gestureStateZoom                          = 1.0
     
+    @State private var cAppMapTapPresses:Int                     = 0
+
+    @State private var isAppMapTapAlertShowing:Bool              = false
+    @State private var sMapTapMsg:String                         = ""
+
     @State         var parsePFCscDataItem:ParsePFCscDataItem
 
                    var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
@@ -99,7 +111,7 @@ struct AppLocationMapView: View
 
                         Spacer()
 
-                        Text("\(parsePFCscDataItem.sCurrentLocationName), \(parsePFCscDataItem.sCurrentCity)  \(parsePFCscDataItem.sCurrentPostalCode)")
+                        Text("\(parsePFCscDataItem.sCurrentLocationName), \(parsePFCscDataItem.sCurrentCity) \(parsePFCscDataItem.sCurrentPostalCode)")
                             .font(.caption)
 
                         Spacer()
@@ -135,10 +147,76 @@ struct AppLocationMapView: View
                                                                                                     longitudeDelta:0.05))
                     let mapPosition                                   = MapCameraPosition.region(mapCoordinateRegion)
 
-                    Map(initialPosition:mapPosition)
-                    {
+                    let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).VStack - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(clLocationCoordinate2D)]...")
 
-                        Marker("+", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2D)
+                    MapReader
+                    { proxy in
+
+                        Map(initialPosition:mapPosition)
+                        {
+
+                            Marker("+", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2D)
+                            //  .contentShape(Circle())    // NOT available on a Marker()...
+
+                        }
+                        .onTapGesture 
+                        { position in
+
+                            self.cAppMapTapPresses   += 1
+                            let coordinate            = proxy.convert(position, from:.local)
+                            let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] tapped at 'position' [\(position)] 'coordinate' at [\(String(describing: coordinate))]..."
+                            self.sMapTapMsg           = "\(parsePFCscDataItem.sPFCscParseName) at \(parsePFCscDataItem.sCurrentLocationName),\(parsePFCscDataItem.sCurrentCity) on \(parsePFCscDataItem.sPFCscParseLastLocDate)::\(parsePFCscDataItem.sPFCscParseLastLocTime)"
+
+                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - 'fCurrentZoom' is [\(self.fCurrentZoom)] - 'fTotalZoom' is [\(self.fTotalZoom)] - 'gestureStateZoom' is [\(self.gestureStateZoom)]...")
+                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(self.sMapTapMsg)...")
+                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(sMapTapLogMsg)...")
+                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(clLocationCoordinate2D)]...")
+
+                            let bIsTapClose:Bool = self.checkIfAppLocationIsCloseToCoordinate(location:  clLocationCoordinate2D, 
+                                                                                              coordinate:coordinate ?? CLLocationCoordinate2D(latitude: 0.0000,
+                                                                                                                                              longitude:0.0000))
+
+                            if (bIsTapClose == true)
+                            {
+
+                                self.isAppMapTapAlertShowing.toggle()
+
+                            }
+
+                        }
+                        .alert(self.sMapTapMsg, isPresented:$isAppMapTapAlertShowing)
+                        {
+                            Button("Ok", role:.cancel)
+                            {
+                                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).MapReader.Map.onTapGesture User pressed 'Ok' to the Map 'tap' alert...")
+                            }
+                        }
+                        .gesture(
+                            MagnifyGesture()
+                                .onChanged 
+                                { value in
+                                    fCurrentZoom = value.magnification - 1
+                                }
+                                .onEnded 
+                                { value in
+                                    fTotalZoom   += fCurrentZoom
+                                    fCurrentZoom  = 0
+                                }
+                                .updating($gestureStateZoom)
+                                { value, gestureState, transaction in
+                                    gestureState = value.magnification
+                                })
+                        .accessibilityZoomAction 
+                        { action in
+                            if action.direction == .zoomIn 
+                            {
+                                fTotalZoom += 1
+                            } 
+                            else 
+                            {
+                                fTotalZoom -= 1
+                            }
+                        }
 
                     }
 
@@ -152,6 +230,45 @@ struct AppLocationMapView: View
         
     }
     
+    private func checkIfAppLocationIsCloseToCoordinate(location:CLLocationCoordinate2D, coordinate:CLLocationCoordinate2D)->Bool
+    {
+  
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameters 'location' is [\(location)] - 'coordinate' is [\(coordinate)]...")
+
+        var bIsCoordinateCloseToLocation:Bool          = false
+        var bIsCoordinateCloseToLocationLatitude:Bool  = false
+        var bIsCoordinateCloseToLocationLongitude:Bool = false
+  
+        // Check the Latitude/Longitude of the 'location' vs 'coordinate' and return a 'close' boolean (base on 'tollerance')...
+
+        bIsCoordinateCloseToLocationLatitude  = (abs(location.latitude  - coordinate.latitude)  < self.fMapLatLongTolerance)
+        bIsCoordinateCloseToLocationLongitude = (abs(location.longitude - coordinate.longitude) < self.fMapLatLongTolerance)
+
+        if (bIsCoordinateCloseToLocationLatitude  == true &&
+            bIsCoordinateCloseToLocationLongitude == true)
+        {
+
+            bIsCoordinateCloseToLocation = true
+
+        }
+        else
+        {
+
+            bIsCoordinateCloseToLocation = false
+
+        }
+
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'bIsCoordinateCloseToLocation' is [\(String(describing: bIsCoordinateCloseToLocation))]...")
+  
+        return bIsCoordinateCloseToLocation
+  
+    }   // End of private func checkIfAppParseCoreHasPFCscDataItems().
+
 }
 
 #Preview 
