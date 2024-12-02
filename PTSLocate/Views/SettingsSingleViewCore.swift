@@ -15,7 +15,7 @@ struct SettingsSingleViewCore: View
     {
         
         static let sClsId        = "SettingsSingleViewCore"
-        static let sClsVers      = "v1.0108"
+        static let sClsVers      = "v1.0201"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -30,14 +30,17 @@ struct SettingsSingleViewCore: View
     
            private var bInternalZipTest:Bool                     = false
 
+    @State private var cAppZipFileButtonPresses:Int              = 0
+    @State private var cAppCrashButtonPresses:Int                = 0
+
+    @State private var isAppZipFileShowing:Bool                  = false
+    @State private var isAppCrashShowing:Bool                    = false
+
 #if os(iOS)
 
     @State private var cAppAboutButtonPresses:Int                = 0
     @State private var cAppHelpViewButtonPresses:Int             = 0
     @State private var cAppLogViewButtonPresses:Int              = 0
-
-    @State private var cAppZipFileButtonPresses:Int              = 0
-    @State private var cAppCrashButtonPresses:Int                = 0
 
     @State private var cAppReleaseUpdateButtonPresses:Int        = 0
     @State private var cAppPreReleaseUpdateButtonPresses:Int     = 0
@@ -45,9 +48,6 @@ struct SettingsSingleViewCore: View
     @State private var isAppAboutViewModal:Bool                  = false
     @State private var isAppHelpViewModal:Bool                   = false
     @State private var isAppLogViewModal:Bool                    = false
-
-    @State private var isAppZipFileShowing:Bool                  = false
-    @State private var isAppCrashShowing:Bool                    = false
 
     @State private var isAppDownloadReleaseUpdateShowing:Bool    = false
     @State private var isAppDownloadPreReleaseUpdateShowing:Bool = false

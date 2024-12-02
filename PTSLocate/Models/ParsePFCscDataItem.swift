@@ -17,7 +17,7 @@ class ParsePFCscDataItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ParsePFCscDataItem"
-        static let sClsVers      = "v1.0203"
+        static let sClsVers      = "v1.0303"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true

@@ -1,6 +1,6 @@
 //
 //  AppAuthenticateView.swift
-//  JustALoginAppTest1
+//  PTSLocate
 //
 //  Created by Daryl Cox on 11/21/2024.
 //  Copyright © JustMacApps 2023-2024. All rights reserved.
@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct AppAuthenticateView: View
 {
@@ -16,7 +17,7 @@ struct AppAuthenticateView: View
     {
         
         static let sClsId        = "AppAuthenticateView"
-        static let sClsVers      = "v1.0609"
+        static let sClsVers      = "v1.0901"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -26,6 +27,8 @@ struct AppAuthenticateView: View
 
     // App Data field(s):
 
+    @Environment(\.modelContext) var modelContext
+
     enum FocusedFields: Hashable
     {
        case fieldUsername
@@ -33,6 +36,8 @@ struct AppAuthenticateView: View
     }
 
     @FocusState private var focusedField:FocusedFields?
+
+    @Query              var firstSwiftDataItems:[FirstSwiftDataItem]
 
     @State      private var shouldContentViewChange:Bool              = false
     @State      private var isUserAuthenticationAvailable:Bool        = false
@@ -51,6 +56,24 @@ struct AppAuthenticateView: View
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
         
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+        
+        // Check if we have SwiftData 'login' item(s)...
+        
+        if (firstSwiftDataItems.count > 0)
+        {
+            
+            self.isUserAuthenticationAvailable.toggle()
+            
+            self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggling 'isUserAuthenticationAvailable' to 'true' - SwiftData has (\(firstSwiftDataItems.count)) 'login' item(s) - value is \(isUserAuthenticationAvailable)...")
+            
+//            if (self.isUserAuthenticationAvailable == false)
+//            {
+//                
+//                self._isUserAuthenticationAvailable = true
+//                
+//            }
+
+        }
 
         // Continue App 'initialization'...
 
@@ -89,12 +112,31 @@ struct AppAuthenticateView: View
     var body: some View
     {
         
-        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) \(ClassInfo.sClsId)...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'firstSwiftDataItems' has (\(firstSwiftDataItems.count)) item(s)...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'jmAppDelegateVisitor.cFirstSwiftDataItems' is (\(jmAppDelegateVisitor.cFirstSwiftDataItems))...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
 
-        if (isUserAuthenticationAvailable == false)
+        // Check if we have 'login' data available from SwiftData...
+
+    //  if (firstSwiftDataItems.count > 0)
+    //  {
+    //
+    //      let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggling 'isUserAuthenticationAvailable' to 'true' - SwiftData has (\(firstSwiftDataItems.count)) 'login' item(s) - value is \(isUserAuthenticationAvailable)...")
+    //
+    //      self.isUserAuthenticationAvailable.toggle()
+    //
+    //  }
+
+    //  if (firstSwiftDataItems.count      < 1 ||
+        if (jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable == false &&
+            isUserAuthenticationAvailable                         == false)
         {
 
-            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggle 'isUserAuthenticationAvailable' is \(isUserAuthenticationAvailable)...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'firstSwiftDataItems' has (\(firstSwiftDataItems.count)) item(s)...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'jmAppDelegateVisitor.cFirstSwiftDataItems' is (\(jmAppDelegateVisitor.cFirstSwiftDataItems))...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
 
             VStack(alignment:.center)
             {
@@ -153,6 +195,16 @@ struct AppAuthenticateView: View
 
                                     }
 
+                                    if (self.jmAppDelegateVisitor.cFirstSwiftDataItems              > 0 &&
+                                        self.jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable == false)
+                                    {
+
+                                        self.jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable.toggle()
+
+                                        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Toggled 'self.jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' value is now [\(self.jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+
+                                    }
+
                                     self.jmAppDelegateVisitor.resetAppDelegateVisitorSignalSwiftViewsShouldChange()
                                 }
                             })
@@ -172,12 +224,15 @@ struct AppAuthenticateView: View
         else
         {
 
-            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggle 'isUserAuthenticationAvailable' is \(isUserAuthenticationAvailable)...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'firstSwiftDataItems' has (\(firstSwiftDataItems.count)) item(s)...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'jmAppDelegateVisitor.cFirstSwiftDataItems' is (\(jmAppDelegateVisitor.cFirstSwiftDataItems))...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
 
             if (isUserLoggedIn == false)
             {
 
-                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggle 'isUserLoggedIn' is \(isUserLoggedIn)...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'isUserLoggedIn' is \(isUserLoggedIn)...")
 
                 ScrollView
                 {
@@ -296,7 +351,11 @@ struct AppAuthenticateView: View
             else
             {
 
-                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggle 'isUserLoggedIn' is \(isUserLoggedIn)...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'firstSwiftDataItems' has (\(firstSwiftDataItems.count)) item(s)...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'jmAppDelegateVisitor.cFirstSwiftDataItems' is (\(jmAppDelegateVisitor.cFirstSwiftDataItems))...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'isUserLoggedIn' is [\(isUserLoggedIn)]...")
 
                 ContentView(isUserLoggedIn:$isUserLoggedIn, sLoginUsername: $sLoginUsername, sLoginPassword: $sLoginPassword)
 
@@ -635,6 +694,19 @@ struct AppAuthenticateView: View
 
         let jmAppParseCoreManager:JmAppParseCoreManager = self.getAppParseCoreManagerInstance()
 
+        if (jmAppParseCoreManager.dictPFAdminsDataItems.count < 1)
+        {
+
+            // Exit...
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'jmAppParseCoreManager.dictPFAdminsDataItems' is nil or Empty - can NOT be 'validated' - Error!")
+
+            pfAdminsDataItem = nil   
+
+            return pfAdminsDataItem
+
+        }
+
         for (_, parsePFAdminsDataItem) in jmAppParseCoreManager.dictPFAdminsDataItems
         {
 
@@ -644,7 +716,7 @@ struct AppAuthenticateView: View
                 sComparePFAdminsParseName       == sLookupUserName)
             {
 
-                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName'  of [\(sLookupUserName)]matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'pfAdminsDataItem' to this item...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName'  of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'pfAdminsDataItem' to this item...")
 
                 pfAdminsDataItem = parsePFAdminsDataItem   
 
@@ -657,7 +729,7 @@ struct AppAuthenticateView: View
         if (pfAdminsDataItem == nil)
         {
 
-            self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] can NOT be found in the valid login(s) dictionary - User can NOT be 'validated' - Warning!")
+            self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] can NOT be found in the valid (\(jmAppParseCoreManager.dictPFAdminsDataItems.count)) login(s) dictionary - User can NOT be 'validated' - Warning!")
 
             pfAdminsDataItem = nil   
 
@@ -670,6 +742,74 @@ struct AppAuthenticateView: View
         return pfAdminsDataItem
   
     }   // End of private func locateUserDataInPFAdmins()->ParsePFAdminsDataItem?.
+
+    private func locateUserDataInSwiftData()->FirstSwiftDataItem?
+    {
+  
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - 'sLoginUsername' is [\(self.sLoginUsername)] - 'sLoginPassword' is [\(self.sLoginPassword)]...")
+
+        // Attempt to locate the User data in SwiftData...
+
+        var firstSwiftDataItem:FirstSwiftDataItem? = nil
+        var sLookupUserName:String                 = ""
+
+        if (self.sLoginUsername.count > 0)
+        {
+
+            sLookupUserName = self.sLoginUsername.lowercased()
+
+        }
+        else
+        {
+
+            // Exit...
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'self.sLoginUsername' is nil or Empty - can NOT be 'validated' - Error!")
+
+            firstSwiftDataItem = nil   
+
+            return firstSwiftDataItem
+
+        }
+
+        for listSwiftDataItem in self.firstSwiftDataItems
+        {
+
+            let sComparePFAdminsParseName:String = listSwiftDataItem.sPFAdminsParseName.lowercased()
+
+            if (sComparePFAdminsParseName.count  > 0 &&
+                sComparePFAdminsParseName       == sLookupUserName)
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName'  of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'firstSwiftDataItem' to this item...")
+
+                firstSwiftDataItem = listSwiftDataItem   
+
+                break
+
+            }
+
+        }
+
+        if (firstSwiftDataItem == nil)
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] can NOT be found in the valid SwiftData (\(self.firstSwiftDataItems.count)) login(s) list - User can NOT be 'validated' - Warning!")
+
+            firstSwiftDataItem = nil   
+
+        }
+        
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'firstSwiftDataItem' is [\(String(describing: firstSwiftDataItem))]...")
+  
+        return firstSwiftDataItem
+  
+    }   // End of private func locateUserDataInSwiftData()->FirstSwiftDataItem?.
 
     private func isUserPasswordValidForLogin()->Bool
     {
@@ -692,6 +832,75 @@ struct AppAuthenticateView: View
             sValidUserName  = self.sLoginUsername
 
         }
+
+        // Check SwiftData (1st) for a match on the User...
+
+        let firstSwiftDataItem:FirstSwiftDataItem? = self.locateUserDataInSwiftData()
+
+        if (firstSwiftDataItem == nil)
+        {
+
+            self.sCredentialsCheckReason = "The Username '\(sValidUserName)' is 'invalid'"
+
+            bUserLoginValidated          = false
+
+        }
+        else
+        {
+
+            if let sValidUserPassword:String = firstSwiftDataItem?.sPFAdminsParsePassword
+            {
+
+                if (sValidUserPassword.count  > 0 &&
+                    sValidUserPassword       == self.sLoginPassword)
+                {
+
+                    self.sCredentialsCheckReason = "User credential(s) are 'valid'"
+
+                    bUserLoginValidated          = true
+
+                }
+                else
+                {
+
+                    self.sCredentialsCheckReason = "For the Username '\(sValidUserName)', the password is 'invalid'"
+
+                    bUserLoginValidated          = false
+
+                }
+
+            }
+            else
+            {
+
+                self.sCredentialsCheckReason = "The Username '\(sValidUserName)' is 'invalid'"
+
+                bUserLoginValidated          = false
+
+            }
+
+        }
+        
+        // Handle the SwiftData valid credentials(s) action/response...
+
+        if (bUserLoginValidated == true)
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Supplied credential(s) have been successfully 'validated'- credential(s) are good - reason [\(sCredentialsCheckReason)]...")
+
+            self.isUserLoggedIn.toggle()
+
+            // Exit...
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'bUserLoginValidated' is [\(String(describing: bUserLoginValidated))]...")
+
+            return bUserLoginValidated
+
+        }
+
+        // 
+
+        // SwiftData didn't have a match on the User - try PFAdmins...
 
         let pfAdminsDataItem:ParsePFAdminsDataItem? = self.locateUserDataInPFAdmins()
 
@@ -776,3 +985,47 @@ struct AppAuthenticateView: View
     AppAuthenticateView()
     
 }
+
+// --------------------------------------------------------------------------------------------------
+//
+// NOTES: Sample...   
+//
+//     let today         = Date()
+//     let tripPredicate = #Predicate<Trip> 
+//                             { 
+//                               $0.destination == "New York" &&
+//                               $0.name.contains("birthday") &&
+//                               $0.startDate > today
+//                             }
+//
+//     let descriptor    = FetchDescriptor<Trip>(predicate:tripPredicate)
+//     let trips         = try context.fetch(descriptor)
+//
+//     --- OR ---
+//
+//     let descriptor        = FetchDescriptor<Student>()
+//     var totalResults      = 0
+//     var totalDistinctions = 0
+//     var totalPasses       = 0
+//
+//     do 
+//     {
+//
+//         try modelContext.enumerate(descriptor) 
+//             { student in
+//                 totalResults      += student.scores.count
+//                 totalDistinctions += student.scores.filter { $0 >= 85 }.count
+//                 totalPasses       += student.scores.filter { $0 >= 70 && $0 < 85 }.count
+//             }
+//     } 
+//     catch 
+//     {
+//         print("Unable to calculate student results.")
+//     }
+//
+//     print("Total test results: \(totalResults)")
+//     print("Distinctions: \(totalDistinctions)")
+//     print("Passes: \(totalPasses)")
+//
+// --------------------------------------------------------------------------------------------------
+

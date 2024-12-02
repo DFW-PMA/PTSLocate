@@ -8,6 +8,7 @@
 
 import Foundation
 import ParseCore
+import SwiftData
 
 // Implementation class to handle access to the ParseCore framework.
 
@@ -18,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.0710"
+        static let sClsVers      = "v1.0907"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -28,7 +29,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
     // App Data field(s):
 
-    let timerPublisher                                                  = Timer.publish(every: (3 * 60), on: .main, in: .common).autoconnect()
+               let timerPublisher                                       = Timer.publish(every: (3 * 60), on: .main, in: .common).autoconnect()
                                                                           // Note: implement .onReceive() on a field within the displaying 'View'...
                                                                           // 
                                                                           // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
@@ -211,88 +212,88 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
     } // End of public func setJmAppDelegateVisitorInstance().
 
-    public func getJmAppParsePFInstallationCurrentInstance()->PFInstallation?
-    {
-        
-        let sCurrMethod:String = #function
-        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
-        
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
-
-        // Get and return the 'current' PFInstallation instance...
-
-        self.xcgLogMsg("\(sCurrMethodDisp) Calling the PFInstallation 'current()' method...")
-
-        self.pfInstallationCurrent = PFInstallation.current()
-
-        self.xcgLogMsg("\(sCurrMethodDisp) Called  the PFInstallation 'current()' method...")
-
-        // If 'current' PFInstallation instance is NOT nil, then dump the PFInstallation 'properties'...
-
-        if (self.bPFInstallationHasBeenEnumerated == false)
-        {
-
-            if (self.pfInstallationCurrent != nil)
-            {
-
-                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.installationId' is [\(String(describing: self.pfInstallationCurrent?.installationId))]...")
-                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.deviceType' is [\(String(describing: self.pfInstallationCurrent?.deviceType))]...")
-                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.deviceToken' is [\(String(describing: self.pfInstallationCurrent?.deviceToken))]...")
-                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.badge' is [\(String(describing: self.pfInstallationCurrent?.badge))]...")
-                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.timeZone' is [\(String(describing: self.pfInstallationCurrent?.timeZone))]...")
-                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.channels' is [\(String(describing: self.pfInstallationCurrent?.channels))]...")
-
-                do
-                {
-
-                    let pfInstallationQuery = PFInstallation.query()
-
-                    self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationQuery' is (\(String(describing: pfInstallationQuery))...")
-
-                    pfInstallationQuery?.whereKeyExists("AppVersionAndBuildNumber")
-
-                    let listPFObjects:[PFObject]? = try pfInstallationQuery?.findObjects()
-
-                    if (listPFObjects != nil &&
-                        listPFObjects!.count > 0)
-                    {
-
-                        self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfInstallationCurrent' returned a count of #(\(listPFObjects!.count)) PFObject(s)...")
-
-                    }
-
-                }
-                catch
-                {
-
-                    self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed to query 'pfInstallationCurrent' (but this is 'normal') - Details: \(error) - Error!")
-
-                }
-
-            }
-            else
-            {
-
-                self.xcgLogMsg("\(sCurrMethodDisp) Returned query of 'pfInstallationCurrent' is nil - Error!")
-
-            }
-
-            self.bPFInstallationHasBeenEnumerated = true
-
-        }
-
-    //  // TESTING: Always call the various 'testing' method(s)...for PRODUCTION this is handled in a View...
-    //
-    //  self.getJmAppParsePFQueryForAdmins()
-    //  self.getJmAppParsePFQueryForCSC()
-
-        // Exit:
-
-        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'self.pfInstallationCurrent' is [\(String(describing: self.pfInstallationCurrent))] - 'self.jmAppDelegateVisitor' is [\(String(describing: self.jmAppDelegateVisitor))]...")
-    
-        return self.pfInstallationCurrent
-
-    } // End of public func getJmAppParsePFInstallationCurrentInstance()->PFInstallation?.
+//  public func getJmAppParsePFInstallationCurrentInstance()->PFInstallation?
+//  {
+//      
+//      let sCurrMethod:String = #function
+//      let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+//      
+//      self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+//
+//      // Get and return the 'current' PFInstallation instance...
+//
+//      self.xcgLogMsg("\(sCurrMethodDisp) Calling the PFInstallation 'current()' method...")
+//
+//      self.pfInstallationCurrent = PFInstallation.current()
+//
+//      self.xcgLogMsg("\(sCurrMethodDisp) Called  the PFInstallation 'current()' method...")
+//
+//      // If 'current' PFInstallation instance is NOT nil, then dump the PFInstallation 'properties'...
+//
+//      if (self.bPFInstallationHasBeenEnumerated == false)
+//      {
+//
+//          if (self.pfInstallationCurrent != nil)
+//          {
+//
+//              self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.installationId' is [\(String(describing: self.pfInstallationCurrent?.installationId))]...")
+//              self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.deviceType' is [\(String(describing: self.pfInstallationCurrent?.deviceType))]...")
+//              self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.deviceToken' is [\(String(describing: self.pfInstallationCurrent?.deviceToken))]...")
+//              self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.badge' is [\(String(describing: self.pfInstallationCurrent?.badge))]...")
+//              self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.timeZone' is [\(String(describing: self.pfInstallationCurrent?.timeZone))]...")
+//              self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.channels' is [\(String(describing: self.pfInstallationCurrent?.channels))]...")
+//
+//              do
+//              {
+//
+//                  let pfInstallationQuery = PFInstallation.query()
+//
+//                  self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationQuery' is (\(String(describing: pfInstallationQuery))...")
+//
+//                  pfInstallationQuery?.whereKeyExists("AppVersionAndBuildNumber")
+//
+//                  let listPFObjects:[PFObject]? = try pfInstallationQuery?.findObjects()
+//
+//                  if (listPFObjects != nil &&
+//                      listPFObjects!.count > 0)
+//                  {
+//
+//                      self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfInstallationCurrent' returned a count of #(\(listPFObjects!.count)) PFObject(s)...")
+//
+//                  }
+//
+//              }
+//              catch
+//              {
+//
+//                  self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed to query 'pfInstallationCurrent' (but this is 'normal') - Details: \(error) - Error!")
+//
+//              }
+//
+//          }
+//          else
+//          {
+//
+//              self.xcgLogMsg("\(sCurrMethodDisp) Returned query of 'pfInstallationCurrent' is nil - Error!")
+//
+//          }
+//
+//          self.bPFInstallationHasBeenEnumerated = true
+//
+//      }
+//
+//  //  // TESTING: Always call the various 'testing' method(s)...for PRODUCTION this is handled in a View...
+//  //
+//  //  self.getJmAppParsePFQueryForAdmins()
+//  //  self.getJmAppParsePFQueryForCSC()
+//
+//      // Exit:
+//
+//      self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'self.pfInstallationCurrent' is [\(String(describing: self.pfInstallationCurrent))] - 'self.jmAppDelegateVisitor' is [\(String(describing: self.jmAppDelegateVisitor))]...")
+//  
+//      return self.pfInstallationCurrent
+//
+//  } // End of public func getJmAppParsePFInstallationCurrentInstance()->PFInstallation?.
 
     public func getJmAppParsePFQueryForAdmins()
     {
@@ -376,6 +377,10 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                         parsePFAdminsDataItem.displayParsePFAdminsDataItemToLog()
 
                     }
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Copying the item(s) from the dictionary of 'parsePFAdminsDataItem' to SwiftData...")
+
+                    self.copyJmAppParsePFAdminsToSwiftData()
 
                 }
 
@@ -607,6 +612,218 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         return
 
     } // End of public func getJmAppParsePFQueryForCSC().
+
+    public func getJmAppParsePFInstallationCurrentInstance()->PFInstallation?
+    {
+        
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+
+        // Get and return the 'current' PFInstallation instance...
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Calling the PFInstallation 'current()' method...")
+
+        self.pfInstallationCurrent = PFInstallation.current()
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Called  the PFInstallation 'current()' method...")
+
+        // If 'current' PFInstallation instance is NOT nil, then dump the PFInstallation 'properties'...
+
+        if (self.bPFInstallationHasBeenEnumerated == false)
+        {
+
+            if (self.pfInstallationCurrent != nil)
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.installationId' is [\(String(describing: self.pfInstallationCurrent?.installationId))]...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.deviceType' is [\(String(describing: self.pfInstallationCurrent?.deviceType))]...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.deviceToken' is [\(String(describing: self.pfInstallationCurrent?.deviceToken))]...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.badge' is [\(String(describing: self.pfInstallationCurrent?.badge))]...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.timeZone' is [\(String(describing: self.pfInstallationCurrent?.timeZone))]...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationCurrent.channels' is [\(String(describing: self.pfInstallationCurrent?.channels))]...")
+
+                do
+                {
+
+                    let pfInstallationQuery = PFInstallation.query()
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) 'pfInstallationQuery' is (\(String(describing: pfInstallationQuery))...")
+
+                    pfInstallationQuery?.whereKeyExists("AppVersionAndBuildNumber")
+
+                    let listPFObjects:[PFObject]? = try pfInstallationQuery?.findObjects()
+
+                    if (listPFObjects != nil &&
+                        listPFObjects!.count > 0)
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfInstallationCurrent' returned a count of #(\(listPFObjects!.count)) PFObject(s)...")
+
+                    }
+
+                }
+                catch
+                {
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed to query 'pfInstallationCurrent' (but this is 'normal') - Details: \(error) - Error!")
+
+                }
+
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Returned query of 'pfInstallationCurrent' is nil - Error!")
+
+            }
+
+            self.bPFInstallationHasBeenEnumerated = true
+
+        }
+
+    //  // TESTING: Always call the various 'testing' method(s)...for PRODUCTION this is handled in a View...
+    //
+    //  self.getJmAppParsePFQueryForAdmins()
+    //  self.getJmAppParsePFQueryForCSC()
+
+        // Exit:
+        
+    //  self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'self.pfInstallationCurrent' is [\(String(describing: self.pfInstallationCurrent))] - 'self.jmAppDelegateVisitor' is [\(String(describing: self.jmAppDelegateVisitor))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'self.pfInstallationCurrent' is [\(String(describing: self.pfInstallationCurrent))]...")
+    
+        return self.pfInstallationCurrent
+
+    } // End of public func getJmAppParsePFInstallationCurrentInstance()->PFInstallation?.
+
+    public func copyJmAppParsePFAdminsToSwiftData()
+    {
+        
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+
+        // Copy (if any) PFQuery 'Admins' to SwiftData...
+
+        if (self.dictPFAdminsDataItems.count > 0)
+        {
+
+            if (self.jmAppDelegateVisitor?.modelContext != nil)
+            {
+
+                let firstSwiftDataItemsDescriptor = FetchDescriptor<FirstSwiftDataItem>()
+
+                DispatchQueue.main.async
+                {
+
+                    do
+                    {
+
+                        let firstSwiftDataItems:[FirstSwiftDataItem] = try self.jmAppDelegateVisitor?.modelContext!.fetch(firstSwiftDataItemsDescriptor) ?? []
+                        let cFirstSwiftDataItems:Int                 = firstSwiftDataItems.count
+
+                        if (cFirstSwiftDataItems > 0)
+                        {
+
+                            self.xcgLogMsg("\(sCurrMethodDisp) Deleting ALL #(\(cFirstSwiftDataItems)) existing SwiftData PFQuery 'Admins' item(s)...")
+
+                            try self.jmAppDelegateVisitor?.modelContext!.delete(model:FirstSwiftDataItem.self)
+
+                            self.xcgLogMsg("\(sCurrMethodDisp) Deleted  ALL #(\(cFirstSwiftDataItems)) existing SwiftData PFQuery 'Admins' item(s)...")
+
+                        }
+                        else
+                        {
+
+                            self.xcgLogMsg("\(sCurrMethodDisp) Skipping the deletion of ALL existing SwiftData PFQuery 'Admins' item(s) - there are NO existing item(s)...")
+
+                        }
+
+                    } 
+                    catch
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Failed to delete ALL SwiftData PFQuery 'Admins' items() - Details: \(error) - Error!")
+
+                    }
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Copying (\(self.dictPFAdminsDataItems.count)) PFQuery 'Admins' item(s) to SwiftData...")
+
+                    var cPFAdminsDataItemsAdded:Int = 0
+
+                    for (_, parsePFAdminsDataItem) in self.dictPFAdminsDataItems
+                    {
+
+                        let newFirstSwiftDataItem = FirstSwiftDataItem(timestamp:   Date(),
+                                                                       sCreatedBy:  "\(ClassInfo.sClsDisp)",
+                                                                       pfAdminsItem:parsePFAdminsDataItem)
+
+                        self.jmAppDelegateVisitor?.modelContext!.insert(newFirstSwiftDataItem)
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Added 'newFirstSwiftDataItem' of [\(String(describing: newFirstSwiftDataItem.toString()))] to the SwiftData 'model' Context...")
+
+                        cPFAdminsDataItemsAdded += 1
+
+                    }
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Added #(\(cPFAdminsDataItemsAdded)) PFQuery 'Admins' item(s) to SwiftData from #(\(self.dictPFAdminsDataItems.count)) available item(s)...")
+
+                    do
+                    {
+
+                        try self.jmAppDelegateVisitor?.modelContext!.save()
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has been saved after adding PFQuery 'Admins' item(s)...")
+
+                        self.jmAppDelegateVisitor?.firstSwiftDataItems  = try self.jmAppDelegateVisitor?.modelContext!.fetch(firstSwiftDataItemsDescriptor) ?? []
+                        self.jmAppDelegateVisitor?.cFirstSwiftDataItems = self.jmAppDelegateVisitor?.firstSwiftDataItems.count ?? 0
+
+                        if (self.jmAppDelegateVisitor!.cFirstSwiftDataItems > 0)
+                        {
+
+                            self.jmAppDelegateVisitor?.bAreFirstSwiftDataItemsAvailable = true
+                        //  self.jmAppDelegateVisitor?.bAreFirstSwiftDataItemsAvailable.toggle()
+
+                        }
+
+                        self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppDelegateVisitor?.firstSwiftDataItems' has (\(String(describing: self.jmAppDelegateVisitor?.cFirstSwiftDataItems))) 'login' item(s)...")
+                        self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppDelegateVisitor?.bAreFirstSwiftDataItemsAvailable' is [\(String(describing: self.jmAppDelegateVisitor?.bAreFirstSwiftDataItemsAvailable))]...")
+
+                    }
+                    catch
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has failed to save after adding PFQuery 'Admins' item(s) - Details: \(error) - Error!")
+
+                    }
+
+                }
+
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Copy failed - 'self.jmAppDelegateVisitor?.modelContent' is nil - NO 'target' to copy (\(self.dictPFAdminsDataItems.count)) item(s) too - Warning!")
+
+            }
+
+        }
+        else
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Copy failed - 'self.dictPFAdminsDataItems' has NO PFQuery 'Admins' item(s) - Warning!")
+            
+        }
+
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+    
+        return
+
+    } // End of public func copyJmAppParsePFAdminsToSwiftData().
 
 }   // End of public class JmAppParseCoreManager.
 

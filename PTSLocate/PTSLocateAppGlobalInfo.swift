@@ -24,7 +24,7 @@ public class AppGlobalInfo: NSObject
     }
 
     static let sGlobalInfoAppId:String                                   = "PTSLocate"
-    static let sGlobalInfoAppVers:String                                 = "v1.1801"
+    static let sGlobalInfoAppVers:String                                 = "v1.1901"
     static let sGlobalInfoAppDisp:String                                 = sGlobalInfoAppId+".("+sGlobalInfoAppVers+"): "
     static let sGlobalInfoAppCopyRight:String                            = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
     static let sGlobalInfoAppLogFilespec:String                          = "PTSLocate.log"

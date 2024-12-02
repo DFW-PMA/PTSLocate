@@ -7,16 +7,9 @@
 //
 
 import Foundation
-import Combine
+//import Combine
 import SwiftUI
-
-#if os(iOS)
-import UIKit
-#endif
-
-#if canImport(TipKit)
-import TipKit
-#endif
+import SwiftData
 
 struct ContentView: View 
 {
@@ -25,7 +18,7 @@ struct ContentView: View
     {
         
         static let sClsId        = "ContentView"
-        static let sClsVers      = "v1.2303"
+        static let sClsVers      = "v1.2402"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -33,7 +26,8 @@ struct ContentView: View
         
     }
 
-    @Environment(\.openURL) var openURL
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.openURL)      var openURL
 
     // App Data field(s):
 
@@ -525,27 +519,6 @@ struct ContentView: View
             
         }
         .padding()
-    //  .task 
-    //  {
-    //
-    //      // Configure and load your tips at app launch...
-    //
-    //      do
-    //      {
-    //
-    //          try Tips.configure([.displayFrequency(.immediate), .datastoreLocation(.applicationDefault)])
-    //
-    //      } 
-    //      catch 
-    //      {
-    //
-    //          // Handle TipKit errors
-    //
-    //          let _ = self.xcgLogMsg("...\(ClassInfo.sClsDisp)ContentView - Failed to initialize the TipKit framework - Detail(s) are [\(error.localizedDescription)] - Error!")
-    //
-    //      }
-    //
-    //  }
         
     }
 
@@ -845,4 +818,5 @@ struct ContentView: View
   
     }   // End of getAppParseCoreManagerInstance()->jmAppParseCoreManager.
 
-}
+}   // END of struct ContentView(View).
+

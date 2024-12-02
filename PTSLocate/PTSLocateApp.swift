@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 @main
 struct PTSLocateApp: App 
@@ -17,7 +18,7 @@ struct PTSLocateApp: App
     {
         
         static let sClsId        = "PTSLocateApp"
-        static let sClsVers      = "v1.1201"
+        static let sClsVers      = "v1.1401"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -44,6 +45,26 @@ struct PTSLocateApp: App
     // App Data field(s):
 
     let sAppBundlePath:String                     = Bundle.main.bundlePath
+
+    var sharedModelContainer:ModelContainer       =
+    {
+        
+        let schema             = Schema([FirstSwiftDataItem.self, ])
+        let modelConfiguration = ModelConfiguration(schema:schema, isStoredInMemoryOnly:false)
+
+        do
+        {
+            
+            return try ModelContainer(for:schema, configurations:[modelConfiguration])
+            
+        }
+        catch
+        {
+            
+            fatalError("Could not create ModelContainer: \(error)...")
+            
+        }
+    }()
 
     var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
     
@@ -104,6 +125,7 @@ struct PTSLocateApp: App
 
         }
         .handlesExternalEvents(matching: [])
+        .modelContainer(sharedModelContainer)
     #if os(macOS)
         .commands
         {

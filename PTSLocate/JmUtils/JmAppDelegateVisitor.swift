@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 import XCGLogger
 
 #if os(iOS)
@@ -23,7 +24,7 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     {
         
         static let sClsId        = "JmAppDelegateVisitor"
-        static let sClsVers      = "v1.2102"
+        static let sClsVers      = "v1.2203"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -129,6 +130,18 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     var urlAppDelegateVisitorLogToSaveFilespec:URL?                = nil
     var sAppDelegateVisitorLogToSaveFilespec:String!               = nil
 
+    // Various App SwiftData field(s):
+    
+    var modelConfiguration:ModelConfiguration                      = ModelConfiguration(isStoredInMemoryOnly:false, allowsSave:true)
+    var modelContainer:ModelContainer?                             = nil
+    var modelContext:ModelContext?                                 = nil
+//  @Query              
+    var firstSwiftDataItems:[FirstSwiftDataItem]                   = []
+    @Published 
+    var cFirstSwiftDataItems:Int                                   = 0
+    @Published 
+    var bAreFirstSwiftDataItemsAvailable:Bool                      = false
+    
     // App <possible> (Apple) MetricKitManager instance:
 
     var jmAppMetricKitManager:JmAppMetricKitManager?               = nil
@@ -215,6 +228,14 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("sAppDelegateVisitorLogToSaveFilespec': [\(String(describing: self.sAppDelegateVisitorLogToSaveFilespec))],")
         asToString.append("],")
         asToString.append("[")
+        asToString.append("SwiftData 'modelConfiguration': (\(self.modelConfiguration)),")
+        asToString.append("SwiftData 'modelContainer': (\(String(describing: self.modelContainer))),")
+        asToString.append("SwiftData 'modelContext': (\(String(describing: self.modelContext))),")
+        asToString.append("SwiftData 'firstSwiftDataItems': (\(String(describing: self.firstSwiftDataItems))),")
+        asToString.append("SwiftData 'cFirstSwiftDataItems': (\(String(describing: self.cFirstSwiftDataItems))),")
+        asToString.append("SwiftData 'bAreFirstSwiftDataItemsAvailable': (\(String(describing: self.bAreFirstSwiftDataItemsAvailable))),")
+        asToString.append("],")
+        asToString.append("[")
         asToString.append("jmAppMetricKitManager': [\(String(describing: self.jmAppMetricKitManager))],")
         asToString.append("jmAppUserNotificationManager': [\(String(describing: self.jmAppUserNotificationManager))],")
         asToString.append("jmAppParseCoreManager': [\(String(describing: self.jmAppParseCoreManager))],")
@@ -261,6 +282,88 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         // Dump the App 'Info.plist':
 
         let _ = self.dumpAppInfoPlistToLog()
+
+        // Initialize the SwiftData 'model' Container (on the 'model' Configuration)...
+        
+        do
+        {
+            
+            self.modelContainer = try ModelContainer(for:FirstSwiftDataItem.self, configurations: modelConfiguration)
+            
+            self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContainer has been constructed...")
+
+            self.modelContext   = ModelContext(self.modelContainer!)
+
+            self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has been obtained (from the 'model' Container)...")
+
+            if (self.modelContext != nil) 
+            {
+
+            //  let firstSwiftDataItemsPredicate  = #Predicate<FirstSwiftDataItem>()
+            //  let firstSwiftDataItemsDescriptor = FetchDescriptor<FirstSwiftDataItem>(predicate:firstSwiftDataItemsPredicate)
+                let firstSwiftDataItemsDescriptor = FetchDescriptor<FirstSwiftDataItem>()
+
+                self.firstSwiftDataItems          = try self.modelContext!.fetch(firstSwiftDataItemsDescriptor)
+                self.cFirstSwiftDataItems         = self.firstSwiftDataItems.count
+
+                if (self.cFirstSwiftDataItems > 0)
+                {
+
+                    self.bAreFirstSwiftDataItemsAvailable = true
+                //  self.bAreFirstSwiftDataItemsAvailable.toggle()
+
+                }
+
+                self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.firstSwiftDataItems' has (\(self.cFirstSwiftDataItems)) 'login' item(s)...")
+                self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.bAreFirstSwiftDataItemsAvailable' is [\(self.bAreFirstSwiftDataItemsAvailable)]...")
+
+            }
+
+        //  if (self.modelContext != nil) 
+        //  {
+        //
+        //      for i in 0..<3
+        //      {
+        //
+        //          let newFirstSwiftDataItem = FirstSwiftDataItem(idPFAdminsObject:(i + 100), 
+        //                                                         timestamp:       Date(),
+        //                                                         sCreatedBy:      "\(ClassInfo.sClsDisp)")
+        //
+        //          self.modelContext!.insert(newFirstSwiftDataItem)
+        //
+        //          self.xcgLogMsg("\(sCurrMethodDisp) Added 'newFirstSwiftDataItem' of [\(String(describing: newFirstSwiftDataItem.toString()))] to the SwiftData 'model' Context...")
+        //
+        //      }
+        //
+        //      do
+        //      {
+        //
+        //          try self.modelContext!.save()
+        //
+        //          self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has been saved...")
+        //
+        //      }
+        //      catch
+        //      {
+        //
+        //          self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has failed to save - Details: \(error) - Error!")
+        //
+        //      }
+        //
+        //  }
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Current 'appDelegate' instance is [\(self.toString())]...")
+
+        }
+        catch
+        {
+            
+            self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContainer has failed construction - Details: \(error) - Error!")
+
+            self.modelContainer = nil
+            self.modelContext   = nil
+            
+        }
 
         // Setup the Objective-C/Swift Bridge:
   
