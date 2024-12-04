@@ -24,7 +24,7 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     {
         
         static let sClsId        = "JmAppDelegateVisitor"
-        static let sClsVers      = "v1.2203"
+        static let sClsVers      = "v1.2303"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -135,7 +135,6 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     var modelConfiguration:ModelConfiguration                      = ModelConfiguration(isStoredInMemoryOnly:false, allowsSave:true)
     var modelContainer:ModelContainer?                             = nil
     var modelContext:ModelContext?                                 = nil
-//  @Query              
     var firstSwiftDataItems:[FirstSwiftDataItem]                   = []
     @Published 
     var cFirstSwiftDataItems:Int                                   = 0
@@ -283,6 +282,22 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
 
         let _ = self.dumpAppInfoPlistToLog()
 
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - #(\(self.cAppDelegateVisitorInitCalls)) time(s) - 'sApplicationName' is [\(self.sApplicationName)]...")
+
+        return
+
+    }   // End of private override init().
+        
+    public func runPostInitializationTasks()
+    {
+        
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - 'self' is [\(self)]...")
+
         // Initialize the SwiftData 'model' Container (on the 'model' Configuration)...
         
         do
@@ -309,6 +324,28 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
                 if (self.cFirstSwiftDataItems > 0)
                 {
 
+                    var cFirstSwiftDataItems:Int = 0
+
+                    for currentSwiftDataItem:FirstSwiftDataItem in self.firstSwiftDataItems
+                    {
+
+                        cFirstSwiftDataItems += 1
+
+                        if (cFirstSwiftDataItems == 1) 
+                        {
+
+                            currentSwiftDataItem.displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:true)
+
+                        }
+                        else
+                        {
+
+                            currentSwiftDataItem.displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:false)
+
+                        }
+
+                    }
+
                     self.bAreFirstSwiftDataItemsAvailable = true
                 //  self.bAreFirstSwiftDataItemsAvailable.toggle()
 
@@ -319,6 +356,8 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
 
             }
 
+        // NOTE: Use the block below to generate 'test' SwiftData item(s)...
+        //
         //  if (self.modelContext != nil) 
         //  {
         //
@@ -492,11 +531,11 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
 
         // Exit:
 
-        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - #(\(self.cAppDelegateVisitorInitCalls)) time(s) - 'sApplicationName' is [\(self.sApplicationName)]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
 
         return
 
-    }   // End of private init().
+    }   // End of public func runPostInitializationTasks().
         
     @objc public func xcgLogMsg(_ sMessage:String)
     {
@@ -1319,13 +1358,13 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     // Method(s) to assist with sending Email with a File upload (and 'optional' Alert message)...
 
     @objc public func appDelegateVisitorSendEmailUpload(_ emailAddressTo:String,
-                                                        emailAddressCc:String,  
-                                                        emailSourceFilespec:String,
-                                                        emailSourceFilename:String,
-                                                        emailZipFilename:String,
-                                                        emailSaveAsFilename:String,
-                                                        emailFileMimeType:String,
-                                                        emailFileData:NSData)
+                                                          emailAddressCc:String,  
+                                                          emailSourceFilespec:String,
+                                                          emailSourceFilename:String,
+                                                          emailZipFilename:String,
+                                                          emailSaveAsFilename:String,
+                                                          emailFileMimeType:String,
+                                                          emailFileData:NSData)
     {
 
         let sCurrMethod:String = #function

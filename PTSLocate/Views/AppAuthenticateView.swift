@@ -17,7 +17,7 @@ struct AppAuthenticateView: View
     {
         
         static let sClsId        = "AppAuthenticateView"
-        static let sClsVers      = "v1.0901"
+        static let sClsVers      = "v1.1001"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -716,11 +716,17 @@ struct AppAuthenticateView: View
                 sComparePFAdminsParseName       == sLookupUserName)
             {
 
-                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName'  of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'pfAdminsDataItem' to this item...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'pfAdminsDataItem' to this item...")
 
                 pfAdminsDataItem = parsePFAdminsDataItem   
 
                 break
+
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] does NOT match the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - continuing search...")
 
             }
 
@@ -784,11 +790,17 @@ struct AppAuthenticateView: View
                 sComparePFAdminsParseName       == sLookupUserName)
             {
 
-                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName'  of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'firstSwiftDataItem' to this item...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'firstSwiftDataItem' to this item...")
 
                 firstSwiftDataItem = listSwiftDataItem   
 
                 break
+
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] does NOT match the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - continuing search...")
 
             }
 
@@ -898,8 +910,6 @@ struct AppAuthenticateView: View
 
         }
 
-        // 
-
         // SwiftData didn't have a match on the User - try PFAdmins...
 
         let pfAdminsDataItem:ParsePFAdminsDataItem? = self.locateUserDataInPFAdmins()
@@ -963,6 +973,8 @@ struct AppAuthenticateView: View
 
             self.xcgLogMsg("\(sCurrMethodDisp) Supplied credential(s) have NOT been successfully 'validated' - credential(s) failure - reason [\(sCredentialsCheckReason)] - Error!")
 
+            self.dumpUserAuthenticationDataToLog()
+
             self.sLoginPassword = ""
 
             self.isUserLoginFailureShowing.toggle()
@@ -976,6 +988,79 @@ struct AppAuthenticateView: View
         return bUserLoginValidated
   
     }   // End of private func isUserPasswordValidForLogin()->Bool.
+
+    private func dumpUserAuthenticationDataToLog()
+    {
+  
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+
+        // Dump the User data in SwiftData...
+
+        if (self.firstSwiftDataItems.count > 0)
+        {
+
+            var cFirstSwiftDataItems:Int = 0
+
+            for currentSwiftDataItem:FirstSwiftDataItem in self.firstSwiftDataItems
+            {
+
+                cFirstSwiftDataItems += 1
+
+                if (cFirstSwiftDataItems == 1) 
+                {
+
+                    currentSwiftDataItem.displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:true)
+
+                }
+                else
+                {
+
+                    currentSwiftDataItem.displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:false)
+
+                }
+
+            }
+
+        }
+        else
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Unable to dump the SwiftData item(s) - the list is 'empty' - Warning!")
+
+        }
+
+        // Dump the User data in PFAdminsDataItems...
+
+        let jmAppParseCoreManager:JmAppParseCoreManager = self.getAppParseCoreManagerInstance()
+
+        if (jmAppParseCoreManager.dictPFAdminsDataItems.count > 0)
+        {
+
+            for (_, parsePFAdminsDataItem) in jmAppParseCoreManager.dictPFAdminsDataItems
+            {
+
+                parsePFAdminsDataItem.displayParsePFAdminsDataItemToLog()
+
+            }
+
+        }
+        else
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Unable to dump the PFAdminsData item(s) - the list is 'empty' - Warning!")
+
+        }
+
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+  
+        return
+  
+    }   // End of private func dumpUserAuthenticationDataToLog().
 
 }   // END of struct AppAuthenticateView(View).
 

@@ -12,7 +12,7 @@ import SwiftData
 @Model
 //NOTE: Do NOT Subclass in this Class - @Model will throw an error about using 'self' before 'super.init()'...
 //class FirstSwiftDataItem: NSObject, Identifiable
-class FirstSwiftDataItem: Identifiable
+final class FirstSwiftDataItem: Identifiable
 {
     
     @Transient
@@ -20,7 +20,7 @@ class FirstSwiftDataItem: Identifiable
     {
         
         static let sClsId        = "FirstSwiftDataItem"
-        static let sClsVers      = "v1.0205"
+        static let sClsVers      = "v1.0304"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -29,22 +29,37 @@ class FirstSwiftDataItem: Identifiable
     }
 
     @Attribute(.unique) 
-    var id:UUID                         = UUID()
-    var idPFAdminsObject:Int            = 0
-    var timestamp:Date                  = Date()
-    var sCreatedBy:String               = ""
+    var id:UUID                                   = UUID()
+    var idPFAdminsObject:Int                      = 0
+    var timestamp:Date                            = Date()
+    var sCreatedBy:String                         = ""
     
     // Item 'keyed' field(s):
 
-    var sPFAdminsParseName:String       = "-N/A-"  // This will come from 'tid' lookup in 'TherapistFile'...
-    var sPFAdminsParseTID:String        = "-N/A-"
-    var sPFAdminsParsePassword:String   = ""
-    var sPFAdminsParseNewLvl:String     = "-N/A-"
-    var sPFAdminsParseLevel:String      = "-N/A-"
+    var sPFAdminsParseName:String                 = "-N/A-"  // This will come from 'tid' lookup in 'TherapistFile'...
+    var sPFAdminsParseTID:String                  = "-N/A-"
+    var sPFAdminsParsePassword:String             = ""
+    var sPFAdminsParseNewLvl:String               = "-N/A-"
+    var sPFAdminsParseLevel:String                = "-N/A-"
+
+    @Transient
+    var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
+                                                    // NOTE: The AppDelegateVisitor MUST be wrapped with @Transient
+                                                    //       or the compiler will fail this as referencing 'self'
+                                                    //       before the 'super.init()' has been invoked...
 
     init(idPFAdminsObject:Int, timestamp:Date, sCreatedBy:String="-N/A-")
     {
         
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+    //  super.init()
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter(s) are 'idPFAdminsObject' is (\(idPFAdminsObject)) - 'timestamp' is [\(timestamp)] - 'sCreatedBy' is [\(sCreatedBy)]...")
+
+        // Finish the 'default' setup of field(s)...
+
         self.id                     = UUID()
         self.idPFAdminsObject       = idPFAdminsObject
         self.timestamp              = timestamp
@@ -56,12 +71,25 @@ class FirstSwiftDataItem: Identifiable
         self.sPFAdminsParseNewLvl   = "-N/A-"
         self.sPFAdminsParseLevel    = "-N/A-"
 
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+
+        return
+
     }   // END of init(idPFAdminsObject:Int, timestamp:Date, sCreatedBy).
 
     convenience init(timestamp:Date, sCreatedBy:String="-N/A-", pfAdminsItem:ParsePFAdminsDataItem)
     {
         
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
         self.init(idPFAdminsObject:0, timestamp:timestamp, sCreatedBy:sCreatedBy)
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter(s) are 'timestamp' is [\(timestamp)] - 'sCreatedBy' is [\(sCreatedBy)] - 'pfAdminsItem' is [\(pfAdminsItem)]...")
+        
+        // Finish the 'convenience' setup of field(s)...
         
         self.idPFAdminsObject       = pfAdminsItem.idPFAdminsObject
         self.sPFAdminsParseName     = pfAdminsItem.sPFAdminsParseName
@@ -70,23 +98,29 @@ class FirstSwiftDataItem: Identifiable
         self.sPFAdminsParseNewLvl   = pfAdminsItem.sPFAdminsParseNewLvl
         self.sPFAdminsParseLevel    = pfAdminsItem.sPFAdminsParseLevel
 
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+
+        return
+
     }   // END of convenience init(timestamp:Date, sCreatedBy:String, pfAdminsItem:ParsePFAdminsDataItem).
 
     private func xcgLogMsg(_ sMessage:String)
     {
 
-    //  if (self.jmAppDelegateVisitor.bAppDelegateVisitorLogFilespecIsUsable == true)
-    //  {
-    //
-    //      self.jmAppDelegateVisitor.xcgLogMsg(sMessage)
-    //
-    //  }
-    //  else
-    //  {
+        if (self.jmAppDelegateVisitor.bAppDelegateVisitorLogFilespecIsUsable == true)
+        {
       
-        print("\(sMessage)")
+            self.jmAppDelegateVisitor.xcgLogMsg(sMessage)
       
-    //  }
+        }
+        else
+        {
+      
+            print("\(sMessage)")
+      
+        }
 
         // Exit:
 
@@ -135,7 +169,7 @@ class FirstSwiftDataItem: Identifiable
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
 
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter 'bShowLocalStore' is [\(bShowLocalStore)]...")
 
         // Display the various field(s) of this object...
 
@@ -148,7 +182,6 @@ class FirstSwiftDataItem: Identifiable
         self.xcgLogMsg("\(sCurrMethodDisp) #(\(self.idPFAdminsObject)): 'sPFAdminsParsePassword' is [\(String(describing: self.sPFAdminsParsePassword))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) #(\(self.idPFAdminsObject)): 'sPFAdminsParseNewLvl'   is [\(String(describing: self.sPFAdminsParseNewLvl))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) #(\(self.idPFAdminsObject)): 'sPFAdminsParseLevel'    is [\(String(describing: self.sPFAdminsParseLevel))]...")
-
         
         // (Optionally) Display the location of the SwiftData 'local' store...
 
@@ -175,4 +208,4 @@ class FirstSwiftDataItem: Identifiable
 
     }   // END of public func displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:Bool).
     
-}   // END of class FirstSwiftDataItem(NSObject, Identifiable).
+}   // END of final class FirstSwiftDataItem(NSObject, Identifiable).
