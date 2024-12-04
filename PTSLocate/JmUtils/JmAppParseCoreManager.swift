@@ -19,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.0907"
+        static let sClsVers      = "v1.1001"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -485,7 +485,15 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                     self.xcgLogMsg("\(sCurrMethodDisp) Added object #(\(self.cPFCscObjects)) 'parsePFCscDataItem' to the list of item(s)...")
 
                 }
+
+                // Gather the PFQueries to construct the new ScheduledPatientLocationItem(s) in the background...
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Calling 'self.gatherJmAppParsePFQueriesForScheduledLocationsInBackground()' to gather 'scheduled' Patient location data...")
+
+                self.gatherJmAppParsePFQueriesForScheduledLocationsInBackground()
                 
+                self.xcgLogMsg("\(sCurrMethodDisp) Called  'self.gatherJmAppParsePFQueriesForScheduledLocationsInBackground()' to gather 'scheduled' Patient location data...")
+
             //  Thread.sleep(forTimeInterval: 0.2)  // This 'sleeps' but did NOT work to fix the location issue(s)...
 
                 DispatchQueue.main.asyncAfter(deadline:(.now() + 0.6))
@@ -742,5 +750,45 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
     } // End of public func copyJmAppParsePFAdminsToSwiftData().
 
+    public func gatherJmAppParsePFQueriesForScheduledLocationsInBackground()
+    {
+
+        let sCurrMethod:String = #function;
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+  
+        let dispatchGroup = DispatchGroup()
+
+        do
+        {
+
+            dispatchGroup.enter()
+
+            let dispatchQueue = DispatchQueue(label: "GatherAppPFQueriesInBackground", qos: .userInitiated)
+
+            dispatchQueue.async
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Invoking background PFQueries method(s)...");
+
+            //  ...
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Invoked  background PFQueries method(s)...");
+
+            }
+
+            dispatchGroup.leave()
+
+        }
+
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+  
+        return
+
+    } // End of public func gatherJmAppParsePFQueriesForScheduledLocationsInBackground().
+    
 }   // End of public class JmAppParseCoreManager.
 
