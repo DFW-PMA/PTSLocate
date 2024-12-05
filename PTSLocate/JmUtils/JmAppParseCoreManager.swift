@@ -19,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1105"
+        static let sClsVers      = "v1.1108"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -49,8 +49,11 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     @Published var listPFCscDataItems:[ParsePFCscDataItem]                          = []
 
     @Published var dictPFAdminsDataItems:[String:ParsePFAdminsDataItem]             = [:]
+
     @Published var dictSchedPatientLocItems:[String:[ScheduledPatientLocationItem]] = [String:[ScheduledPatientLocationItem]]()
                                                                                       // [String:[ScheduledPatientLocationItem]]
+
+       private var bHasDictSchedPatientLocItemsBeenDisplayed:Bool                   = false
 
                var jmAppDelegateVisitor:JmAppDelegateVisitor?                       = nil
                                                                                       // 'jmAppDelegateVisitor' MUST remain declared this way
@@ -138,7 +141,13 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         asToString.append("'cPFCscObjectsRefresh': [\(String(describing: self.cPFCscObjectsRefresh))]")
         asToString.append("'cPFCscObjects': [\(String(describing: self.cPFCscObjects))]")
         asToString.append("'listPFCscDataItems': [\(String(describing: self.listPFCscDataItems))]")
+        asToString.append("],")
+        asToString.append("[")
         asToString.append("'dictPFAdminsDataItems': [\(String(describing: self.dictPFAdminsDataItems))]")
+        asToString.append("],")
+        asToString.append("[")
+        asToString.append("'dictSchedPatientLocItems': [\(String(describing: self.dictSchedPatientLocItems))]")
+        asToString.append("'bHasDictSchedPatientLocItemsBeenDisplayed': [\(String(describing: self.bHasDictSchedPatientLocItemsBeenDisplayed))]")
         asToString.append("],")
         asToString.append("]")
 
@@ -359,7 +368,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                 self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the result(s) of query of 'pfQueryTherapist'...")
 
                 var cPFTherapistObjects:Int   = 0
-                self.dictSchedPatientLocItems = [String:[ScheduledPatientLocationItem]]()
+            //  self.dictSchedPatientLocItems = [String:[ScheduledPatientLocationItem]]()
 
                 for pfTherapistObject in listPFTherapistObjects!
                 {
@@ -390,16 +399,27 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     }
 
-                    var scheduledPatientLocationItem:ScheduledPatientLocationItem =
-                            ScheduledPatientLocationItem(pfTherapistFileItem:pfTherapistObject)
-                    
-                    var listScheduledPatientLocationItems:[ScheduledPatientLocationItem] = [ScheduledPatientLocationItem]()
-                    
-                    listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
+                    if (self.dictSchedPatientLocItems[sPFTherapistParseTID] == nil)
+                    {
 
-                    self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
+                        var scheduledPatientLocationItem:ScheduledPatientLocationItem =
+                                ScheduledPatientLocationItem(pfTherapistFileItem:pfTherapistObject)
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) Added an inital Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
+                        var listScheduledPatientLocationItems:[ScheduledPatientLocationItem] = [ScheduledPatientLocationItem]()
+
+                        listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
+
+                        self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Added an initial Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] as a 'placeholder'...")
+
+                    }
+                    else
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Skipped adding an initial Item 'ScheduledPatientLocationItem' (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) - key 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] already exists...")
+
+                    }
 
                     if let parsePFAdminsDataItem:ParsePFAdminsDataItem = self.dictPFAdminsDataItems[sPFTherapistParseTID]
                     {
@@ -430,60 +450,67 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
             
         }
 
-        // If we created item(s) in the 'dictSchedPatientLocItems', then display them...
+        // If we created item(s) in the 'dictSchedPatientLocItems' and we haven't displayed them, then display them...
 
-        if (self.dictSchedPatientLocItems.count > 0)
+        if (bHasDictSchedPatientLocItemsBeenDisplayed == false)
         {
 
-            self.xcgLogMsg("\(sCurrMethodDisp) Displaying the dictionary of #(\(self.dictSchedPatientLocItems.count)) 'dictSchedPatientLocItems' item(s)...")
+            bHasDictSchedPatientLocItemsBeenDisplayed = true
 
-            let cPFTherapistTotalTIDs:Int = self.dictSchedPatientLocItems.count
-            var cPFTherapistParseTIDs:Int = 0
-
-            for (sPFTherapistParseTID, listScheduledPatientLocationItems) in self.dictSchedPatientLocItems
+            if (self.dictSchedPatientLocItems.count > 0)
             {
 
-                cPFTherapistParseTIDs += 1
+                self.xcgLogMsg("\(sCurrMethodDisp) Displaying the dictionary of #(\(self.dictSchedPatientLocItems.count)) 'dictSchedPatientLocItems' item(s)...")
 
-                if (sPFTherapistParseTID.count  < 1 ||
-                    sPFTherapistParseTID       == "-N/A-")
+                let cPFTherapistTotalTIDs:Int = self.dictSchedPatientLocItems.count
+                var cPFTherapistParseTIDs:Int = 0
+
+                for (sPFTherapistParseTID, listScheduledPatientLocationItems) in self.dictSchedPatientLocItems
                 {
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' - the 'tid' field is nil or '-N/A-' - Warning!")
+                    cPFTherapistParseTIDs += 1
 
-                    continue
+                    if (sPFTherapistParseTID.count  < 1 ||
+                        sPFTherapistParseTID       == "-N/A-")
+                    {
 
-                }
+                        self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' - the 'tid' field is nil or '-N/A-' - Warning!")
 
-                if (listScheduledPatientLocationItems.count  < 1)
-                {
+                        continue
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] - the 'listScheduledPatientLocationItems' field is nil or the count is less than 1 - Warning!")
+                    }
 
-                    continue
+                    if (listScheduledPatientLocationItems.count  < 1)
+                    {
 
-                }
+                        self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] - the 'listScheduledPatientLocationItems' field is nil or the count is less than 1 - Warning!")
 
-                var cScheduledPatientLocationItems:Int = 0
+                        continue
 
-                for scheduledPatientLocationItem in listScheduledPatientLocationItems
-                {
+                    }
 
-                    cScheduledPatientLocationItems += 1
+                    var cScheduledPatientLocationItems:Int = 0
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) Of #(\(cPFTherapistTotalTIDs)) TIDs - For TID [\(sPFTherapistParseTID)] - Displaying 'scheduledPatientLocationItem' item #(\(cPFTherapistParseTIDs).\(cScheduledPatientLocationItems)):")
+                    for scheduledPatientLocationItem in listScheduledPatientLocationItems
+                    {
 
-                    scheduledPatientLocationItem.displayScheduledPatientLocationItemToLog()
+                        cScheduledPatientLocationItems += 1
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Of #(\(cPFTherapistTotalTIDs)) TIDs - For TID [\(sPFTherapistParseTID)] - Displaying 'scheduledPatientLocationItem' item #(\(cPFTherapistParseTIDs).\(cScheduledPatientLocationItems)):")
+
+                        scheduledPatientLocationItem.displayScheduledPatientLocationItemToLog()
+
+                    }
 
                 }
 
             }
+            else
+            {
 
-        }
-        else
-        {
+                self.xcgLogMsg("\(sCurrMethodDisp) Unable to display the dictionary of 'dictSchedPatientLocItems' item(s) - item(s) count is less than 1 - Warning!")
 
-            self.xcgLogMsg("\(sCurrMethodDisp) Unable to display the dictionary of 'dictSchedPatientLocItems' item(s) - item(s) count is less than 1 - Warning!")
+            }
 
         }
 
