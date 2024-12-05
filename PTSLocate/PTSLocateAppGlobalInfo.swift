@@ -24,7 +24,7 @@ public class AppGlobalInfo: NSObject
     }
 
     static let sGlobalInfoAppId:String                                   = "PTSLocate"
-    static let sGlobalInfoAppVers:String                                 = "v1.1901"
+    static let sGlobalInfoAppVers:String                                 = "v1.1902"
     static let sGlobalInfoAppDisp:String                                 = sGlobalInfoAppId+".("+sGlobalInfoAppVers+"): "
     static let sGlobalInfoAppCopyRight:String                            = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
     static let sGlobalInfoAppLogFilespec:String                          = "PTSLocate.log"
@@ -53,7 +53,7 @@ public class AppGlobalInfo: NSObject
     static let bInstantiateAppParseCoreManager:Bool                      = true
     static let bInstantiateAppCoreLocationSupport:Bool                   = true
     static let bPerformAppCoreLocationTesting:Bool                       = true
-    static let bPerformAppDevTesting:Bool                                = false
+    static let bPerformAppDevTesting:Bool                                = true
     static let sAppUploadNotifyFrom:String                               = "dcox@justmacapps.net"
 
     // Various 'device' information:

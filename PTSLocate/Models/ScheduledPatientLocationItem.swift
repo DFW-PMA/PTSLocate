@@ -16,7 +16,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ScheduledPatientLocationItem"
-        static let sClsVers      = "v1.0203"
+        static let sClsVers      = "v1.0205"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -136,7 +136,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
   
         self.init()
         
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfTherapistFileItem' is [\(pfTherapistFileItem)]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfTherapistFileItem.ID' is [\(pfTherapistFileItem.object(forKey:"ID"))]...")
 
         // Finish the 'convenience' setup of field(s)...
 
@@ -158,7 +158,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
   
         self.init()
         
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfPatientCalDayItem' is [\(pfPatientCalDayItem)]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfPatientCalDayItem.tid' is [\(pfPatientCalDayItem.object(forKey:"tid"))]...")
 
         // Finish the 'convenience' setup of field(s)...
 
@@ -178,7 +178,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
         
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfTherapistFileItem' is [\(pfTherapistFileItem)]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfTherapistFileItem.ID' is [\(pfTherapistFileItem.object(forKey:"ID"))]...")
 
         // Handle the 'update' (setup) of field(s)...
 
@@ -207,7 +207,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
   
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfPatientCalDayItem' is [\(pfPatientCalDayItem)]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfPatientCalDayItem.tid' is [\(pfPatientCalDayItem.object(forKey:"tid"))]...")
 
         // Handle the 'update' (setup) of field(s)...
 
@@ -243,7 +243,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
   
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfBackupVisit' is [\(pfBackupVisit)]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfBackupVisit.VDate' is [\(pfBackupVisit.object(forKey:"VDate"))] <for 'tid' of [\(pfBackupVisit.object(forKey:"tid"))]>...")
 
         // Handle the 'update' (setup) of field(s)...
   
@@ -331,7 +331,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
 
     }   // End of public func toString().
 
-    public func displayScheduledPatientLocationItem()
+    public func displayScheduledPatientLocationItemToLog()
     {
 
         let sCurrMethod:String = #function
@@ -366,7 +366,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
 
         return
 
-    }   // END of public func displayScheduledPatientLocationItem().
+    }   // END of public func displayScheduledPatientLocationItemToLog().
     
 }   // END of class ScheduledPatientLocationItem(NSObject, Identifiable).
 

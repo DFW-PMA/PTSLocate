@@ -19,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1001"
+        static let sClsVers      = "v1.1105"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -29,32 +29,34 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
     // App Data field(s):
 
-               let timerPublisher                                       = Timer.publish(every: (3 * 60), on: .main, in: .common).autoconnect()
-                                                                          // Note: implement .onReceive() on a field within the displaying 'View'...
-                                                                          // 
-                                                                          // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
-                                                                          // ...
-                                                                          // .onReceive(jmAppParseCoreManager.timerPublisher,
-                                                                          //     perform:
-                                                                          //     { dtObserved in
-                                                                          //         ...
-                                                                          //     })
+               let timerPublisher                                                   = Timer.publish(every: (3 * 60), on: .main, in: .common).autoconnect()
+                                                                                      // Note: implement .onReceive() on a field within the displaying 'View'...
+                                                                                      // 
+                                                                                      // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
+                                                                                      // ...
+                                                                                      // .onReceive(jmAppParseCoreManager.timerPublisher,
+                                                                                      //     perform:
+                                                                                      //     { dtObserved in
+                                                                                      //         ...
+                                                                                      //     })
 
-       public  var parseConfig:ParseClientConfiguration?                = nil       
-       public  var pfInstallationCurrent:PFInstallation?                = nil
-       public  var bPFInstallationHasBeenEnumerated:Bool                = false
+       public  var parseConfig:ParseClientConfiguration?                            = nil       
+       public  var pfInstallationCurrent:PFInstallation?                            = nil
+       public  var bPFInstallationHasBeenEnumerated:Bool                            = false
 
-    @Published var cPFCscObjectsRefresh:Int                             = 0
-    @Published var cPFCscObjects:Int                                    = 0
-    @Published var listPFCscDataItems:[ParsePFCscDataItem]              = []
+    @Published var cPFCscObjectsRefresh:Int                                         = 0
+    @Published var cPFCscObjects:Int                                                = 0
+    @Published var listPFCscDataItems:[ParsePFCscDataItem]                          = []
 
-    @Published var dictPFAdminsDataItems:[String:ParsePFAdminsDataItem] = [:]
+    @Published var dictPFAdminsDataItems:[String:ParsePFAdminsDataItem]             = [:]
+    @Published var dictSchedPatientLocItems:[String:[ScheduledPatientLocationItem]] = [String:[ScheduledPatientLocationItem]]()
+                                                                                      // [String:[ScheduledPatientLocationItem]]
 
-               var jmAppDelegateVisitor:JmAppDelegateVisitor?           = nil
-                                                                        // 'jmAppDelegateVisitor' MUST remain declared this way
-                                                                        // as having it reference the 'shared' instance of 
-                                                                        // JmAppDelegateVisitor causes a circular reference
-                                                                        // between the 'init()' methods of the 2 classes...
+               var jmAppDelegateVisitor:JmAppDelegateVisitor?                       = nil
+                                                                                      // 'jmAppDelegateVisitor' MUST remain declared this way
+                                                                                      // as having it reference the 'shared' instance of 
+                                                                                      // JmAppDelegateVisitor causes a circular reference
+                                                                                      // between the 'init()' methods of the 2 classes...
 
     // App <global> Message(s) 'stack' cached before XCGLogger is available:
 
@@ -349,14 +351,15 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
             
             let listPFTherapistObjects:[PFObject]? = try pfQueryTherapist.findObjects()
             
-            if (listPFTherapistObjects != nil &&
-                listPFTherapistObjects!.count > 0)
+            if (listPFTherapistObjects        != nil &&
+                listPFTherapistObjects!.count  > 0)
             {
                 
                 self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryTherapist' returned a count of #(\(listPFTherapistObjects!.count)) PFObject(s)...")
                 self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the result(s) of query of 'pfQueryTherapist'...")
 
                 var cPFTherapistObjects:Int   = 0
+                self.dictSchedPatientLocItems = [String:[ScheduledPatientLocationItem]]()
 
                 for pfTherapistObject in listPFTherapistObjects!
                 {
@@ -387,6 +390,17 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     }
 
+                    var scheduledPatientLocationItem:ScheduledPatientLocationItem =
+                            ScheduledPatientLocationItem(pfTherapistFileItem:pfTherapistObject)
+                    
+                    var listScheduledPatientLocationItems:[ScheduledPatientLocationItem] = [ScheduledPatientLocationItem]()
+                    
+                    listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
+
+                    self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Added an inital Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
+
                     if let parsePFAdminsDataItem:ParsePFAdminsDataItem = self.dictPFAdminsDataItems[sPFTherapistParseTID]
                     {
 
@@ -414,6 +428,63 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
             self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed execute the query 'pfQueryAdmins' - Details: \(error) - Error!")
             
+        }
+
+        // If we created item(s) in the 'dictSchedPatientLocItems', then display them...
+
+        if (self.dictSchedPatientLocItems.count > 0)
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Displaying the dictionary of #(\(self.dictSchedPatientLocItems.count)) 'dictSchedPatientLocItems' item(s)...")
+
+            let cPFTherapistTotalTIDs:Int = self.dictSchedPatientLocItems.count
+            var cPFTherapistParseTIDs:Int = 0
+
+            for (sPFTherapistParseTID, listScheduledPatientLocationItems) in self.dictSchedPatientLocItems
+            {
+
+                cPFTherapistParseTIDs += 1
+
+                if (sPFTherapistParseTID.count  < 1 ||
+                    sPFTherapistParseTID       == "-N/A-")
+                {
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' - the 'tid' field is nil or '-N/A-' - Warning!")
+
+                    continue
+
+                }
+
+                if (listScheduledPatientLocationItems.count  < 1)
+                {
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] - the 'listScheduledPatientLocationItems' field is nil or the count is less than 1 - Warning!")
+
+                    continue
+
+                }
+
+                var cScheduledPatientLocationItems:Int = 0
+
+                for scheduledPatientLocationItem in listScheduledPatientLocationItems
+                {
+
+                    cScheduledPatientLocationItems += 1
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Of #(\(cPFTherapistTotalTIDs)) TIDs - For TID [\(sPFTherapistParseTID)] - Displaying 'scheduledPatientLocationItem' item #(\(cPFTherapistParseTIDs).\(cScheduledPatientLocationItems)):")
+
+                    scheduledPatientLocationItem.displayScheduledPatientLocationItemToLog()
+
+                }
+
+            }
+
+        }
+        else
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Unable to display the dictionary of 'dictSchedPatientLocItems' item(s) - item(s) count is less than 1 - Warning!")
+
         }
 
         // Exit:
