@@ -16,7 +16,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ScheduledPatientLocationItem"
-        static let sClsVers      = "v1.0205"
+        static let sClsVers      = "v1.0211"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -136,7 +136,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
   
         self.init()
         
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfTherapistFileItem.ID' is [\(pfTherapistFileItem.object(forKey:"ID"))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfTherapistFileItem.ID' is [\(String(describing: pfTherapistFileItem.object(forKey:"ID")))]...")
 
         // Finish the 'convenience' setup of field(s)...
 
@@ -158,7 +158,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
   
         self.init()
         
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfPatientCalDayItem.tid' is [\(pfPatientCalDayItem.object(forKey:"tid"))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfPatientCalDayItem.tid' is [\(String(describing: pfPatientCalDayItem.object(forKey:"tid")))]...")
 
         // Finish the 'convenience' setup of field(s)...
 
@@ -178,7 +178,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
         
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfTherapistFileItem.ID' is [\(pfTherapistFileItem.object(forKey:"ID"))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfTherapistFileItem.ID' is [\(String(describing: pfTherapistFileItem.object(forKey:"ID")))]...")
 
         // Handle the 'update' (setup) of field(s)...
 
@@ -207,7 +207,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
   
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfPatientCalDayItem.tid' is [\(pfPatientCalDayItem.object(forKey:"tid"))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfPatientCalDayItem.tid' is [\(String(describing: pfPatientCalDayItem.object(forKey:"tid")))]...")
 
         // Handle the 'update' (setup) of field(s)...
 
@@ -220,14 +220,42 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
 
         }
   
-        self.sTName          = String(describing: (pfPatientCalDayItem.object(forKey:"tName")     ?? ""))
+        self.sTName  = String(describing: (pfPatientCalDayItem.object(forKey:"tName")     ?? ""))
 
-        self.sPid            = String(describing: (pfPatientCalDayItem.object(forKey:"pid")       ?? "-1"))
-        self.iPid            = Int(self.sPid)!
-        self.sPtName         = String(describing: (pfPatientCalDayItem.object(forKey:"ptName")    ?? ""))
+        self.sPid    = String(describing: (pfPatientCalDayItem.object(forKey:"pid")       ?? "-1"))
+        self.iPid    = Int(self.sPid)!
+        self.sPtName = String(describing: (pfPatientCalDayItem.object(forKey:"ptName")    ?? ""))
 
-        self.sVDate          = String(describing: (pfPatientCalDayItem.object(forKey:"VDate")     ?? ""))
-        self.sVDateStartTime = String(describing: (pfPatientCalDayItem.object(forKey:"startTime") ?? ""))
+        self.sVDate  = String(describing: (pfPatientCalDayItem.object(forKey:"VDate")     ?? ""))
+
+        // Pull and 'clean' the 'startTime' value...
+
+        let sVDateStartTimeBase:String = String(describing: (pfPatientCalDayItem.object(forKey:"startTime") ?? ""))
+
+        if (sVDateStartTimeBase.count < 1)
+        {
+
+            self.sVDateStartTime = ""
+
+        }
+        else
+        {
+
+            let listVDateStartTimeBase:[String]  = sVDateStartTimeBase.components(separatedBy:CharacterSet.illegalCharacters)
+            let sVDateStartTimeBaseJoined:String = listVDateStartTimeBase.joined(separator:"")
+            let listVDateStartTimeNoWS:[String]  = sVDateStartTimeBaseJoined.components(separatedBy:CharacterSet.whitespacesAndNewlines)
+            let sVDateStartTimeUppercased:String = listVDateStartTimeNoWS.joined(separator:"")
+
+            self.sVDateStartTime = sVDateStartTimeUppercased.lowercased()
+
+        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'sVDateStartTimeBase'       is [\(sVDateStartTimeBase)]...")
+        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'listVDateStartTimeBase'    is [\(listVDateStartTimeBase)]...")
+        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'sVDateStartTimeBaseJoined' is [\(sVDateStartTimeBaseJoined)]...")
+        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'listVDateStartTimeNoWS'    is [\(listVDateStartTimeNoWS)]...")
+        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'sVDateStartTimeUppercased' is [\(sVDateStartTimeUppercased)]...")
+            self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'self.sVDateStartTime'      is [\(self.sVDateStartTime)] <lowercased>...")
+
+        }
   
         // Exit:
   
@@ -243,7 +271,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
   
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfBackupVisit.VDate' is [\(pfBackupVisit.object(forKey:"VDate"))] <for 'tid' of [\(pfBackupVisit.object(forKey:"tid"))]>...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter is 'pfBackupVisit.VDate' is [\(String(describing: pfBackupVisit.object(forKey:"VDate")))] <for 'tid' of [\(String(describing: pfBackupVisit.object(forKey:"tid")))]>...")
 
         // Handle the 'update' (setup) of field(s)...
   

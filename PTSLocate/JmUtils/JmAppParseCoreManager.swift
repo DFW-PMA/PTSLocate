@@ -19,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1108"
+        static let sClsVers      = "v1.1212"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -47,6 +47,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     @Published var cPFCscObjectsRefresh:Int                                         = 0
     @Published var cPFCscObjects:Int                                                = 0
     @Published var listPFCscDataItems:[ParsePFCscDataItem]                          = []
+               var listPFCscNameItems:[String]                                      = []
 
     @Published var dictPFAdminsDataItems:[String:ParsePFAdminsDataItem]             = [:]
 
@@ -141,6 +142,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         asToString.append("'cPFCscObjectsRefresh': [\(String(describing: self.cPFCscObjectsRefresh))]")
         asToString.append("'cPFCscObjects': [\(String(describing: self.cPFCscObjects))]")
         asToString.append("'listPFCscDataItems': [\(String(describing: self.listPFCscDataItems))]")
+        asToString.append("'listPFCscNameItems': [\(String(describing: self.listPFCscNameItems))]")
         asToString.append("],")
         asToString.append("[")
         asToString.append("'dictPFAdminsDataItems': [\(String(describing: self.dictPFAdminsDataItems))]")
@@ -355,6 +357,8 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
             
             pfQueryTherapist.whereKeyExists("ID")
             pfQueryTherapist.whereKeyExists("name")
+
+            pfQueryTherapist.whereKey("notActive", equalTo:false)
             
             pfQueryTherapist.limit = 1000
             
@@ -366,9 +370,9 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                 
                 self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryTherapist' returned a count of #(\(listPFTherapistObjects!.count)) PFObject(s)...")
                 self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the result(s) of query of 'pfQueryTherapist'...")
+                self.xcgLogMsg("\(sCurrMethodDisp) The 'tracking' location(s) list with #(\(self.listPFCscNameItems.count)) item(s) is [\(self.listPFCscNameItems)])...")
 
                 var cPFTherapistObjects:Int   = 0
-            //  self.dictSchedPatientLocItems = [String:[ScheduledPatientLocationItem]]()
 
                 for pfTherapistObject in listPFTherapistObjects!
                 {
@@ -401,26 +405,26 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     if (self.dictSchedPatientLocItems[sPFTherapistParseTID] == nil)
                     {
-
-                        var scheduledPatientLocationItem:ScheduledPatientLocationItem =
+                
+                        let scheduledPatientLocationItem:ScheduledPatientLocationItem =
                                 ScheduledPatientLocationItem(pfTherapistFileItem:pfTherapistObject)
-
+                
                         var listScheduledPatientLocationItems:[ScheduledPatientLocationItem] = [ScheduledPatientLocationItem]()
-
+                
                         listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
-
+                
                         self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
-
+                
                         self.xcgLogMsg("\(sCurrMethodDisp) Added an initial Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] as a 'placeholder'...")
-
+                
                     }
                     else
                     {
-
+                
                         self.xcgLogMsg("\(sCurrMethodDisp) Skipped adding an initial Item 'ScheduledPatientLocationItem' (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) - key 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] already exists...")
-
+                
                     }
-
+                
                     if let parsePFAdminsDataItem:ParsePFAdminsDataItem = self.dictPFAdminsDataItems[sPFTherapistParseTID]
                     {
 
@@ -440,6 +444,12 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                 }
                 
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryTherapist' returned a count of #(\(listPFTherapistObjects!.count)) PFObject(s) - Error!")
+
             }
             
         }
@@ -480,7 +490,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     }
 
-                    if (listScheduledPatientLocationItems.count  < 1)
+                    if (listScheduledPatientLocationItems.count < 1)
                     {
 
                         self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] - the 'listScheduledPatientLocationItems' field is nil or the count is less than 1 - Warning!")
@@ -568,6 +578,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                 self.cPFCscObjects      = 0
                 self.listPFCscDataItems = []
+                self.listPFCscNameItems = []
 
                 for pfCscObject in listPFCscObjects!
                 {
@@ -578,9 +589,10 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     parsePFCscDataItem.constructParsePFCscDataItemFromPFObject(idPFCscObject:cPFCscObjects, pfCscObject:pfCscObject)
 
+                    self.listPFCscNameItems.append(parsePFCscDataItem.sPFCscParseName)
                     self.listPFCscDataItems.append(parsePFCscDataItem)
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) Added object #(\(self.cPFCscObjects)) 'parsePFCscDataItem' to the list of item(s)...")
+                    self.xcgLogMsg("\(sCurrMethodDisp) Added object #(\(self.cPFCscObjects)) 'parsePFCscDataItem' to the list of name(s)/item(s)...")
 
                 }
 
@@ -870,9 +882,74 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                 self.xcgLogMsg("\(sCurrMethodDisp) Invoking background PFQueries method(s)...");
 
-            //  ...
+                self.xcgLogMsg("\(sCurrMethodDisp) Calling PFQuery to construct an instance for the 'PatientCalDay' class...")
+
+                self.gatherJmAppParsePFQueriesForPatientCalDayInBackground()
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Called  PFQuery to construct an instance for the 'PatientCalDay' class...")
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Calling PFQuery to construct an instance for the 'BackupVisit' class...")
+
+                self.gatherJmAppParsePFQueriesForBackupVisitInBackground()
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Called  PFQuery to construct an instance for the 'BackupVisit' class...")
 
                 self.xcgLogMsg("\(sCurrMethodDisp) Invoked  background PFQueries method(s)...");
+
+                if (self.dictSchedPatientLocItems.count > 0)
+                {
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Displaying the dictionary of #(\(self.dictSchedPatientLocItems.count)) 'dictSchedPatientLocItems' item(s)...")
+
+                    let cPFTherapistTotalTIDs:Int = self.dictSchedPatientLocItems.count
+                    var cPFTherapistParseTIDs:Int = 0
+
+                    for (sPFTherapistParseTID, listScheduledPatientLocationItems) in self.dictSchedPatientLocItems
+                    {
+
+                        cPFTherapistParseTIDs += 1
+
+                        if (sPFTherapistParseTID.count  < 1 ||
+                            sPFTherapistParseTID       == "-N/A-")
+                        {
+
+                            self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' - the 'tid' field is nil or '-N/A-' - Warning!")
+
+                            continue
+
+                        }
+
+                        if (listScheduledPatientLocationItems.count < 1)
+                        {
+
+                            self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] - the 'listScheduledPatientLocationItems' field is nil or the count is less than 1 - Warning!")
+
+                            continue
+
+                        }
+
+                        var cScheduledPatientLocationItems:Int = 0
+
+                        for scheduledPatientLocationItem in listScheduledPatientLocationItems
+                        {
+
+                            cScheduledPatientLocationItems += 1
+
+                            self.xcgLogMsg("\(sCurrMethodDisp) Of #(\(cPFTherapistTotalTIDs)) TIDs - For TID [\(sPFTherapistParseTID)] - Displaying 'scheduledPatientLocationItem' item #(\(cPFTherapistParseTIDs).\(cScheduledPatientLocationItems)):")
+
+                            scheduledPatientLocationItem.displayScheduledPatientLocationItemToLog()
+
+                        }
+
+                    }
+
+                }
+                else
+                {
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Unable to display the dictionary of 'dictSchedPatientLocItems' item(s) - item(s) count is less than 1 - Warning!")
+
+                }
 
             }
 
@@ -887,6 +964,174 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         return
 
     } // End of public func gatherJmAppParsePFQueriesForScheduledLocationsInBackground().
+    
+    public func gatherJmAppParsePFQueriesForPatientCalDayInBackground()
+    {
+
+        let sCurrMethod:String = #function;
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+  
+        // Issue a PFQueries to pull Therapist data from PatientCalDay for the current day...
+
+        let dtFormatterDate:DateFormatter = DateFormatter()
+
+        dtFormatterDate.locale     = Locale(identifier: "en_US")
+        dtFormatterDate.timeZone   = TimeZone.current
+        dtFormatterDate.dateFormat = "yyyy-MM-dd"
+
+        let dateForCurrentQuery:Date = Date.now
+        let sCurrentQueryDate:String = dtFormatterDate.string(from:dateForCurrentQuery)
+
+        self.xcgLogMsg("\(sCurrMethodDisp) 'sCurrentQueryDate' is [\(String(describing: sCurrentQueryDate))] <formatted>...")
+
+        // If we have item(s) in the 'dictSchedPatientLocItems' dictionary, then repopulate them with PatientCalDay information...
+
+        if (self.dictSchedPatientLocItems.count > 0)
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the dictionary of #(\(self.dictSchedPatientLocItems.count)) 'dictSchedPatientLocItems' item(s) to gather 'PatientCalDay' information...")
+
+            let cPFTherapistTotalTIDs:Int = self.dictSchedPatientLocItems.count
+            var cPFTherapistParseTIDs:Int = 0
+
+            for (sPFTherapistParseTID, listOfOldScheduledPatientLocationItems) in self.dictSchedPatientLocItems
+            {
+
+                cPFTherapistParseTIDs += 1
+
+                if (sPFTherapistParseTID.count  < 1 ||
+                    sPFTherapistParseTID       == "-N/A-")
+                {
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' - the 'tid' field is nil or '-N/A-' - Warning!")
+
+                    continue
+
+                }
+
+                if (listOfOldScheduledPatientLocationItems.count < 1)
+                {
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistTotalTIDs)) 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] - the 'listOfOldScheduledPatientLocationItems' field is nil or the count is less than 1 - Warning!")
+
+                    continue
+
+                }
+
+                // 'listOfOldScheduledPatientLocationItems' has at least 1 item (added as a 'placeholder' when the 'dictSchedPatientLocItems' was built.
+                // Grab the 1st item in the list to use as a 'template' object and then clear the list (to be rebuilt)...
+
+                let scheduledPatientLocationItemTemplate:ScheduledPatientLocationItem = listOfOldScheduledPatientLocationItems[0]
+                var listScheduledPatientLocationItems:[ScheduledPatientLocationItem]  = [ScheduledPatientLocationItem]()
+
+                // Issue a PFQuery for the 'PatientCalDay' class...
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Calling PFQuery to construct an instance for the 'PatientCalDay' class...")
+
+                let pfQueryPatientCalDay:PFQuery = PFQuery(className:"PatientCalDay")
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Called  PFQuery to construct an instance for the 'PatientCalDay' class...")
+
+                // Set the query parameter(s) and issue the 'find' then (possibly) iterate the result(s)...
+
+                self.xcgLogMsg("\(sCurrMethodDisp) Returned query of 'pfQueryPatientCalDay' is [\(String(describing: pfQueryPatientCalDay))]...")
+
+                do
+                {
+
+                //  "class" : "select * from PatientCalDay where tid = 261 and VDate = \"2024-12-03\";",
+
+                    pfQueryPatientCalDay.whereKeyExists("pid")
+                    pfQueryPatientCalDay.whereKeyExists("startTime")
+
+                //  pfQueryPatientCalDay.whereKey("tid",   equalTo:sPFTherapistParseTID)
+                    pfQueryPatientCalDay.whereKey("tid",   equalTo:Int(sPFTherapistParseTID) as Any)
+                    pfQueryPatientCalDay.whereKey("VDate", equalTo:sCurrentQueryDate)
+
+                    pfQueryPatientCalDay.limit = 1000
+
+                    let listPFPatientCalDayObjects:[PFObject]? = try pfQueryPatientCalDay.findObjects()
+
+                    if (listPFPatientCalDayObjects != nil &&
+                        listPFPatientCalDayObjects!.count > 0)
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryPatientCalDay' returned a count of #(\(listPFPatientCalDayObjects!.count)) PFObject(s)...")
+                        self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the result(s) of query of 'pfQueryPatientCalDay'...")
+
+                        var cPFPatientCalDayObjects:Int = 0
+
+                        for pfPatientCalDayObject in listPFPatientCalDayObjects!
+                        {
+
+                            cPFPatientCalDayObjects += 1
+
+                            let scheduledPatientLocationItem:ScheduledPatientLocationItem =
+                                    ScheduledPatientLocationItem(scheduledPatientLocationItem:scheduledPatientLocationItemTemplate)
+
+                            scheduledPatientLocationItem.updateScheduledPatientLocationItemFromPFPatientCalDay(pfPatientCalDayItem:pfPatientCalDayObject)
+
+                            listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
+
+                            self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
+
+                            self.xcgLogMsg("\(sCurrMethodDisp) Added an updated Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryPatientCalDay' returned an 'empty' or nil list of PFObject(s)...")
+
+                    }
+
+                }
+                catch
+                {
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed execute the query 'pfQueryPatientCalDay' - Details: \(error) - Error!")
+
+                }
+
+            }
+
+        }
+        else
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Unable to enumerate the dictionary of 'dictSchedPatientLocItems' item(s) - item(s) count is less than 1 - Warning!")
+
+        }
+
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+  
+        return
+
+    } // End of public func gatherJmAppParsePFQueriesForPatientCalDayInBackground().
+    
+    public func gatherJmAppParsePFQueriesForBackupVisitInBackground()
+    {
+
+        let sCurrMethod:String = #function;
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+  
+        // Issue a PFQueries to pull Therapist data from BackupVisit for the current day...
+
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+  
+        return
+
+    } // End of public func gatherJmAppParsePFQueriesForBackupVisitInBackground().
     
 }   // End of public class JmAppParseCoreManager.
 
