@@ -24,7 +24,7 @@ public class AppGlobalInfo: NSObject
     }
 
     static let sGlobalInfoAppId:String                                   = "PTSLocate"
-    static let sGlobalInfoAppVers:String                                 = "v1.1902"
+    static let sGlobalInfoAppVers:String                                 = "v1.1903"
     static let sGlobalInfoAppDisp:String                                 = sGlobalInfoAppId+".("+sGlobalInfoAppVers+"): "
     static let sGlobalInfoAppCopyRight:String                            = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
     static let sGlobalInfoAppLogFilespec:String                          = "PTSLocate.log"
@@ -45,7 +45,10 @@ public class AppGlobalInfo: NSObject
     static let sHelpBasicFileExt:String                                  = "md"       // 'help' File extension: "md", "html", or "txt"
 
 #endif
+
+    // Various 'app' component options:
     
+    static let bInstantiateAppSwiftDataManager:Bool                      = true
     static let bPerformAppObjCSwiftBridgeTest:Bool                       = true
     static let bInstantiateAppMetricKitManager:Bool                      = true
     static let bInstantiateAppUserNotificationsManager:Bool              = true

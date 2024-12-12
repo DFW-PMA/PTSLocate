@@ -1123,145 +1123,145 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
   
-        // Issue a PFQueries to pull Patient (Visit) data from BackupVisit for the last 30 day(s)...
-        //     :: From PFQuery Class: 'BackupVisit' ::
-        //
-        //     [Query::{ "pid"            : NumberLong(13556), 
-        //               "billable"       : NumberLong(1), 
-        //               "isTelepractice" : { "$ne" : NumberLong(1) },
-        //               "VDate"          : { "$gt" : "2024-11-10" } }]  // Yields all visit(s) in last 30 day(s) or such...
-        //     [Sort::{"VDate": -1}]                                     // Yields visit(s) newest to oldest (1st one is newest)...
-
-        let dtFormatterDate:DateFormatter = DateFormatter()
-
-        dtFormatterDate.locale     = Locale(identifier: "en_US")
-        dtFormatterDate.timeZone   = TimeZone.current
-        dtFormatterDate.dateFormat = "yyyy-MM-dd"
-
-    //  let dateForCurrentQuery:Date = Date.now
-        let dateForCurrentQuery:Date = Calendar.current.date(byAdding: .day, value: -30, to: .now)!
-        let sCurrentQueryDate:String = dtFormatterDate.string(from:dateForCurrentQuery)
-
-        self.xcgLogMsg("\(sCurrMethodDisp) 'sCurrentQueryDate' is [\(String(describing: sCurrentQueryDate))] <formatted>...")
-
-        // If we have item(s) in the 'dictSchedPatientLocItems' dictionary, then repopulate them with BackupVisit information...
-
-        if (self.dictSchedPatientLocItems.count > 0)
-        {
-
-            self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the dictionary of #(\(self.dictSchedPatientLocItems.count)) 'dictSchedPatientLocItems' item(s) to gather 'BackupVisit' information...")
-
-            let cPFTherapistTotalTIDs:Int = self.dictSchedPatientLocItems.count
-            var cPFTherapistParseTIDs:Int = 0
-
-            for (sPFTherapistParseTID, listOfOldScheduledPatientLocationItems) in self.dictSchedPatientLocItems
-            {
-
-                cPFTherapistParseTIDs += 1
-
-                if (sPFTherapistParseTID.count  < 1 ||
-                    sPFTherapistParseTID       == "-N/A-")
-                {
-
-                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' - the 'tid' field is nil or '-N/A-' - Warning!")
-
-                    continue
-
-                }
-
-                if (listOfOldScheduledPatientLocationItems.count < 1)
-                {
-
-                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistTotalTIDs)) 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] - the 'listOfOldScheduledPatientLocationItems' field is nil or the count is less than 1 - Warning!")
-
-                    continue
-
-                }
-
-                let scheduledPatientLocationItemTemplate:ScheduledPatientLocationItem = listOfOldScheduledPatientLocationItems[0]
-
-                // Issue a PFQuery for the 'BackupVisit' class...
-
-                self.xcgLogMsg("\(sCurrMethodDisp) Calling PFQuery to construct an instance for the 'BackupVisit' class...")
-
-                let pfQueryBackupVisit:PFQuery = PFQuery(className:"BackupVisit")
-
-                self.xcgLogMsg("\(sCurrMethodDisp) Called  PFQuery to construct an instance for the 'BackupVisit' class...")
-
-                // Set the query parameter(s) and issue the 'find' then (possibly) iterate the result(s)...
-
-                self.xcgLogMsg("\(sCurrMethodDisp) Returned query of 'pfQueryBackupVisit' is [\(String(describing: pfQueryBackupVisit))]...")
-
-                do
-                {
-
-                //  :: From PFQuery Class: 'BackupVisit' ::
-                //
-                //  [Query::{ "pid"            : NumberLong(13556), 
-                //            "billable"       : NumberLong(1), 
-                //            "isTelepractice" : { "$ne" : NumberLong(1) },
-                //            "VDate"          : { "$gt" : "2024-11-10" } }]  // Yields all visit(s) in last 30 day(s) or such...
-                //  [Sort::{"VDate": -1}]                                     // Yields visit(s) newest to oldest (1st one is newest)...
-
-                    pfQueryBackupVisit.whereKey("pid",   equalTo:scheduledPatientLocationItemTemplate.iPid)
-                    pfQueryBackupVisit.whereKey("VDate", equalTo:sCurrentQueryDate)
-
-                    pfQueryBackupVisit.limit = 1000
-
-                    let listPFBackupVisitObjects:[PFObject]? = try pfQueryBackupVisit.findObjects()
-
-                    if (listPFBackupVisitObjects != nil &&
-                        listPFBackupVisitObjects!.count > 0)
-                    {
-
-                        self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryBackupVisit' returned a count of #(\(listPFBackupVisitObjects!.count)) PFObject(s)...")
-                        self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the result(s) of query of 'pfQueryBackupVisit'...")
-
-                        var cPFBackupVisitObjects:Int = 0
-
-                        for pfBackupVisitObject in listPFBackupVisitObjects!
-                        {
-
-                            cPFBackupVisitObjects += 1
-
-                            let scheduledPatientLocationItem:ScheduledPatientLocationItem =
-                                    ScheduledPatientLocationItem(scheduledPatientLocationItem:scheduledPatientLocationItemTemplate)
-
-                            scheduledPatientLocationItem.updateScheduledPatientLocationItemFromPFBackupVisit(pfBackupVisitItem:pfBackupVisitObject)
-
-                            listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
-
-                            self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
-
-                            self.xcgLogMsg("\(sCurrMethodDisp) Added an updated Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
-
-                        }
-
-                    }
-                    else
-                    {
-
-                        self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryBackupVisit' returned an 'empty' or nil list of PFObject(s)...")
-
-                    }
-
-                }
-                catch
-                {
-
-                    self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed execute the query 'pfQueryBackupVisit' - Details: \(error) - Error!")
-
-                }
-
-            }
-
-        }
-        else
-        {
-
-            self.xcgLogMsg("\(sCurrMethodDisp) Unable to enumerate the dictionary of 'dictSchedPatientLocItems' item(s) - item(s) count is less than 1 - Warning!")
-
-        }
+//        // Issue a PFQueries to pull Patient (Visit) data from BackupVisit for the last 30 day(s)...
+//        //     :: From PFQuery Class: 'BackupVisit' ::
+//        //
+//        //     [Query::{ "pid"            : NumberLong(13556), 
+//        //               "billable"       : NumberLong(1), 
+//        //               "isTelepractice" : { "$ne" : NumberLong(1) },
+//        //               "VDate"          : { "$gt" : "2024-11-10" } }]  // Yields all visit(s) in last 30 day(s) or such...
+//        //     [Sort::{"VDate": -1}]                                     // Yields visit(s) newest to oldest (1st one is newest)...
+//
+//        let dtFormatterDate:DateFormatter = DateFormatter()
+//
+//        dtFormatterDate.locale     = Locale(identifier: "en_US")
+//        dtFormatterDate.timeZone   = TimeZone.current
+//        dtFormatterDate.dateFormat = "yyyy-MM-dd"
+//
+//    //  let dateForCurrentQuery:Date = Date.now
+//        let dateForCurrentQuery:Date = Calendar.current.date(byAdding: .day, value: -30, to: .now)!
+//        let sCurrentQueryDate:String = dtFormatterDate.string(from:dateForCurrentQuery)
+//
+//        self.xcgLogMsg("\(sCurrMethodDisp) 'sCurrentQueryDate' is [\(String(describing: sCurrentQueryDate))] <formatted>...")
+//
+//        // If we have item(s) in the 'dictSchedPatientLocItems' dictionary, then repopulate them with BackupVisit information...
+//
+//        if (self.dictSchedPatientLocItems.count > 0)
+//        {
+//
+//            self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the dictionary of #(\(self.dictSchedPatientLocItems.count)) 'dictSchedPatientLocItems' item(s) to gather 'BackupVisit' information...")
+//
+//            let cPFTherapistTotalTIDs:Int = self.dictSchedPatientLocItems.count
+//            var cPFTherapistParseTIDs:Int = 0
+//
+//            for (sPFTherapistParseTID, listOfOldScheduledPatientLocationItems) in self.dictSchedPatientLocItems
+//            {
+//
+//                cPFTherapistParseTIDs += 1
+//
+//                if (sPFTherapistParseTID.count  < 1 ||
+//                    sPFTherapistParseTID       == "-N/A-")
+//                {
+//
+//                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistParseTIDs)) 'sPFTherapistParseTID' - the 'tid' field is nil or '-N/A-' - Warning!")
+//
+//                    continue
+//
+//                }
+//
+//                if (listOfOldScheduledPatientLocationItems.count < 1)
+//                {
+//
+//                    self.xcgLogMsg("\(sCurrMethodDisp) Skipping object #(\(cPFTherapistTotalTIDs)) 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] - the 'listOfOldScheduledPatientLocationItems' field is nil or the count is less than 1 - Warning!")
+//
+//                    continue
+//
+//                }
+//
+//                let scheduledPatientLocationItemTemplate:ScheduledPatientLocationItem = listOfOldScheduledPatientLocationItems[0]
+//
+//                // Issue a PFQuery for the 'BackupVisit' class...
+//
+//                self.xcgLogMsg("\(sCurrMethodDisp) Calling PFQuery to construct an instance for the 'BackupVisit' class...")
+//
+//                let pfQueryBackupVisit:PFQuery = PFQuery(className:"BackupVisit")
+//
+//                self.xcgLogMsg("\(sCurrMethodDisp) Called  PFQuery to construct an instance for the 'BackupVisit' class...")
+//
+//                // Set the query parameter(s) and issue the 'find' then (possibly) iterate the result(s)...
+//
+//                self.xcgLogMsg("\(sCurrMethodDisp) Returned query of 'pfQueryBackupVisit' is [\(String(describing: pfQueryBackupVisit))]...")
+//
+//                do
+//                {
+//
+//                //  :: From PFQuery Class: 'BackupVisit' ::
+//                //
+//                //  [Query::{ "pid"            : NumberLong(13556), 
+//                //            "billable"       : NumberLong(1), 
+//                //            "isTelepractice" : { "$ne" : NumberLong(1) },
+//                //            "VDate"          : { "$gt" : "2024-11-10" } }]  // Yields all visit(s) in last 30 day(s) or such...
+//                //  [Sort::{"VDate": -1}]                                     // Yields visit(s) newest to oldest (1st one is newest)...
+//
+//                    pfQueryBackupVisit.whereKey("pid",   equalTo:scheduledPatientLocationItemTemplate.iPid)
+//                    pfQueryBackupVisit.whereKey("VDate", equalTo:sCurrentQueryDate)
+//
+//                    pfQueryBackupVisit.limit = 1000
+//
+//                    let listPFBackupVisitObjects:[PFObject]? = try pfQueryBackupVisit.findObjects()
+//
+//                    if (listPFBackupVisitObjects != nil &&
+//                        listPFBackupVisitObjects!.count > 0)
+//                    {
+//
+//                        self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryBackupVisit' returned a count of #(\(listPFBackupVisitObjects!.count)) PFObject(s)...")
+//                        self.xcgLogMsg("\(sCurrMethodDisp) Enumerating the result(s) of query of 'pfQueryBackupVisit'...")
+//
+//                        var cPFBackupVisitObjects:Int = 0
+//
+//                        for pfBackupVisitObject in listPFBackupVisitObjects!
+//                        {
+//
+//                            cPFBackupVisitObjects += 1
+//
+//                            let scheduledPatientLocationItem:ScheduledPatientLocationItem =
+//                                    ScheduledPatientLocationItem(scheduledPatientLocationItem:scheduledPatientLocationItemTemplate)
+//
+//                            scheduledPatientLocationItem.updateScheduledPatientLocationItemFromPFBackupVisit(pfBackupVisitItem:pfBackupVisitObject)
+//
+//                            listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
+//
+//                            self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
+//
+//                            self.xcgLogMsg("\(sCurrMethodDisp) Added an updated Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
+//
+//                        }
+//
+//                    }
+//                    else
+//                    {
+//
+//                        self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryBackupVisit' returned an 'empty' or nil list of PFObject(s)...")
+//
+//                    }
+//
+//                }
+//                catch
+//                {
+//
+//                    self.xcgLogMsg("\(sCurrMethodDisp) Parse - failed execute the query 'pfQueryBackupVisit' - Details: \(error) - Error!")
+//
+//                }
+//
+//            }
+//
+//        }
+//        else
+//        {
+//
+//            self.xcgLogMsg("\(sCurrMethodDisp) Unable to enumerate the dictionary of 'dictSchedPatientLocItems' item(s) - item(s) count is less than 1 - Warning!")
+//
+//        }
 
         // Exit...
   

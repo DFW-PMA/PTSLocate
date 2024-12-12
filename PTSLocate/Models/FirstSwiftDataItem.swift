@@ -12,7 +12,7 @@ import SwiftData
 @Model
 //NOTE: Do NOT Subclass in this Class - @Model will throw an error about using 'self' before 'super.init()'...
 //class FirstSwiftDataItem: NSObject, Identifiable
-final class FirstSwiftDataItem: Identifiable
+public final class FirstSwiftDataItem: Identifiable
 {
     
     @Transient
@@ -20,7 +20,7 @@ final class FirstSwiftDataItem: Identifiable
     {
         
         static let sClsId        = "FirstSwiftDataItem"
-        static let sClsVers      = "v1.0304"
+        static let sClsVers      = "v1.0401"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -28,7 +28,7 @@ final class FirstSwiftDataItem: Identifiable
         
     }
 
-    @Attribute(.unique) 
+    @Attribute(.unique) public
     var id:UUID                                   = UUID()
     var idPFAdminsObject:Int                      = 0
     var timestamp:Date                            = Date()
