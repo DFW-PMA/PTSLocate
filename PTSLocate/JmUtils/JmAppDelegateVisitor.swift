@@ -24,7 +24,7 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     {
         
         static let sClsId        = "JmAppDelegateVisitor"
-        static let sClsVers      = "v1.2303"
+        static let sClsVers      = "v1.2401"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -117,6 +117,25 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     var sAppDelegateVisitorGlobalAlertMessage:String?              = nil
     var sAppDelegateVisitorGlobalAlertButtonText:String?           = nil
 
+    // App <global> 'Alert' control(s) with (optional) 'completion' closure:
+
+    @Published 
+    var isAppDelegateVisitorShowingCompletionAlert:Bool            = false
+    {
+
+        didSet
+        {
+
+            objectWillChange.send()
+
+        }
+
+    }
+
+    var sAppDelegateVisitorCompletionAlertMessage:String?          = nil
+    var sAppDelegateVisitorCompletionAlertButtonText:String?       = nil
+    var appDelegateVisitorCompletionClosure:(()->())?              = nil
+
     // App <global> 'state' control(s):
 
     var bWasAppLogFilePresentAtStartup:Bool                        = false
@@ -208,11 +227,18 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("jmObjCSwiftEnvBridge': [\(String(describing: self.jmObjCSwiftEnvBridge))],")
         asToString.append("],")
         asToString.append("[")
-        asToString.append("isUserAuthenticationAvailable': [\(self.isUserAuthenticationAvailable)],")
-        asToString.append("appDelegateVisitorSwiftViewsShouldChange': [\(self.appDelegateVisitorSwiftViewsShouldChange)],")
+        asToString.append("appDelegateVisitorSwiftViewsShouldChange': [\(String(describing: self.appDelegateVisitorSwiftViewsShouldChange))],")
+        asToString.append("],")
+        asToString.append("[")
         asToString.append("isAppDelegateVisitorShowingAlert': [\(self.isAppDelegateVisitorShowingAlert)],")
         asToString.append("sAppDelegateVisitorGlobalAlertMessage': [\(String(describing: self.sAppDelegateVisitorGlobalAlertMessage))],")
         asToString.append("sAppDelegateVisitorGlobalAlertButtonText': [\(String(describing: self.sAppDelegateVisitorGlobalAlertButtonText))],")
+        asToString.append("],")
+        asToString.append("[")
+        asToString.append("isAppDelegateVisitorShowingCompletionAlert': [\(self.isAppDelegateVisitorShowingCompletionAlert)],")
+        asToString.append("sAppDelegateVisitorCompletionAlertMessage': [\(String(describing: self.sAppDelegateVisitorCompletionAlertMessage))],")
+        asToString.append("sAppDelegateVisitorCompletionAlertButtonText': [\(String(describing: self.sAppDelegateVisitorCompletionAlertButtonText))],")
+        asToString.append("appDelegateVisitorCompletionClosure': [\(String(describing: self.appDelegateVisitorCompletionClosure))],")
         asToString.append("],")
         asToString.append("[")
         asToString.append("bWasAppLogFilePresentAtStartup': [\(self.bWasAppLogFilePresentAtStartup)],")
@@ -1345,7 +1371,9 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
 
         // Reset the signal of the Global Alert...
 
-        self.isAppDelegateVisitorShowingAlert = false
+        self.sAppDelegateVisitorGlobalAlertMessage    = "-N/A-"
+        self.sAppDelegateVisitorGlobalAlertButtonText = "-N/A-"
+        self.isAppDelegateVisitorShowingAlert         = false
 
         // Exit:
 
@@ -1354,6 +1382,107 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         return
 
     }   // End of @objc public func resetAppDelegateVisitorSignalGlobalAlert().
+
+    public func setAppDelegateVisitorSignalCompletionAlert(_ alertMsg:String? = nil, alertButtonText:String? = nil, withCompletion completionHandler:(()->())?)
+    {
+
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter(s) 'alertMsg' is [\(String(describing: alertMsg))] - 'alertButtonText' is [\(String(describing: alertButtonText))] - 'completionHandler' is [\(String(describing: completionHandler))]...")
+
+        // Set the Alert fields (Message and Button Text) and then signal the Global Alert...
+
+        if (alertMsg        == nil ||
+            alertMsg!.count  < 1)
+        {
+
+            self.sAppDelegateVisitorCompletionAlertMessage = "-N/A-"
+
+        }
+        else
+        {
+
+            self.sAppDelegateVisitorCompletionAlertMessage = alertMsg
+
+        }
+
+        if (alertButtonText        == nil ||
+            alertButtonText!.count  < 1)
+        {
+
+            self.sAppDelegateVisitorCompletionAlertButtonText = "-N/A-"
+
+        }
+        else
+        {
+
+            self.sAppDelegateVisitorCompletionAlertButtonText = alertButtonText
+
+        }
+        
+        if completionHandler != nil
+        {
+            
+            self.appDelegateVisitorCompletionClosure = completionHandler
+            
+        }
+        else
+        {
+            
+            self.appDelegateVisitorCompletionClosure = nil
+            
+        }
+
+        self.isAppDelegateVisitorShowingCompletionAlert = true
+
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+
+        return
+
+    }   // End of @objc public func setAppDelegateVisitorSignalCompletionAlert(_ alertMsg:String? = nil, alertButtonText:String? = nil, withCompletion completionHandler:@escaping(Void)->(Void)?)
+
+    @objc public func resetAppDelegateVisitorSignalCompletionAlert()
+    {
+
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - 'self' is [\(self)]...")
+
+        // (Optionally) call the 'completion' handler and reset the signal of the 'completion' Alert...
+
+        if self.appDelegateVisitorCompletionClosure != nil
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Calling the 'completion' closure - 'appDelegateVisitorCompletionClosure' is [\(String(describing: self.appDelegateVisitorCompletionClosure))]...")
+
+            self.appDelegateVisitorCompletionClosure!()
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Called  the 'completion' closure - 'appDelegateVisitorCompletionClosure' is [\(String(describing: self.appDelegateVisitorCompletionClosure))]...")
+
+        }
+        else
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Bypassing calling the 'completion' closure - 'appDelegateVisitorCompletionClosure' is nil...")
+
+        }
+
+        self.sAppDelegateVisitorCompletionAlertMessage    = "-N/A-"
+        self.sAppDelegateVisitorCompletionAlertButtonText = "-N/A-"
+        self.appDelegateVisitorCompletionClosure          = nil
+        self.isAppDelegateVisitorShowingCompletionAlert   = false
+
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+
+        return
+
+    }   // End of @objc public func resetAppDelegateVisitorSignalCompletionAlert().
 
     // Method(s) to assist with sending Email with a File upload (and 'optional' Alert message)...
 
