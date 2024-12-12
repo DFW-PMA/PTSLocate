@@ -19,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1501"
+        static let sClsVers      = "v1.1504"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -29,42 +29,43 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
     // App Data field(s):
 
-                let timerPublisher                                                    = Timer.publish(every: (3 * 60), on: .main, in: .common).autoconnect()
-                                                                                        // Note: implement .onReceive() on a field within the displaying 'View'...
-                                                                                        // 
-                                                                                        // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
-                                                                                        // ...
-                                                                                        // .onReceive(jmAppParseCoreManager.timerPublisher,
-                                                                                        //     perform:
-                                                                                        //     { dtObserved in
-                                                                                        //         ...
-                                                                                        //     })
+                    let timerPublisher                                                   = Timer.publish(every: (3 * 60), on: .main, in: .common).autoconnect()
+                                                                                           // Note: implement .onReceive() on a field within the displaying 'View'...
+                                                                                           // 
+                                                                                           // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
+                                                                                           // ...
+                                                                                           // .onReceive(jmAppParseCoreManager.timerPublisher,
+                                                                                           //     perform:
+                                                                                           //     { dtObserved in
+                                                                                           //         ...
+                                                                                           //     })
 
-       public   var parseConfig:ParseClientConfiguration?                             = nil       
-       public   var pfInstallationCurrent:PFInstallation?                             = nil
-       public   var bPFInstallationHasBeenEnumerated:Bool                             = false
+       public       var parseConfig:ParseClientConfiguration?                            = nil       
+       public       var pfInstallationCurrent:PFInstallation?                            = nil
+       public       var bPFInstallationHasBeenEnumerated:Bool                            = false
 
-    @Published  var cPFCscObjectsRefresh:Int                                          = 0
-    @Published  var cPFCscObjects:Int                                                 = 0
-    @Published  var listPFCscDataItems:[ParsePFCscDataItem]                           = []
-                var listPFCscNameItems:[String]                                       = []
+    @Published      var cPFCscObjectsRefresh:Int                                         = 0
+    @Published      var cPFCscObjects:Int                                                = 0
+    @Published      var listPFCscDataItems:[ParsePFCscDataItem]                          = []
+                    var listPFCscNameItems:[String]                                      = []
 
-    @Published  var dictPFAdminsDataItems:[String:ParsePFAdminsDataItem]              = [:]
+    @Published      var dictPFAdminsDataItems:[String:ParsePFAdminsDataItem]             = [:]
 
-    @Published  var dictSchedPatientLocItems:[String:[ScheduledPatientLocationItem]]  = [String:[ScheduledPatientLocationItem]]()
-                                                                                        // [String:[ScheduledPatientLocationItem]]
+    @Published      var dictSchedPatientLocItems:[String:[ScheduledPatientLocationItem]] = [String:[ScheduledPatientLocationItem]]()
+                                                                                           // [String:[ScheduledPatientLocationItem]]
 
-       private  var bHasDictSchedPatientLocItemsBeenDisplayed:Bool                    = false
+       private      var bHasDictSchedPatientLocItemsBeenDisplayed:Bool                   = false
 
-                var  jmAppDelegateVisitor:JmAppDelegateVisitor?                       = nil
-                                                                                       // 'jmAppDelegateVisitor' MUST remain declared this way
-                                                                                       // as having it reference the 'shared' instance of 
-                                                                                       // JmAppDelegateVisitor causes a circular reference
-                                                                                       // between the 'init()' methods of the 2 classes...
+                    var jmAppDelegateVisitor:JmAppDelegateVisitor?                       = nil
+                                                                                           // 'jmAppDelegateVisitor' MUST remain declared this way
+                                                                                           // as having it reference the 'shared' instance of 
+                                                                                           // JmAppDelegateVisitor causes a circular reference
+                                                                                           // between the 'init()' methods of the 2 classes...
+    @ObservedObject var jmAppSwiftDataManager:JmAppSwiftDataManager                      = JmAppSwiftDataManager.ClassSingleton.appSwiftDataManager
 
     // App <global> Message(s) 'stack' cached before XCGLogger is available:
 
-                var  listPreXCGLoggerMessages:[String]                                = Array()
+                    var  listPreXCGLoggerMessages:[String]                               = Array()
 
     override init()
     {
@@ -745,10 +746,10 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         if (self.dictPFAdminsDataItems.count > 0)
         {
 
-            if (self.jmAppDelegateVisitor?.modelContext != nil)
+            if (self.jmAppSwiftDataManager.modelContext != nil)
             {
 
-                let pfAdminsSwiftDataItemsDescriptor = FetchDescriptor<PFAdminsSwiftDataItem>()
+            //  let pfAdminsSwiftDataItemsDescriptor = FetchDescriptor<PFAdminsSwiftDataItem>()
 
                 DispatchQueue.main.async
                 {
@@ -756,17 +757,18 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                     do
                     {
 
-                        let pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem] = try self.jmAppDelegateVisitor?.modelContext!.fetch(pfAdminsSwiftDataItemsDescriptor) ?? []
-                        let cPFAdminsSwiftDataItems:Int                 = pfAdminsSwiftDataItems.count
-
-                        if (cPFAdminsSwiftDataItems > 0)
+                    //  let pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem] = try self.jmAppSwiftDataManager.modelContext!.fetch(pfAdminsSwiftDataItemsDescriptor)
+                    //  let cPFAdminsSwiftDataItems:Int                    = pfAdminsSwiftDataItems.count
+                    //
+                    //  if (cPFAdminsSwiftDataItems > 0)
+                        if (self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count > 0)
                         {
 
-                            self.xcgLogMsg("\(sCurrMethodDisp) Deleting ALL #(\(cPFAdminsSwiftDataItems)) existing SwiftData PFQuery 'Admins' item(s)...")
+                            self.xcgLogMsg("\(sCurrMethodDisp) Deleting ALL #(\(self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count)) existing SwiftData PFQuery 'Admins' item(s)...")
 
-                            try self.jmAppDelegateVisitor?.modelContext!.delete(model:PFAdminsSwiftDataItem.self)
+                            try self.jmAppSwiftDataManager.modelContext!.delete(model:PFAdminsSwiftDataItem.self)
 
-                            self.xcgLogMsg("\(sCurrMethodDisp) Deleted  ALL #(\(cPFAdminsSwiftDataItems)) existing SwiftData PFQuery 'Admins' item(s)...")
+                            self.xcgLogMsg("\(sCurrMethodDisp) Deleted  ALL #(\(self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count)) existing SwiftData PFQuery 'Admins' item(s)...")
 
                         }
                         else
@@ -792,12 +794,14 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                     {
 
                         let newPFAdminsSwiftDataItem = PFAdminsSwiftDataItem(timestamp:   Date(),
-                                                                       sCreatedBy:  "\(ClassInfo.sClsDisp)",
-                                                                       pfAdminsItem:parsePFAdminsDataItem)
+                                                                             sCreatedBy:  "\(ClassInfo.sClsDisp)",
+                                                                             pfAdminsItem:parsePFAdminsDataItem)
 
-                        self.jmAppDelegateVisitor?.modelContext!.insert(newPFAdminsSwiftDataItem)
+                    //  self.jmAppSwiftDataManager.modelContext!.insert(newPFAdminsSwiftDataItem)
+                        self.jmAppSwiftDataManager.addAppSwiftDataItem(pfAdminsSwiftDataItem:newPFAdminsSwiftDataItem, 
+                                                                       bShowDetailAfterAdd:  false)
 
-                        self.xcgLogMsg("\(sCurrMethodDisp) Added 'newPFAdminsSwiftDataItem' of [\(String(describing: newPFAdminsSwiftDataItem.toString()))] to the SwiftData 'model' Context...")
+                        self.xcgLogMsg("\(sCurrMethodDisp) Added 'newPFAdminsSwiftDataItem' of [\(String(describing: newPFAdminsSwiftDataItem.toString()))] to the SwiftDataManager...")
 
                         cPFAdminsDataItemsAdded += 1
 
@@ -805,34 +809,40 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     self.xcgLogMsg("\(sCurrMethodDisp) Added #(\(cPFAdminsDataItemsAdded)) PFQuery 'Admins' item(s) to SwiftData from #(\(self.dictPFAdminsDataItems.count)) available item(s)...")
 
-                    do
-                    {
+                    self.xcgLogMsg("\(sCurrMethodDisp) Invoking 'self.jmAppSwiftDataManager.detailAppSwiftDataToLog()'...")
 
-                        try self.jmAppDelegateVisitor?.modelContext!.save()
+                    self.jmAppSwiftDataManager.detailAppSwiftDataToLog()
 
-                        self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has been saved after adding PFQuery 'Admins' item(s)...")
+                    self.xcgLogMsg("\(sCurrMethodDisp) Invoked  'self.jmAppSwiftDataManager.detailAppSwiftDataToLog()'...")
 
-                        self.jmAppDelegateVisitor?.pfAdminsSwiftDataItems  = try self.jmAppDelegateVisitor?.modelContext!.fetch(pfAdminsSwiftDataItemsDescriptor) ?? []
-                        self.jmAppDelegateVisitor?.cPFAdminsSwiftDataItems = self.jmAppDelegateVisitor?.pfAdminsSwiftDataItems.count ?? 0
-
-                        if (self.jmAppDelegateVisitor!.cPFAdminsSwiftDataItems > 0)
-                        {
-
-                            self.jmAppDelegateVisitor?.bArePFAdminsSwiftDataItemsAvailable = true
-                        //  self.jmAppDelegateVisitor?.bArePFAdminsSwiftDataItemsAvailable.toggle()
-
-                        }
-
-                        self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppDelegateVisitor?.pfAdminsSwiftDataItems' has (\(String(describing: self.jmAppDelegateVisitor?.cPFAdminsSwiftDataItems))) 'login' item(s)...")
-                        self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppDelegateVisitor?.bArePFAdminsSwiftDataItemsAvailable' is [\(String(describing: self.jmAppDelegateVisitor?.bArePFAdminsSwiftDataItemsAvailable))]...")
-
-                    }
-                    catch
-                    {
-
-                        self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has failed to save after adding PFQuery 'Admins' item(s) - Details: \(error) - Error!")
-
-                    }
+                //  do
+                //  {
+                //
+                //      try self.jmAppSwiftDataManager.modelContext!.save()
+                //
+                //      self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has been saved after adding PFQuery 'Admins' item(s)...")
+                //
+                //      self.jmAppSwiftDataManager.pfAdminsSwiftDataItems   = try self.jmAppSwiftDataManager.modelContext!.fetch(pfAdminsSwiftDataItemsDescriptor)
+                //  //  self.jmAppSwiftDataManager?.cPFAdminsSwiftDataItems = self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count
+                //
+                //      if (self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count > 0)
+                //      {
+                //
+                //          self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable = true
+                //      //  self.jmAppSwiftDataManager?.bArePFAdminsSwiftDataItemsAvailable.toggle()
+                //
+                //      }
+                //
+                //      self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppSwiftDataManager?.pfAdminsSwiftDataItems' has (\(String(describing: self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count))) 'login' item(s)...")
+                //      self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppSwiftDataManager?.bArePFAdminsSwiftDataItemsAvailable' is [\(String(describing: self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable))]...")
+                //
+                //  }
+                //  catch
+                //  {
+                //
+                //      self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has failed to save after adding PFQuery 'Admins' item(s) - Details: \(error) - Error!")
+                //
+                //  }
 
                 }
 
@@ -840,7 +850,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
             else
             {
 
-                self.xcgLogMsg("\(sCurrMethodDisp) Copy failed - 'self.jmAppDelegateVisitor?.modelContent' is nil - NO 'target' to copy (\(self.dictPFAdminsDataItems.count)) item(s) too - Warning!")
+                self.xcgLogMsg("\(sCurrMethodDisp) Copy failed - 'self.jmAppSwiftDataManager?.modelContent' is nil - NO 'target' to copy (\(self.dictPFAdminsDataItems.count)) item(s) too - Warning!")
 
             }
 

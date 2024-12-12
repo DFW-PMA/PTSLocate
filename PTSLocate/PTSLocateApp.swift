@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SwiftUI
+//import SwiftUI
 import SwiftData
 
 @main
@@ -18,7 +18,7 @@ struct PTSLocateApp: App
     {
         
         static let sClsId        = "PTSLocateApp"
-        static let sClsVers      = "v1.1501"
+        static let sClsVers      = "v1.1502"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -46,25 +46,25 @@ struct PTSLocateApp: App
 
     let sAppBundlePath:String                     = Bundle.main.bundlePath
 
-    var sharedModelContainer:ModelContainer       =
-    {
-        
-        let schema             = Schema([PFAdminsSwiftDataItem.self, ])
-        let modelConfiguration = ModelConfiguration(schema:schema, isStoredInMemoryOnly:false)
-
-        do
-        {
-            
-            return try ModelContainer(for:schema, configurations:[modelConfiguration])
-            
-        }
-        catch
-        {
-            
-            fatalError("Could not create ModelContainer: \(error)...")
-            
-        }
-    }()
+//  var sharedModelContainer:ModelContainer       =
+//  {
+//      
+//      let schema             = Schema([PFAdminsSwiftDataItem.self, ])
+//      let modelConfiguration = ModelConfiguration(schema:schema, isStoredInMemoryOnly:false)
+//
+//      do
+//      {
+//          
+//          return try ModelContainer(for:schema, configurations:[modelConfiguration])
+//          
+//      }
+//      catch
+//      {
+//          
+//          fatalError("Could not create ModelContainer: \(error)...")
+//          
+//      }
+//  }()
 
     var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
     
@@ -125,7 +125,7 @@ struct PTSLocateApp: App
 
         }
         .handlesExternalEvents(matching: [])
-        .modelContainer(sharedModelContainer)
+    //  .modelContainer(sharedModelContainer)
     #if os(macOS)
         .commands
         {

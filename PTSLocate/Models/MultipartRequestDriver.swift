@@ -10,14 +10,15 @@ import Foundation
 import SwiftUI
 
 @available(iOS 14.0, *)
-class MultipartRequestDriver: NSObject
+//class MultipartRequestDriver: NSObject
+final class MultipartRequestDriver: Sendable
 {
 
     struct ClassInfo
     {
         
         static let sClsId          = "MultipartRequestDriver"
-        static let sClsVers        = "v1.0902"
+        static let sClsVers        = "v1.0904"
         static let sClsDisp        = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight   = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace       = true
@@ -43,13 +44,14 @@ class MultipartRequestDriver: NSObject
 
             var jmAppDelegateVisitor:JmAppDelegateVisitor  = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
 
-    override init()
+//  override init()
+    init()
     {
 
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
         
-        super.init()
+    //  super.init()
         
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
 

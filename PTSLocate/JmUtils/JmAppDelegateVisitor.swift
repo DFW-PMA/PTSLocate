@@ -8,13 +8,14 @@
 
 import Foundation
 import SwiftUI
-import SwiftData
+//import SwiftData
 import XCGLogger
 
 #if os(iOS)
 import UIKit
 #endif
 
+//@available(macOS 15, *)
 @available(iOS 14.0, *)
 @objc(JmAppDelegateVisitor)
 public class JmAppDelegateVisitor: NSObject, ObservableObject
@@ -24,7 +25,7 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     {
         
         static let sClsId        = "JmAppDelegateVisitor"
-        static let sClsVers      = "v1.2501"
+        static let sClsVers      = "v1.2602"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -74,11 +75,6 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     var sAppDelegateVisitorLogFilepath:String!                     = nil
     var xcgLogger:XCGLogger?                                       = XCGLogger.default
     
-    // Swift/ObjC Bridge:
-
-    @objc 
-    var jmObjCSwiftEnvBridge:JmObjCSwiftEnvBridge?                 = nil
-
     // App <global> 'Authentication' control(s):
 
     public
@@ -149,17 +145,26 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     var urlAppDelegateVisitorLogToSaveFilespec:URL?                = nil
     var sAppDelegateVisitorLogToSaveFilespec:String!               = nil
 
-    // Various App SwiftData field(s):
+//  // Various App SwiftData field(s):
+//  
+//  var modelConfiguration:ModelConfiguration                      = ModelConfiguration(isStoredInMemoryOnly:false, allowsSave:true)
+//  var modelContainer:ModelContainer?                             = nil
+//  var modelContext:ModelContext?                                 = nil
+//  var pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem]             = []
+//  @Published 
+//  var cPFAdminsSwiftDataItems:Int                                = 0
+//  @Published 
+//  var bArePFAdminsSwiftDataItemsAvailable:Bool                   = false
     
-    var modelConfiguration:ModelConfiguration                      = ModelConfiguration(isStoredInMemoryOnly:false, allowsSave:true)
-    var modelContainer:ModelContainer?                             = nil
-    var modelContext:ModelContext?                                 = nil
-    var pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem]             = []
-    @Published 
-    var cPFAdminsSwiftDataItems:Int                                = 0
-    @Published 
-    var bArePFAdminsSwiftDataItemsAvailable:Bool                   = false
-    
+    // App <possible> JmAppSwiftData Manager instance:
+
+    var jmAppSwiftDataManager:JmAppSwiftDataManager?               = nil
+
+    // Swift/ObjC Bridge:
+
+    @objc 
+    var jmObjCSwiftEnvBridge:JmObjCSwiftEnvBridge?                 = nil
+
     // App <possible> (Apple) MetricKitManager instance:
 
     var jmAppMetricKitManager:JmAppMetricKitManager?               = nil
@@ -196,8 +201,6 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("],")
         asToString.append("[")
         asToString.append("sApplicationName': [\(self.sApplicationName)],")
-        asToString.append("],")
-        asToString.append("[")
         asToString.append("cAppDelegateVisitorInitCalls': (\(self.cAppDelegateVisitorInitCalls)),")
         asToString.append("],")
         asToString.append("[")
@@ -222,9 +225,6 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("sAppDelegateVisitorLogFilespec': [\(String(describing: self.sAppDelegateVisitorLogFilespec))],")
         asToString.append("sAppDelegateVisitorLogFilepath': [\(String(describing: self.sAppDelegateVisitorLogFilepath))],")
         asToString.append("xcgLogger': [\(String(describing: self.xcgLogger))],")
-        asToString.append("],")
-        asToString.append("[")
-        asToString.append("jmObjCSwiftEnvBridge': [\(String(describing: self.jmObjCSwiftEnvBridge))],")
         asToString.append("],")
         asToString.append("[")
         asToString.append("appDelegateVisitorSwiftViewsShouldChange': [\(String(describing: self.appDelegateVisitorSwiftViewsShouldChange))],")
@@ -253,14 +253,16 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("sAppDelegateVisitorLogToSaveFilespec': [\(String(describing: self.sAppDelegateVisitorLogToSaveFilespec))],")
         asToString.append("],")
         asToString.append("[")
-        asToString.append("SwiftData 'modelConfiguration': (\(self.modelConfiguration)),")
-        asToString.append("SwiftData 'modelContainer': (\(String(describing: self.modelContainer))),")
-        asToString.append("SwiftData 'modelContext': (\(String(describing: self.modelContext))),")
-        asToString.append("SwiftData 'pfAdminsSwiftDataItems': (\(String(describing: self.pfAdminsSwiftDataItems))),")
-        asToString.append("SwiftData 'cPFAdminsSwiftDataItems': (\(String(describing: self.cPFAdminsSwiftDataItems))),")
-        asToString.append("SwiftData 'bArePFAdminsSwiftDataItemsAvailable': (\(String(describing: self.bArePFAdminsSwiftDataItemsAvailable))),")
-        asToString.append("],")
-        asToString.append("[")
+    //  asToString.append("SwiftData 'modelConfiguration': (\(self.modelConfiguration)),")
+    //  asToString.append("SwiftData 'modelContainer': (\(String(describing: self.modelContainer))),")
+    //  asToString.append("SwiftData 'modelContext': (\(String(describing: self.modelContext))),")
+    //  asToString.append("SwiftData 'pfAdminsSwiftDataItems': (\(String(describing: self.pfAdminsSwiftDataItems))),")
+    //  asToString.append("SwiftData 'cPFAdminsSwiftDataItems': (\(String(describing: self.cPFAdminsSwiftDataItems))),")
+    //  asToString.append("SwiftData 'bArePFAdminsSwiftDataItemsAvailable': (\(String(describing: self.bArePFAdminsSwiftDataItemsAvailable))),")
+    //  asToString.append("],")
+    //  asToString.append("[")
+        asToString.append("jmAppSwiftDataManager': [\(String(describing: self.jmAppSwiftDataManager))],")
+        asToString.append("jmObjCSwiftEnvBridge': [\(String(describing: self.jmObjCSwiftEnvBridge))],")
         asToString.append("jmAppMetricKitManager': [\(String(describing: self.jmAppMetricKitManager))],")
         asToString.append("jmAppUserNotificationManager': [\(String(describing: self.jmAppUserNotificationManager))],")
         asToString.append("jmAppParseCoreManager': [\(String(describing: self.jmAppParseCoreManager))],")
@@ -324,109 +326,20 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
 
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked - 'self' is [\(self)]...")
 
-        // Initialize the SwiftData 'model' Container (on the 'model' Configuration)...
-        
-        do
+        // Initialize SwiftData Manager <maybe>:
+
+        if (AppGlobalInfo.bInstantiateAppSwiftDataManager == true)
         {
-            
-            self.modelContainer = try ModelContainer(for:PFAdminsSwiftDataItem.self, configurations: modelConfiguration)
-            
-            self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContainer has been constructed...")
 
-            self.modelContext   = ModelContext(self.modelContainer!)
+            // Instantiate the JmAppSwiftDataManager...
 
-            self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has been obtained (from the 'model' Container)...")
+            self.xcgLogMsg("\(sCurrMethodDisp) Instantiating the 'self.jmAppSwiftDataManager' instance...")
 
-            if (self.modelContext != nil) 
-            {
+            self.jmAppSwiftDataManager = JmAppSwiftDataManager.ClassSingleton.appSwiftDataManager
 
-            //  let pfAdminsSwiftDataItemsPredicate  = #Predicate<PFAdminsSwiftDataItem>()
-            //  let pfAdminsSwiftDataItemsDescriptor = FetchDescriptor<PFAdminsSwiftDataItem>(predicate:pfAdminsSwiftDataItemsPredicate)
-                let pfAdminsSwiftDataItemsDescriptor = FetchDescriptor<PFAdminsSwiftDataItem>()
-
-                self.pfAdminsSwiftDataItems          = try self.modelContext!.fetch(pfAdminsSwiftDataItemsDescriptor)
-                self.cPFAdminsSwiftDataItems         = self.pfAdminsSwiftDataItems.count
-
-                if (self.cPFAdminsSwiftDataItems > 0)
-                {
-
-                    var cPFAdminsSwiftDataItems:Int = 0
-
-                    for currentSwiftDataItem:PFAdminsSwiftDataItem in self.pfAdminsSwiftDataItems
-                    {
-
-                        cPFAdminsSwiftDataItems += 1
-
-                        if (cPFAdminsSwiftDataItems == 1) 
-                        {
-
-                            currentSwiftDataItem.displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:true)
-
-                        }
-                        else
-                        {
-
-                            currentSwiftDataItem.displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:false)
-
-                        }
-
-                    }
-
-                    self.bArePFAdminsSwiftDataItemsAvailable = true
-                //  self.bArePFAdminsSwiftDataItemsAvailable.toggle()
-
-                }
-
-                self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.pfAdminsSwiftDataItems' has (\(self.cPFAdminsSwiftDataItems)) 'login' item(s)...")
-                self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.bArePFAdminsSwiftDataItemsAvailable' is [\(self.bArePFAdminsSwiftDataItemsAvailable)]...")
-
-            }
-
-        // NOTE: Use the block below to generate 'test' SwiftData item(s)...
-        //
-        //  if (self.modelContext != nil) 
-        //  {
-        //
-        //      for i in 0..<3
-        //      {
-        //
-        //          let newPFAdminsSwiftDataItem = PFAdminsSwiftDataItem(idPFAdminsObject:(i + 100), 
-        //                                                         timestamp:       Date(),
-        //                                                         sCreatedBy:      "\(ClassInfo.sClsDisp)")
-        //
-        //          self.modelContext!.insert(newPFAdminsSwiftDataItem)
-        //
-        //          self.xcgLogMsg("\(sCurrMethodDisp) Added 'newPFAdminsSwiftDataItem' of [\(String(describing: newPFAdminsSwiftDataItem.toString()))] to the SwiftData 'model' Context...")
-        //
-        //      }
-        //
-        //      do
-        //      {
-        //
-        //          try self.modelContext!.save()
-        //
-        //          self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has been saved...")
-        //
-        //      }
-        //      catch
-        //      {
-        //
-        //          self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has failed to save - Details: \(error) - Error!")
-        //
-        //      }
-        //
-        //  }
-
-            self.xcgLogMsg("\(sCurrMethodDisp) Current 'appDelegate' instance is [\(self.toString())]...")
-
-        }
-        catch
-        {
-            
-            self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContainer has failed construction - Details: \(error) - Error!")
-
-            self.modelContainer = nil
-            self.modelContext   = nil
+            self.jmAppSwiftDataManager?.setJmAppDelegateVisitorInstance(jmAppDelegateVisitor:self)
+          
+            self.xcgLogMsg("\(sCurrMethodDisp) Instantiated  the 'self.jmAppSwiftDataManager' instance...")
             
         }
 
