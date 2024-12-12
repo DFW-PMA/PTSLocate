@@ -1,5 +1,5 @@
 //
-//  FirstSwiftDataItem.swift
+//  PFAdminsSwiftDataItem.swift
 //  JustAFirstSwiftDataApp1
 //
 //  Created by Daryl Cox on 11/26/2024.
@@ -11,16 +11,16 @@ import SwiftData
 
 @Model
 //NOTE: Do NOT Subclass in this Class - @Model will throw an error about using 'self' before 'super.init()'...
-//class FirstSwiftDataItem: NSObject, Identifiable
-public final class FirstSwiftDataItem: Identifiable
+//class PFAdminsSwiftDataItem: NSObject, Identifiable
+public final class PFAdminsSwiftDataItem: Identifiable
 {
     
     @Transient
     struct ClassInfo
     {
         
-        static let sClsId        = "FirstSwiftDataItem"
-        static let sClsVers      = "v1.0401"
+        static let sClsId        = "PFAdminsSwiftDataItem"
+        static let sClsVers      = "v1.0501"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -163,7 +163,7 @@ public final class FirstSwiftDataItem: Identifiable
 
     }   // End of public func toString().
 
-    public func displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:Bool=false)
+    public func displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:Bool=false)
     {
 
         let sCurrMethod:String = #function
@@ -206,6 +206,6 @@ public final class FirstSwiftDataItem: Identifiable
 
         return
 
-    }   // END of public func displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:Bool).
+    }   // END of public func displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:Bool).
     
-}   // END of final class FirstSwiftDataItem(NSObject, Identifiable).
+}   // END of final class PFAdminsSwiftDataItem(NSObject, Identifiable).

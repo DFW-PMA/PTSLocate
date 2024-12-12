@@ -24,7 +24,7 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     {
         
         static let sClsId        = "JmAppDelegateVisitor"
-        static let sClsVers      = "v1.2401"
+        static let sClsVers      = "v1.2501"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -154,11 +154,11 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     var modelConfiguration:ModelConfiguration                      = ModelConfiguration(isStoredInMemoryOnly:false, allowsSave:true)
     var modelContainer:ModelContainer?                             = nil
     var modelContext:ModelContext?                                 = nil
-    var firstSwiftDataItems:[FirstSwiftDataItem]                   = []
+    var pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem]             = []
     @Published 
-    var cFirstSwiftDataItems:Int                                   = 0
+    var cPFAdminsSwiftDataItems:Int                                = 0
     @Published 
-    var bAreFirstSwiftDataItemsAvailable:Bool                      = false
+    var bArePFAdminsSwiftDataItemsAvailable:Bool                   = false
     
     // App <possible> (Apple) MetricKitManager instance:
 
@@ -256,9 +256,9 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("SwiftData 'modelConfiguration': (\(self.modelConfiguration)),")
         asToString.append("SwiftData 'modelContainer': (\(String(describing: self.modelContainer))),")
         asToString.append("SwiftData 'modelContext': (\(String(describing: self.modelContext))),")
-        asToString.append("SwiftData 'firstSwiftDataItems': (\(String(describing: self.firstSwiftDataItems))),")
-        asToString.append("SwiftData 'cFirstSwiftDataItems': (\(String(describing: self.cFirstSwiftDataItems))),")
-        asToString.append("SwiftData 'bAreFirstSwiftDataItemsAvailable': (\(String(describing: self.bAreFirstSwiftDataItemsAvailable))),")
+        asToString.append("SwiftData 'pfAdminsSwiftDataItems': (\(String(describing: self.pfAdminsSwiftDataItems))),")
+        asToString.append("SwiftData 'cPFAdminsSwiftDataItems': (\(String(describing: self.cPFAdminsSwiftDataItems))),")
+        asToString.append("SwiftData 'bArePFAdminsSwiftDataItemsAvailable': (\(String(describing: self.bArePFAdminsSwiftDataItemsAvailable))),")
         asToString.append("],")
         asToString.append("[")
         asToString.append("jmAppMetricKitManager': [\(String(describing: self.jmAppMetricKitManager))],")
@@ -329,7 +329,7 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         do
         {
             
-            self.modelContainer = try ModelContainer(for:FirstSwiftDataItem.self, configurations: modelConfiguration)
+            self.modelContainer = try ModelContainer(for:PFAdminsSwiftDataItem.self, configurations: modelConfiguration)
             
             self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContainer has been constructed...")
 
@@ -340,45 +340,45 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
             if (self.modelContext != nil) 
             {
 
-            //  let firstSwiftDataItemsPredicate  = #Predicate<FirstSwiftDataItem>()
-            //  let firstSwiftDataItemsDescriptor = FetchDescriptor<FirstSwiftDataItem>(predicate:firstSwiftDataItemsPredicate)
-                let firstSwiftDataItemsDescriptor = FetchDescriptor<FirstSwiftDataItem>()
+            //  let pfAdminsSwiftDataItemsPredicate  = #Predicate<PFAdminsSwiftDataItem>()
+            //  let pfAdminsSwiftDataItemsDescriptor = FetchDescriptor<PFAdminsSwiftDataItem>(predicate:pfAdminsSwiftDataItemsPredicate)
+                let pfAdminsSwiftDataItemsDescriptor = FetchDescriptor<PFAdminsSwiftDataItem>()
 
-                self.firstSwiftDataItems          = try self.modelContext!.fetch(firstSwiftDataItemsDescriptor)
-                self.cFirstSwiftDataItems         = self.firstSwiftDataItems.count
+                self.pfAdminsSwiftDataItems          = try self.modelContext!.fetch(pfAdminsSwiftDataItemsDescriptor)
+                self.cPFAdminsSwiftDataItems         = self.pfAdminsSwiftDataItems.count
 
-                if (self.cFirstSwiftDataItems > 0)
+                if (self.cPFAdminsSwiftDataItems > 0)
                 {
 
-                    var cFirstSwiftDataItems:Int = 0
+                    var cPFAdminsSwiftDataItems:Int = 0
 
-                    for currentSwiftDataItem:FirstSwiftDataItem in self.firstSwiftDataItems
+                    for currentSwiftDataItem:PFAdminsSwiftDataItem in self.pfAdminsSwiftDataItems
                     {
 
-                        cFirstSwiftDataItems += 1
+                        cPFAdminsSwiftDataItems += 1
 
-                        if (cFirstSwiftDataItems == 1) 
+                        if (cPFAdminsSwiftDataItems == 1) 
                         {
 
-                            currentSwiftDataItem.displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:true)
+                            currentSwiftDataItem.displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:true)
 
                         }
                         else
                         {
 
-                            currentSwiftDataItem.displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:false)
+                            currentSwiftDataItem.displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:false)
 
                         }
 
                     }
 
-                    self.bAreFirstSwiftDataItemsAvailable = true
-                //  self.bAreFirstSwiftDataItemsAvailable.toggle()
+                    self.bArePFAdminsSwiftDataItemsAvailable = true
+                //  self.bArePFAdminsSwiftDataItemsAvailable.toggle()
 
                 }
 
-                self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.firstSwiftDataItems' has (\(self.cFirstSwiftDataItems)) 'login' item(s)...")
-                self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.bAreFirstSwiftDataItemsAvailable' is [\(self.bAreFirstSwiftDataItemsAvailable)]...")
+                self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.pfAdminsSwiftDataItems' has (\(self.cPFAdminsSwiftDataItems)) 'login' item(s)...")
+                self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.bArePFAdminsSwiftDataItemsAvailable' is [\(self.bArePFAdminsSwiftDataItemsAvailable)]...")
 
             }
 
@@ -390,13 +390,13 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         //      for i in 0..<3
         //      {
         //
-        //          let newFirstSwiftDataItem = FirstSwiftDataItem(idPFAdminsObject:(i + 100), 
+        //          let newPFAdminsSwiftDataItem = PFAdminsSwiftDataItem(idPFAdminsObject:(i + 100), 
         //                                                         timestamp:       Date(),
         //                                                         sCreatedBy:      "\(ClassInfo.sClsDisp)")
         //
-        //          self.modelContext!.insert(newFirstSwiftDataItem)
+        //          self.modelContext!.insert(newPFAdminsSwiftDataItem)
         //
-        //          self.xcgLogMsg("\(sCurrMethodDisp) Added 'newFirstSwiftDataItem' of [\(String(describing: newFirstSwiftDataItem.toString()))] to the SwiftData 'model' Context...")
+        //          self.xcgLogMsg("\(sCurrMethodDisp) Added 'newPFAdminsSwiftDataItem' of [\(String(describing: newPFAdminsSwiftDataItem.toString()))] to the SwiftData 'model' Context...")
         //
         //      }
         //

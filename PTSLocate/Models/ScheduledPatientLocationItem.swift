@@ -16,7 +16,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ScheduledPatientLocationItem"
-        static let sClsVers      = "v1.0211"
+        static let sClsVers      = "v1.0301"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -26,7 +26,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
 
     var id:UUID                                   = UUID()
 
-    var sTid:String                               = "-1" // From 'FirstSwiftDataItem' <String>
+    var sTid:String                               = "-1" // From 'PFAdminsSwiftDataItem' <String>
                                                          // -OR- 'PFQuery::TherapistFile["ID"]'
                                                          // -OR- 'PFQuery::PatientCalDay["tid"]'
     var iTid:Int                                  = -1   // Converted from 'sTid <String>'...
@@ -248,11 +248,6 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
 
             self.sVDateStartTime = sVDateStartTimeUppercased.lowercased()
 
-        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'sVDateStartTimeBase'       is [\(sVDateStartTimeBase)]...")
-        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'listVDateStartTimeBase'    is [\(listVDateStartTimeBase)]...")
-        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'sVDateStartTimeBaseJoined' is [\(sVDateStartTimeBaseJoined)]...")
-        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'listVDateStartTimeNoWS'    is [\(listVDateStartTimeNoWS)]...")
-        //  self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'sVDateStartTimeUppercased' is [\(sVDateStartTimeUppercased)]...")
             self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'self.sVDateStartTime'      is [\(self.sVDateStartTime)] <lowercased>...")
 
         }

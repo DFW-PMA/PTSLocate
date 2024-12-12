@@ -18,7 +18,7 @@ struct PTSLocateApp: App
     {
         
         static let sClsId        = "PTSLocateApp"
-        static let sClsVers      = "v1.1401"
+        static let sClsVers      = "v1.1501"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -49,7 +49,7 @@ struct PTSLocateApp: App
     var sharedModelContainer:ModelContainer       =
     {
         
-        let schema             = Schema([FirstSwiftDataItem.self, ])
+        let schema             = Schema([PFAdminsSwiftDataItem.self, ])
         let modelConfiguration = ModelConfiguration(schema:schema, isStoredInMemoryOnly:false)
 
         do

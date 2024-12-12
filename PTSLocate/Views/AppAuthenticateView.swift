@@ -17,7 +17,7 @@ struct AppAuthenticateView: View
     {
         
         static let sClsId        = "AppAuthenticateView"
-        static let sClsVers      = "v1.1001"
+        static let sClsVers      = "v1.1101"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -37,7 +37,7 @@ struct AppAuthenticateView: View
 
     @FocusState private var focusedField:FocusedFields?
 
-    @Query              var firstSwiftDataItems:[FirstSwiftDataItem]
+    @Query              var pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem]
 
     @State      private var shouldContentViewChange:Bool              = false
     @State      private var isUserAuthenticationAvailable:Bool        = false
@@ -59,12 +59,12 @@ struct AppAuthenticateView: View
         
         // Check if we have SwiftData 'login' item(s)...
         
-        if (firstSwiftDataItems.count > 0)
+        if (pfAdminsSwiftDataItems.count > 0)
         {
             
             self.isUserAuthenticationAvailable.toggle()
             
-            self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggling 'isUserAuthenticationAvailable' to 'true' - SwiftData has (\(firstSwiftDataItems.count)) 'login' item(s) - value is \(isUserAuthenticationAvailable)...")
+            self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggling 'isUserAuthenticationAvailable' to 'true' - SwiftData has (\(pfAdminsSwiftDataItems.count)) 'login' item(s) - value is \(isUserAuthenticationAvailable)...")
             
 //            if (self.isUserAuthenticationAvailable == false)
 //            {
@@ -112,30 +112,30 @@ struct AppAuthenticateView: View
     var body: some View
     {
         
-        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'firstSwiftDataItems' has (\(firstSwiftDataItems.count)) item(s)...")
-        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'jmAppDelegateVisitor.cFirstSwiftDataItems' is (\(jmAppDelegateVisitor.cFirstSwiftDataItems))...")
-        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'pfAdminsSwiftDataItems' has (\(pfAdminsSwiftDataItems.count)) item(s)...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'jmAppDelegateVisitor.cPFAdminsSwiftDataItems' is (\(jmAppDelegateVisitor.cPFAdminsSwiftDataItems))...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable)]...")
         let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
 
         // Check if we have 'login' data available from SwiftData...
 
-    //  if (firstSwiftDataItems.count > 0)
+    //  if (pfAdminsSwiftDataItems.count > 0)
     //  {
     //
-    //      let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggling 'isUserAuthenticationAvailable' to 'true' - SwiftData has (\(firstSwiftDataItems.count)) 'login' item(s) - value is \(isUserAuthenticationAvailable)...")
+    //      let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggling 'isUserAuthenticationAvailable' to 'true' - SwiftData has (\(pfAdminsSwiftDataItems.count)) 'login' item(s) - value is \(isUserAuthenticationAvailable)...")
     //
     //      self.isUserAuthenticationAvailable.toggle()
     //
     //  }
 
-    //  if (firstSwiftDataItems.count      < 1 ||
-        if (jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable == false &&
-            isUserAuthenticationAvailable                         == false)
+    //  if (pfAdminsSwiftDataItems.count      < 1 ||
+        if (jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable == false &&
+            isUserAuthenticationAvailable                            == false)
         {
 
-            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'firstSwiftDataItems' has (\(firstSwiftDataItems.count)) item(s)...")
-            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'jmAppDelegateVisitor.cFirstSwiftDataItems' is (\(jmAppDelegateVisitor.cFirstSwiftDataItems))...")
-            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'pfAdminsSwiftDataItems' has (\(pfAdminsSwiftDataItems.count)) item(s)...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'jmAppDelegateVisitor.cPFAdminsSwiftDataItems' is (\(jmAppDelegateVisitor.cPFAdminsSwiftDataItems))...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable)]...")
             let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
 
             VStack(alignment:.center)
@@ -195,13 +195,13 @@ struct AppAuthenticateView: View
 
                                     }
 
-                                    if (self.jmAppDelegateVisitor.cFirstSwiftDataItems              > 0 &&
-                                        self.jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable == false)
+                                    if (self.jmAppDelegateVisitor.cPFAdminsSwiftDataItems              > 0 &&
+                                        self.jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable == false)
                                     {
 
-                                        self.jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable.toggle()
+                                        self.jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable.toggle()
 
-                                        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Toggled 'self.jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' value is now [\(self.jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+                                        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Toggled 'self.jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable' value is now [\(self.jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable)]...")
 
                                     }
 
@@ -224,9 +224,9 @@ struct AppAuthenticateView: View
         else
         {
 
-            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'firstSwiftDataItems' has (\(firstSwiftDataItems.count)) item(s)...")
-            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'jmAppDelegateVisitor.cFirstSwiftDataItems' is (\(jmAppDelegateVisitor.cFirstSwiftDataItems))...")
-            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'pfAdminsSwiftDataItems' has (\(pfAdminsSwiftDataItems.count)) item(s)...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'jmAppDelegateVisitor.cPFAdminsSwiftDataItems' is (\(jmAppDelegateVisitor.cPFAdminsSwiftDataItems))...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable)]...")
             let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
 
             if (isUserLoggedIn == false)
@@ -351,9 +351,9 @@ struct AppAuthenticateView: View
             else
             {
 
-                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'firstSwiftDataItems' has (\(firstSwiftDataItems.count)) item(s)...")
-                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'jmAppDelegateVisitor.cFirstSwiftDataItems' is (\(jmAppDelegateVisitor.cFirstSwiftDataItems))...")
-                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bAreFirstSwiftDataItemsAvailable)]...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'pfAdminsSwiftDataItems' has (\(pfAdminsSwiftDataItems.count)) item(s)...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'jmAppDelegateVisitor.cPFAdminsSwiftDataItems' is (\(jmAppDelegateVisitor.cPFAdminsSwiftDataItems))...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable' is [\(jmAppDelegateVisitor.bArePFAdminsSwiftDataItemsAvailable)]...")
                 let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
                 let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'isUserLoggedIn' is [\(isUserLoggedIn)]...")
 
@@ -749,7 +749,7 @@ struct AppAuthenticateView: View
   
     }   // End of private func locateUserDataInPFAdmins()->ParsePFAdminsDataItem?.
 
-    private func locateUserDataInSwiftData()->FirstSwiftDataItem?
+    private func locateUserDataInSwiftData()->PFAdminsSwiftDataItem?
     {
   
         let sCurrMethod:String = #function
@@ -759,7 +759,7 @@ struct AppAuthenticateView: View
 
         // Attempt to locate the User data in SwiftData...
 
-        var firstSwiftDataItem:FirstSwiftDataItem? = nil
+        var pfAdminsSwiftDataItem:PFAdminsSwiftDataItem? = nil
         var sLookupUserName:String                 = ""
 
         if (self.sLoginUsername.count > 0)
@@ -775,13 +775,13 @@ struct AppAuthenticateView: View
 
             self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'self.sLoginUsername' is nil or Empty - can NOT be 'validated' - Error!")
 
-            firstSwiftDataItem = nil   
+            pfAdminsSwiftDataItem = nil   
 
-            return firstSwiftDataItem
+            return pfAdminsSwiftDataItem
 
         }
 
-        for listSwiftDataItem in self.firstSwiftDataItems
+        for listSwiftDataItem in self.pfAdminsSwiftDataItems
         {
 
             let sComparePFAdminsParseName:String = listSwiftDataItem.sPFAdminsParseName.lowercased()
@@ -790,9 +790,9 @@ struct AppAuthenticateView: View
                 sComparePFAdminsParseName       == sLookupUserName)
             {
 
-                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'firstSwiftDataItem' to this item...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'pfAdminsSwiftDataItem' to this item...")
 
-                firstSwiftDataItem = listSwiftDataItem   
+                pfAdminsSwiftDataItem = listSwiftDataItem   
 
                 break
 
@@ -806,22 +806,22 @@ struct AppAuthenticateView: View
 
         }
 
-        if (firstSwiftDataItem == nil)
+        if (pfAdminsSwiftDataItem == nil)
         {
 
-            self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] can NOT be found in the valid SwiftData (\(self.firstSwiftDataItems.count)) login(s) list - User can NOT be 'validated' - Warning!")
+            self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] can NOT be found in the valid SwiftData (\(self.pfAdminsSwiftDataItems.count)) login(s) list - User can NOT be 'validated' - Warning!")
 
-            firstSwiftDataItem = nil   
+            pfAdminsSwiftDataItem = nil   
 
         }
         
         // Exit...
   
-        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'firstSwiftDataItem' is [\(String(describing: firstSwiftDataItem))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'pfAdminsSwiftDataItem' is [\(String(describing: pfAdminsSwiftDataItem))]...")
   
-        return firstSwiftDataItem
+        return pfAdminsSwiftDataItem
   
-    }   // End of private func locateUserDataInSwiftData()->FirstSwiftDataItem?.
+    }   // End of private func locateUserDataInSwiftData()->PFAdminsSwiftDataItem?.
 
     private func isUserPasswordValidForLogin()->Bool
     {
@@ -847,9 +847,9 @@ struct AppAuthenticateView: View
 
         // Check SwiftData (1st) for a match on the User...
 
-        let firstSwiftDataItem:FirstSwiftDataItem? = self.locateUserDataInSwiftData()
+        let pfAdminsSwiftDataItem:PFAdminsSwiftDataItem? = self.locateUserDataInSwiftData()
 
-        if (firstSwiftDataItem == nil)
+        if (pfAdminsSwiftDataItem == nil)
         {
 
             self.sCredentialsCheckReason = "The Username '\(sValidUserName)' is 'invalid'"
@@ -860,7 +860,7 @@ struct AppAuthenticateView: View
         else
         {
 
-            if let sValidUserPassword:String = firstSwiftDataItem?.sPFAdminsParsePassword
+            if let sValidUserPassword:String = pfAdminsSwiftDataItem?.sPFAdminsParsePassword
             {
 
                 if (sValidUserPassword.count  > 0 &&
@@ -999,26 +999,26 @@ struct AppAuthenticateView: View
 
         // Dump the User data in SwiftData...
 
-        if (self.firstSwiftDataItems.count > 0)
+        if (self.pfAdminsSwiftDataItems.count > 0)
         {
 
-            var cFirstSwiftDataItems:Int = 0
+            var cPFAdminsSwiftDataItems:Int = 0
 
-            for currentSwiftDataItem:FirstSwiftDataItem in self.firstSwiftDataItems
+            for currentSwiftDataItem:PFAdminsSwiftDataItem in self.pfAdminsSwiftDataItems
             {
 
-                cFirstSwiftDataItems += 1
+                cPFAdminsSwiftDataItems += 1
 
-                if (cFirstSwiftDataItems == 1) 
+                if (cPFAdminsSwiftDataItems == 1) 
                 {
 
-                    currentSwiftDataItem.displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:true)
+                    currentSwiftDataItem.displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:true)
 
                 }
                 else
                 {
 
-                    currentSwiftDataItem.displayFirstSwiftDataItemWithLocalStore(bShowLocalStore:false)
+                    currentSwiftDataItem.displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:false)
 
                 }
 

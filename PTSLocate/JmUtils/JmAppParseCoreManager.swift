@@ -19,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1401"
+        static let sClsVers      = "v1.1501"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -748,7 +748,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
             if (self.jmAppDelegateVisitor?.modelContext != nil)
             {
 
-                let firstSwiftDataItemsDescriptor = FetchDescriptor<FirstSwiftDataItem>()
+                let pfAdminsSwiftDataItemsDescriptor = FetchDescriptor<PFAdminsSwiftDataItem>()
 
                 DispatchQueue.main.async
                 {
@@ -756,17 +756,17 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                     do
                     {
 
-                        let firstSwiftDataItems:[FirstSwiftDataItem] = try self.jmAppDelegateVisitor?.modelContext!.fetch(firstSwiftDataItemsDescriptor) ?? []
-                        let cFirstSwiftDataItems:Int                 = firstSwiftDataItems.count
+                        let pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem] = try self.jmAppDelegateVisitor?.modelContext!.fetch(pfAdminsSwiftDataItemsDescriptor) ?? []
+                        let cPFAdminsSwiftDataItems:Int                 = pfAdminsSwiftDataItems.count
 
-                        if (cFirstSwiftDataItems > 0)
+                        if (cPFAdminsSwiftDataItems > 0)
                         {
 
-                            self.xcgLogMsg("\(sCurrMethodDisp) Deleting ALL #(\(cFirstSwiftDataItems)) existing SwiftData PFQuery 'Admins' item(s)...")
+                            self.xcgLogMsg("\(sCurrMethodDisp) Deleting ALL #(\(cPFAdminsSwiftDataItems)) existing SwiftData PFQuery 'Admins' item(s)...")
 
-                            try self.jmAppDelegateVisitor?.modelContext!.delete(model:FirstSwiftDataItem.self)
+                            try self.jmAppDelegateVisitor?.modelContext!.delete(model:PFAdminsSwiftDataItem.self)
 
-                            self.xcgLogMsg("\(sCurrMethodDisp) Deleted  ALL #(\(cFirstSwiftDataItems)) existing SwiftData PFQuery 'Admins' item(s)...")
+                            self.xcgLogMsg("\(sCurrMethodDisp) Deleted  ALL #(\(cPFAdminsSwiftDataItems)) existing SwiftData PFQuery 'Admins' item(s)...")
 
                         }
                         else
@@ -791,13 +791,13 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                     for (_, parsePFAdminsDataItem) in self.dictPFAdminsDataItems
                     {
 
-                        let newFirstSwiftDataItem = FirstSwiftDataItem(timestamp:   Date(),
+                        let newPFAdminsSwiftDataItem = PFAdminsSwiftDataItem(timestamp:   Date(),
                                                                        sCreatedBy:  "\(ClassInfo.sClsDisp)",
                                                                        pfAdminsItem:parsePFAdminsDataItem)
 
-                        self.jmAppDelegateVisitor?.modelContext!.insert(newFirstSwiftDataItem)
+                        self.jmAppDelegateVisitor?.modelContext!.insert(newPFAdminsSwiftDataItem)
 
-                        self.xcgLogMsg("\(sCurrMethodDisp) Added 'newFirstSwiftDataItem' of [\(String(describing: newFirstSwiftDataItem.toString()))] to the SwiftData 'model' Context...")
+                        self.xcgLogMsg("\(sCurrMethodDisp) Added 'newPFAdminsSwiftDataItem' of [\(String(describing: newPFAdminsSwiftDataItem.toString()))] to the SwiftData 'model' Context...")
 
                         cPFAdminsDataItemsAdded += 1
 
@@ -812,19 +812,19 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                         self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has been saved after adding PFQuery 'Admins' item(s)...")
 
-                        self.jmAppDelegateVisitor?.firstSwiftDataItems  = try self.jmAppDelegateVisitor?.modelContext!.fetch(firstSwiftDataItemsDescriptor) ?? []
-                        self.jmAppDelegateVisitor?.cFirstSwiftDataItems = self.jmAppDelegateVisitor?.firstSwiftDataItems.count ?? 0
+                        self.jmAppDelegateVisitor?.pfAdminsSwiftDataItems  = try self.jmAppDelegateVisitor?.modelContext!.fetch(pfAdminsSwiftDataItemsDescriptor) ?? []
+                        self.jmAppDelegateVisitor?.cPFAdminsSwiftDataItems = self.jmAppDelegateVisitor?.pfAdminsSwiftDataItems.count ?? 0
 
-                        if (self.jmAppDelegateVisitor!.cFirstSwiftDataItems > 0)
+                        if (self.jmAppDelegateVisitor!.cPFAdminsSwiftDataItems > 0)
                         {
 
-                            self.jmAppDelegateVisitor?.bAreFirstSwiftDataItemsAvailable = true
-                        //  self.jmAppDelegateVisitor?.bAreFirstSwiftDataItemsAvailable.toggle()
+                            self.jmAppDelegateVisitor?.bArePFAdminsSwiftDataItemsAvailable = true
+                        //  self.jmAppDelegateVisitor?.bArePFAdminsSwiftDataItemsAvailable.toggle()
 
                         }
 
-                        self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppDelegateVisitor?.firstSwiftDataItems' has (\(String(describing: self.jmAppDelegateVisitor?.cFirstSwiftDataItems))) 'login' item(s)...")
-                        self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppDelegateVisitor?.bAreFirstSwiftDataItemsAvailable' is [\(String(describing: self.jmAppDelegateVisitor?.bAreFirstSwiftDataItemsAvailable))]...")
+                        self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppDelegateVisitor?.pfAdminsSwiftDataItems' has (\(String(describing: self.jmAppDelegateVisitor?.cPFAdminsSwiftDataItems))) 'login' item(s)...")
+                        self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppDelegateVisitor?.bArePFAdminsSwiftDataItemsAvailable' is [\(String(describing: self.jmAppDelegateVisitor?.bArePFAdminsSwiftDataItemsAvailable))]...")
 
                     }
                     catch
