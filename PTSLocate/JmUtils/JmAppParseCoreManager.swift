@@ -19,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1507"
+        static let sClsVers      = "v1.1601"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -1243,6 +1243,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                             self.xcgLogMsg("\(sCurrMethodDisp) Parse - query of 'pfQueryBackupVisit' returned a count of #(\(listPFBackupVisitObjects!.count)) PFObject(s)...")
                             self.xcgLogMsg("\(sCurrMethodDisp) Using the 1st returned 'pfQueryBackupVisit' item...")
+                            self.xcgLogMsg("\(sCurrMethodDisp) The entire returned #(\(listPFBackupVisitObjects!.count)) 'pfQueryBackupVisit' item(s) are [\(listPFBackupVisitObjects!)]...")
 
                             scheduledPatientLocationItem.updateScheduledPatientLocationItemFromPFBackupVisit(pfBackupVisit:listPFBackupVisitObjects![0])
 
