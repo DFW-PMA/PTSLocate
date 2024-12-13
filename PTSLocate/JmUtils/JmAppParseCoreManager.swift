@@ -19,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1601"
+        static let sClsVers      = "v1.1606"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -1226,6 +1226,11 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                     //            "VDate"          : { "$gt" : "2024-11-10" } }]  // Yields all visit(s) in last 30 day(s) or such...
                     //  [Sort::{"VDate": -1}]                                     // Yields visit(s) newest to oldest (1st one is newest)...
 
+                        self.xcgLogMsg("\(sCurrMethodDisp) Searching for 'pfQueryBackupVisit' Item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] for PID (\(scheduledPatientLocationItem.iPid))...")
+
+                        pfQueryBackupVisit.whereKeyExists("lat")
+                        pfQueryBackupVisit.whereKeyExists("long")
+
                         pfQueryBackupVisit.whereKey("pid",            equalTo:scheduledPatientLocationItem.iPid)
                         pfQueryBackupVisit.whereKey("billable",       equalTo:1)
                         pfQueryBackupVisit.whereKey("isTelepractice", notEqualTo:1)
@@ -1245,7 +1250,68 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                             self.xcgLogMsg("\(sCurrMethodDisp) Using the 1st returned 'pfQueryBackupVisit' item...")
                             self.xcgLogMsg("\(sCurrMethodDisp) The entire returned #(\(listPFBackupVisitObjects!.count)) 'pfQueryBackupVisit' item(s) are [\(listPFBackupVisitObjects!)]...")
 
-                            scheduledPatientLocationItem.updateScheduledPatientLocationItemFromPFBackupVisit(pfBackupVisit:listPFBackupVisitObjects![0])
+                            // ------------------------------------------------------------------------------------------------
+                            //  >>> Template 1st entry, then search for new Template
+                            //  >>>     (if item(s) are available and address == ""),
+                            //  >>> to re-Template an item that is address != ""; and posted = 1;...
+                            // ------------------------------------------------------------------------------------------------
+
+                            var pfQueryBackupVisitTemplate = listPFBackupVisitObjects![0]
+
+                            if (listPFBackupVisitObjects!.count > 1 &&
+                                String(describing: (pfQueryBackupVisitTemplate.object(forKey:"address"))) == "")
+                            {
+
+                                for pfBackupVisit in listPFBackupVisitObjects!
+                                {
+
+                                    if (String(describing: (pfBackupVisit.object(forKey:"address"))) != "" &&
+                                        String(describing: (pfBackupVisit.object(forKey:"posted")))  == "1")
+                                    {
+
+                                        pfQueryBackupVisitTemplate = pfBackupVisit
+                                        
+                                        break;
+                                    
+                                    }
+
+                                }
+
+                            }
+
+                            scheduledPatientLocationItem.updateScheduledPatientLocationItemFromPFBackupVisit(pfBackupVisit:pfQueryBackupVisitTemplate)
+
+                            if (scheduledPatientLocationItem.sLastVDateAddress == "")
+                            {
+
+                                self.xcgLogMsg("\(sCurrMethodDisp) Updating 'scheduledPatientLocationItem' by calling 'updateGeocoderLocation()' for Latitude/Longitude of [\(scheduledPatientLocationItem.sLastVDateLatitude)/\(scheduledPatientLocationItem.sLastVDateLongitude)]...")
+
+                                if (self.jmAppDelegateVisitor!.jmAppCLModelObservable2 != nil)
+                                {
+                                
+                                    let clModelObservable2:CoreLocationModelObservable2 = self.jmAppDelegateVisitor!.jmAppCLModelObservable2!
+
+                                    let _ = clModelObservable2.updateGeocoderLocations(requestID: 1, 
+                                                                                       latitude:  Double(scheduledPatientLocationItem.sLastVDateLatitude)!,
+                                                                                       longitude: Double(scheduledPatientLocationItem.sLastVDateLongitude)!, 
+                                                                                       withCompletionHandler:
+                                                                                           { (requestID:Int, dictCurrentLocation:[String:Any]) in
+
+                                                                                               let sStreetAddress:String = String(describing: (dictCurrentLocation["sCurrentLocationName"]       ?? ""))
+                                                                                               let sCity:String          = String(describing: (dictCurrentLocation["sCurrentCity"]               ?? ""))
+                                                                                               let sState:String         = String(describing: (dictCurrentLocation["sCurrentAdministrativeArea"] ?? ""))
+                                                                                               let sZipCode:String       = String(describing: (dictCurrentLocation["sCurrentPostalCode"]         ?? ""))
+
+                                                                                               scheduledPatientLocationItem.sLastVDateAddress = "\(sStreetAddress), \(sCity), \(sState), \(sZipCode)"
+
+                                                                                               self.xcgLogMsg("\(sCurrMethodDisp) Updated 'scheduledPatientLocationItem' for an address of [\(scheduledPatientLocationItem.sLastVDateAddress)] for Latitude/Longitude of [\(scheduledPatientLocationItem.sLastVDateLatitude)/\(scheduledPatientLocationItem.sLastVDateLongitude)]...")
+
+                                                                                           }
+                                                                                      )
+                                
+                                }
+
+                            }
 
                             self.xcgLogMsg("\(sCurrMethodDisp) Updated an Item 'scheduledPatientLocationItem' of [\(scheduledPatientLocationItem)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] for PID (\(scheduledPatientLocationItem.iPid))...")
 
