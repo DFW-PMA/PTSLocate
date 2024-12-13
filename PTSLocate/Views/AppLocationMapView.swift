@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0417"
+        static let sClsVers      = "v1.0502"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -158,6 +158,31 @@ struct AppLocationMapView: View
                             Marker("+", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2D)
                             //  .contentShape(Circle())    // NOT available on a Marker()...
 
+                            let listScheduledPatientLocationItems:[ScheduledPatientLocationItem] 
+                                = self.getScheduledPatientLocationItemsForPFCscDataItem(pfCscDataItem:parsePFCscDataItem)
+
+                            if (listScheduledPatientLocationItems.count > 0)
+                            {
+
+                            //    MapPin(coordinate: <#T##CLLocationCoordinate2D#>, tint: <#T##Color?#>)
+                                
+                                ForEach(listScheduledPatientLocationItems, id:\.id)
+                                { scheduledPatientLocationItem in
+
+                                //    let clLocationCoordinate2DPatLoc:CLLocationCoordinate2D
+                                //        = CLLocationCoordinate2D(latitude:  Double(scheduledPatientLocationItem.sLastVDateLatitude),
+                                //                                 longitude: Double(scheduledPatientLocationItem.sLastVDateLongitude))
+
+                                //    Marker("*", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2DPatLoc)
+
+                                    Marker("*", 
+                                           systemImage:"mappin.and.ellipse", 
+                                           coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
+
+                                }
+                            
+                            }
+
                         }
                         .onTapGesture 
                         { position in
@@ -268,6 +293,102 @@ struct AppLocationMapView: View
         return bIsCoordinateCloseToLocation
   
     }   // End of private func checkIfAppParseCoreHasPFCscDataItems().
+
+    private func convertPFCscDataItemToTid(pfCscDataItem:ParsePFCscDataItem)->String
+    {
+  
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter 'pfCscDataItem' is [\(pfCscDataItem)]...")
+
+        // Use the TherapistName in the PFCscDataItem to lookup the 'sPFTherapistParseTID'...
+
+        var sPFTherapistParseTID:String = ""
+
+        if (self.jmAppDelegateVisitor.jmAppParseCoreManager != nil)
+        {
+        
+            let jmAppParseCoreManager:JmAppParseCoreManager = self.jmAppDelegateVisitor.jmAppParseCoreManager!
+
+            if (pfCscDataItem.sPFCscParseName.count > 0)
+            {
+
+                sPFTherapistParseTID = jmAppParseCoreManager.convertTherapistNameToTid(sPFTherapistParseName:pfCscDataItem.sPFCscParseName)
+
+            }
+
+        }
+        
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'sPFTherapistParseTID' is [\(sPFTherapistParseTID)]...")
+  
+        return sPFTherapistParseTID
+  
+    }   // End of private func convertPFCscDataItemToTid(pfCscDataItem:PFCscDataItem)->String.
+
+    private func getScheduledPatientLocationItemsForTid(sPFTherapistParseTID:String = "")->[ScheduledPatientLocationItem]
+    {
+  
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter 'sPFTherapistParseTID' is [\(sPFTherapistParseTID)]...")
+
+        // Use the TherapistName in the PFCscDataItem to lookup any ScheduledPatientLocationItem(s)...
+
+        var listScheduledPatientLocationItems:[ScheduledPatientLocationItem] = []
+
+        if (self.jmAppDelegateVisitor.jmAppParseCoreManager != nil)
+        {
+        
+            let jmAppParseCoreManager:JmAppParseCoreManager = self.jmAppDelegateVisitor.jmAppParseCoreManager!
+
+            if (sPFTherapistParseTID.count > 0)
+            {
+
+                if (jmAppParseCoreManager.dictSchedPatientLocItems.count > 0)
+                {
+
+                    listScheduledPatientLocationItems = jmAppParseCoreManager.dictSchedPatientLocItems[sPFTherapistParseTID] ?? []
+
+                }
+
+            }
+
+        }
+        
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'listScheduledPatientLocationItems' is [\(listScheduledPatientLocationItems)]...")
+  
+        return listScheduledPatientLocationItems
+  
+    }   // End of private func getScheduledPatientLocationItemsForTid(sPFTherapistParseTID:String = "")->[ScheduledPatientLocationItem].
+
+    private func getScheduledPatientLocationItemsForPFCscDataItem(pfCscDataItem:ParsePFCscDataItem)->[ScheduledPatientLocationItem]
+    {
+  
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter 'pfCscDataItem' is [\(pfCscDataItem)]...")
+
+        // Use the Therapist TID to lookup any ScheduledPatientLocationItem(s)...
+
+        let sPFTherapistParseTID:String
+            = self.convertPFCscDataItemToTid(pfCscDataItem:pfCscDataItem)
+        let listScheduledPatientLocationItems:[ScheduledPatientLocationItem] 
+            = self.getScheduledPatientLocationItemsForTid(sPFTherapistParseTID:sPFTherapistParseTID)
+
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'listScheduledPatientLocationItems' is [\(listScheduledPatientLocationItems)]...")
+  
+        return listScheduledPatientLocationItems
+  
+    }   // End of private func getScheduledPatientLocationItemsForPFCscDataItem(pfCscDataItem:PFCscDataItem)->[ScheduledPatientLocationItem].
 
 }
 

@@ -16,7 +16,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ScheduledPatientLocationItem"
-        static let sClsVers      = "v1.0301"
+        static let sClsVers      = "v1.0402"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -46,6 +46,14 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
     var sLastVDateAddress:String                  = ""   // From 'PFQuery::BackupVisit["address"]'
     var sLastVDateLatitude:String                 = ""   // From 'PFQuery::BackupVisit["lat"]'
     var sLastVDateLongitude:String                = ""   // From 'PFQuery::BackupVisit["long"]'
+
+    var clLocationCoordinate2DPatLoc:CLLocationCoordinate2D
+    {
+
+        return CLLocationCoordinate2D(latitude:  Double(self.sLastVDateLatitude)  ?? 0.0,
+                                      longitude: Double(self.sLastVDateLongitude) ?? 0.0)
+
+    }
 
     var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
 

@@ -19,7 +19,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1606"
+        static let sClsVers      = "v1.1610"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -50,6 +50,12 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                     var listPFCscNameItems:[String]                                      = []
 
     @Published      var dictPFAdminsDataItems:[String:ParsePFAdminsDataItem]             = [:]
+
+    @Published      var dictTherapistTidXref:[String:String]                             = [String:String]()
+                                                                                           // [String:String]
+                                                                                           // Key:Tid(String)                       -> TherapistName (String)
+                                                                                           // Key:TherapistName(String)             -> Tid (String)
+                                                                                           // Key:TherapistName(String)<lowercased> -> Tid (String)
 
     @Published      var dictSchedPatientLocItems:[String:[ScheduledPatientLocationItem]] = [String:[ScheduledPatientLocationItem]]()
                                                                                            // [String:[ScheduledPatientLocationItem]]
@@ -404,6 +410,16 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     }
 
+                    // Build the Tid/TherapistName Xref dictionary...
+
+                    let sPFTherapistParseNameLower:String = sPFTherapistParseName.lowercased()
+
+                    self.dictTherapistTidXref[sPFTherapistParseTID]       = sPFTherapistParseName
+                    self.dictTherapistTidXref[sPFTherapistParseName]      = sPFTherapistParseTID
+                    self.dictTherapistTidXref[sPFTherapistParseNameLower] = sPFTherapistParseTID
+
+                    // Track the Therapist in the dictionary of Scheduled Patient 'location' item(s)...
+
                     if (self.dictSchedPatientLocItems[sPFTherapistParseTID] == nil)
                     {
                 
@@ -425,6 +441,8 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                         self.xcgLogMsg("\(sCurrMethodDisp) Skipped adding an initial Item 'ScheduledPatientLocationItem' (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) - key 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] already exists...")
                 
                     }
+
+                    // Track the Therapist 'name' in the PFAdminsDataItem(s) dictionary...
                 
                     if let parsePFAdminsDataItem:ParsePFAdminsDataItem = self.dictPFAdminsDataItems[sPFTherapistParseTID]
                     {
@@ -1350,6 +1368,72 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         return
 
     } // End of public func gatherJmAppParsePFQueriesForBackupVisitInBackground().
+    
+    public func convertTidToTherapistName(sPFTherapistParseTID:String = "")->String
+    {
+
+        let sCurrMethod:String = #function;
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter 'sPFTherapistParseTID' is [\(sPFTherapistParseTID)]...")
+
+        // Lookup and convert the 'sPFTherapistParseTID' to 'sPFTherapistParseName'...
+
+        var sPFTherapistParseName:String = ""
+
+        if (sPFTherapistParseTID.count > 0)
+        {
+        
+            if (self.dictTherapistTidXref[sPFTherapistParseTID] != nil)
+            {
+
+                sPFTherapistParseName = self.dictTherapistTidXref[sPFTherapistParseTID] ?? ""
+
+            }
+        
+        }
+        
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'sPFTherapistParseName' is [\(sPFTherapistParseName)]...")
+  
+        return sPFTherapistParseName
+
+    } // End of public func convertTidToTherapistName(sPFTherapistParseTID:String)->String.
+    
+    public func convertTherapistNameToTid(sPFTherapistParseName:String = "")->String
+    {
+
+        let sCurrMethod:String = #function;
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter 'sPFTherapistParseName' is [\(sPFTherapistParseName)]...")
+
+        // Lookup and convert the 'sPFTherapistParseName' to 'sPFTherapistParseTID'...
+
+        var sPFTherapistParseTID:String = ""
+
+        if (sPFTherapistParseName.count > 0)
+        {
+
+            let sPFTherapistParseNameLower:String = sPFTherapistParseName.lowercased()
+        
+            if (self.dictTherapistTidXref[sPFTherapistParseNameLower] != nil)
+            {
+
+                sPFTherapistParseTID = self.dictTherapistTidXref[sPFTherapistParseNameLower] ?? ""
+
+            }
+        
+        }
+        
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'sPFTherapistParseTID' is [\(sPFTherapistParseTID)]...")
+  
+        return sPFTherapistParseTID
+
+    } // End of public func convertTherapistNameToTid(sPFTherapistParseName:String)->String.
     
 }   // End of public class JmAppParseCoreManager.
 
