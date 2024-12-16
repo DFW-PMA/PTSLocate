@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0704"
+        static let sClsVers      = "v1.0715"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -30,12 +30,7 @@ struct AppLocationMapView: View
     @Environment(\.presentationMode) var presentationMode
 
            private let fMapLatLongTolerance:Double               = 0.0025
-    @State private var fMapLatLongToleranceZoom:Double           = 0.0025
-    @State private var fCurrentZoom:Double                       = 0.0
-    @State private var fTotalZoom:Double                         = 0.0
-    @GestureState
-           private var gestureStateZoom                          = 1.0
-    
+
     @State private var cAppMapTapPresses:Int                     = 0
 
     @State private var isAppMapTapAlertShowing:Bool              = false
@@ -137,51 +132,30 @@ struct AppLocationMapView: View
 
                     }
 
-                //  let sMapLocationName:String                       = "#(\(parsePFCscDataItem.idPFCscObject))::\(parsePFCscDataItem.sPFCscParseName)"
-                    let clLocationCoordinate2D:CLLocationCoordinate2D = CLLocationCoordinate2D(
-                                                                            latitude:  parsePFCscDataItem.dblConvertedLatitude,
-                                                                            longitude: parsePFCscDataItem.dblConvertedLongitude)
-                    let mapCoordinateRegion                           = MKCoordinateRegion(
-                                                                            center:clLocationCoordinate2D,
-                                                                              span:MKCoordinateSpan(latitudeDelta: 0.05,                                         
-                                                                                                    longitudeDelta:0.05))
-                    let mapPosition                                   = MapCameraPosition.region(mapCoordinateRegion)
-
-                    let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).VStack - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(clLocationCoordinate2D)]...")
+                    let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).VStack - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(parsePFCscDataItem.clLocationCoordinate2D)]...")
 
                     MapReader
                     { proxy in
 
-                        Map(initialPosition:mapPosition)
+                        Map(initialPosition:parsePFCscDataItem.mapPosition)
                         {
 
                             Marker("+", 
                                    systemImage:"mappin.and.ellipse", 
-                                   coordinate: clLocationCoordinate2D)
-                            //  .contentShape(Circle())    // NOT available on a Marker()...
+                                   coordinate: parsePFCscDataItem.clLocationCoordinate2D)
+                                .tag(0)
 
                             let listScheduledPatientLocationItems:[ScheduledPatientLocationItem] 
                                 = self.getScheduledPatientLocationItemsForPFCscDataItem(pfCscDataItem:parsePFCscDataItem)
 
                             if (listScheduledPatientLocationItems.count > 0)
                             {
-                                
-                                ForEach(listScheduledPatientLocationItems, id:\.id)
+
+                            //  ForEach(listScheduledPatientLocationItems, id:\.id)
+                                ForEach(listScheduledPatientLocationItems)
                                 { scheduledPatientLocationItem in
 
-                                //  let clLocationCoordinate2DPatLoc:CLLocationCoordinate2D
-                                //      = CLLocationCoordinate2D(latitude:  Double(scheduledPatientLocationItem.sLastVDateLatitude),
-                                //                               longitude: Double(scheduledPatientLocationItem.sLastVDateLongitude))
-                                //
-                                //  Marker("*", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2DPatLoc)
-
-                                    Marker("*",
-                                           systemImage:"pin.circle",
-                                           coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
-                                        .tint(.cyan)
-
-                                //  MapPin(coordinate:scheduledPatientLocationItem.clLocationCoordinate2DPatLoc,
-                                //         tint:      .cyan)
+                                    AppLocationMapPatLocView(scheduledPatientLocationItem:scheduledPatientLocationItem)
 
                                 }
                             
@@ -196,12 +170,11 @@ struct AppLocationMapView: View
                             let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] tapped at 'position' [\(position)] 'coordinate' at [\(String(describing: coordinate))]..."
                             self.sMapTapMsg           = "\(parsePFCscDataItem.sPFCscParseName) at \(parsePFCscDataItem.sCurrentLocationName),\(parsePFCscDataItem.sCurrentCity) on \(parsePFCscDataItem.sPFCscParseLastLocDate)::\(parsePFCscDataItem.sPFCscParseLastLocTime)"
 
-                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - 'fCurrentZoom' is [\(self.fCurrentZoom)] - 'fTotalZoom' is [\(self.fTotalZoom)] - 'gestureStateZoom' is [\(self.gestureStateZoom)]...")
                             let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(self.sMapTapMsg)...")
                             let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(sMapTapLogMsg)...")
-                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(clLocationCoordinate2D)]...")
+                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(parsePFCscDataItem.clLocationCoordinate2D)]...")
 
-                            let bIsTapClose:Bool = self.checkIfAppLocationIsCloseToCoordinate(location:  clLocationCoordinate2D, 
+                            let bIsTapClose:Bool = self.checkIfAppLocationIsCloseToCoordinate(location:  parsePFCscDataItem.clLocationCoordinate2D, 
                                                                                               coordinate:(coordinate ?? CLLocationCoordinate2D(latitude: 0.0000,
                                                                                                                                                longitude:0.0000)))
 
@@ -218,32 +191,6 @@ struct AppLocationMapView: View
                             Button("Ok", role:.cancel)
                             {
                                 let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).MapReader.Map.onTapGesture User pressed 'Ok' to the Map 'tap' alert...")
-                            }
-                        }
-                        .gesture(
-                            MagnifyGesture()
-                                .onChanged 
-                                { value in
-                                    fCurrentZoom = value.magnification - 1
-                                }
-                                .onEnded 
-                                { value in
-                                    fTotalZoom   += fCurrentZoom
-                                    fCurrentZoom  = 0
-                                }
-                                .updating($gestureStateZoom)
-                                { value, gestureState, transaction in
-                                    gestureState = value.magnification
-                                })
-                        .accessibilityZoomAction 
-                        { action in
-                            if action.direction == .zoomIn 
-                            {
-                                fTotalZoom += 1
-                            } 
-                            else 
-                            {
-                                fTotalZoom -= 1
                             }
                         }
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 import ParseCore
 
 class ParsePFCscDataItem: NSObject, Identifiable
@@ -17,7 +18,7 @@ class ParsePFCscDataItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ParsePFCscDataItem"
-        static let sClsVers      = "v1.0303"
+        static let sClsVers      = "v1.0402"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -96,7 +97,7 @@ class ParsePFCscDataItem: NSObject, Identifiable
     //  TYPE of 'sCurrentCity'                is [String]        - value is [-N/A-]...
     // ----------------------------------------------------------------------------------------------------------------
 
-    // Item 'calculated'/'converted'/'looked'-up field(s):
+    // Item 'calculated'/'converted'/'looked'-up/'computed' field(s):
 
     var pfCscObjectLatitude:Any?                  = nil
     var pfCscObjectLongitude:Any?                 = nil
@@ -115,6 +116,28 @@ class ParsePFCscDataItem: NSObject, Identifiable
     var sCurrentCountry:String                    = ""
     var sCurrentPostalCode:String                 = ""
     var sCurrentTimeZone:String                   = ""
+
+    var clLocationCoordinate2D:CLLocationCoordinate2D
+    {
+
+        return CLLocationCoordinate2D(latitude:self.dblConvertedLatitude, longitude:self.dblConvertedLongitude)
+
+    }
+
+    var mapCoordinateRegion:MKCoordinateRegion
+    {
+
+        return MKCoordinateRegion(center:self.clLocationCoordinate2D,               
+                                    span:MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta:0.05))
+
+    }
+
+    var mapPosition:MapCameraPosition
+    {
+
+        return MapCameraPosition.region(self.mapCoordinateRegion)
+
+    }
 
     // Item address 'lookup' completed flag:
 

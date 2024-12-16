@@ -12,6 +12,7 @@ import SwiftData
 
 // Implementation class to handle access to the ParseCore framework.
 
+//@MainActor
 public class JmAppParseCoreManager: NSObject, ObservableObject
 {
 
@@ -19,7 +20,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1610"
+        static let sClsVers      = "v1.1704"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -1103,9 +1104,14 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                             listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
 
-                            self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
+                            DispatchQueue.main.async
+                            {
 
-                            self.xcgLogMsg("\(sCurrMethodDisp) Added an updated Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
+                                self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
+
+                                self.xcgLogMsg("\(sCurrMethodDisp) Added an updated Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
+
+                            }
 
                         }
 
