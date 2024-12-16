@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0502"
+        static let sClsVers      = "v1.0703"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -155,7 +155,9 @@ struct AppLocationMapView: View
                         Map(initialPosition:mapPosition)
                         {
 
-                            Marker("+", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2D)
+                            Marker("+", 
+                                   systemImage:"mappin.and.ellipse", 
+                                   coordinate: clLocationCoordinate2D)
                             //  .contentShape(Circle())    // NOT available on a Marker()...
 
                             let listScheduledPatientLocationItems:[ScheduledPatientLocationItem] 
@@ -163,21 +165,22 @@ struct AppLocationMapView: View
 
                             if (listScheduledPatientLocationItems.count > 0)
                             {
-
-                            //    MapPin(coordinate: <#T##CLLocationCoordinate2D#>, tint: <#T##Color?#>)
                                 
                                 ForEach(listScheduledPatientLocationItems, id:\.id)
                                 { scheduledPatientLocationItem in
 
-                                //    let clLocationCoordinate2DPatLoc:CLLocationCoordinate2D
-                                //        = CLLocationCoordinate2D(latitude:  Double(scheduledPatientLocationItem.sLastVDateLatitude),
-                                //                                 longitude: Double(scheduledPatientLocationItem.sLastVDateLongitude))
+                                //  let clLocationCoordinate2DPatLoc:CLLocationCoordinate2D
+                                //      = CLLocationCoordinate2D(latitude:  Double(scheduledPatientLocationItem.sLastVDateLatitude),
+                                //                               longitude: Double(scheduledPatientLocationItem.sLastVDateLongitude))
+                                //
+                                //  Marker("*", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2DPatLoc)
 
-                                //    Marker("*", systemImage: "mappin.and.ellipse", coordinate:clLocationCoordinate2DPatLoc)
-
-                                    Marker("*", 
-                                           systemImage:"mappin.and.ellipse", 
+                                    Marker("*",
+                                           systemImage:"pin.circle",
                                            coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
+
+                                //  MapPin(coordinate:scheduledPatientLocationItem.clLocationCoordinate2DPatLoc,
+                                //         tint:      .cyan)
 
                                 }
                             
@@ -198,8 +201,8 @@ struct AppLocationMapView: View
                             let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(clLocationCoordinate2D)]...")
 
                             let bIsTapClose:Bool = self.checkIfAppLocationIsCloseToCoordinate(location:  clLocationCoordinate2D, 
-                                                                                              coordinate:coordinate ?? CLLocationCoordinate2D(latitude: 0.0000,
-                                                                                                                                              longitude:0.0000))
+                                                                                              coordinate:(coordinate ?? CLLocationCoordinate2D(latitude: 0.0000,
+                                                                                                                                               longitude:0.0000)))
 
                             if (bIsTapClose == true)
                             {
