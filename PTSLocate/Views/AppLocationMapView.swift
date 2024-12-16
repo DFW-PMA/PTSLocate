@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0703"
+        static let sClsVers      = "v1.0704"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -178,6 +178,7 @@ struct AppLocationMapView: View
                                     Marker("*",
                                            systemImage:"pin.circle",
                                            coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
+                                        .tint(.cyan)
 
                                 //  MapPin(coordinate:scheduledPatientLocationItem.clLocationCoordinate2DPatLoc,
                                 //         tint:      .cyan)
