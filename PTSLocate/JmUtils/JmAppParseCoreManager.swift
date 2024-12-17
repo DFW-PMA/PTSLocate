@@ -20,7 +20,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1705"
+        static let sClsVers      = "v1.1706"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -1266,6 +1266,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                         pfQueryBackupVisit.whereKey("VDate",          greaterThan:sCurrentQueryDate)
 
                         pfQueryBackupVisit.addDescendingOrder("VDate")
+                        pfQueryBackupVisit.addAscendingOrder("startTime")
 
                         pfQueryBackupVisit.limit = 1000
 
