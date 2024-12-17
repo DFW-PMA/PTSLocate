@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0808"
+        static let sClsVers      = "v1.0817"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -32,6 +32,14 @@ struct AppLocationMapView: View
            private let fMapLatLongTolerance:Double               = 0.0025
 
     @State private var cAppMapTapPresses:Int                     = 0
+
+#if os(iOS)
+
+    @State private var cAppTidScheduleViewButtonPresses:Int      = 0
+
+    @State private var isAppTidScheduleViewModal:Bool            = false
+
+#endif
 
     @State private var isAppMapTapAlertShowing:Bool              = false
     @State private var sMapTapMsg:String                         = ""
@@ -87,50 +95,134 @@ struct AppLocationMapView: View
         
         let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View) - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)]...")
 
+        let sPFTherapistParseTID:String
+            = self.convertPFCscDataItemToTid(pfCscDataItem:parsePFCscDataItem)
+        let listScheduledPatientLocationItems:[ScheduledPatientLocationItem]
+            = self.getScheduledPatientLocationItemsForPFCscDataItem(pfCscDataItem:parsePFCscDataItem)
+
+        let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View) - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] TID #(\(sPFTherapistParseTID)) Visits #(\(listScheduledPatientLocationItems.count))...")
+
         GeometryReader
         { proxy in
 
             ScrollView
             {
 
-                VStack
+                HStack(alignment:.center)
                 {
 
-                    Text("Map #(\(parsePFCscDataItem.idPFCscObject))::\(parsePFCscDataItem.sPFCscParseName)")
-                        .bold()
-                        .italic()
-                        .font(.footnote)
+                    Spacer()
 
-                    HStack(alignment:.center)
+                    VStack
                     {
 
-                        Spacer()
+                        HStack(alignment:.center)
+                        {
 
-                        Text("\(parsePFCscDataItem.sCurrentLocationName), \(parsePFCscDataItem.sCurrentCity) \(parsePFCscDataItem.sCurrentPostalCode)")
-                            .font(.caption)
+                            Spacer()
 
-                        Spacer()
+                            Text("Map #(\(parsePFCscDataItem.idPFCscObject))::\(parsePFCscDataItem.sPFCscParseName)")
+                                .font(.caption)
+                                .bold()
+                                .italic()
+                                .font(.footnote)
+
+                            Spacer()
+
+                        }
+
+                        HStack(alignment:.center)
+                        {
+
+                            Spacer()
+
+                            Text("TID #(\(sPFTherapistParseTID)) Visits #(\(listScheduledPatientLocationItems.count))")
+                                .font(.caption)
+                                .bold()
+                                .italic()
+                                .font(.footnote)
+
+                            Spacer()
+
+                        }
+
+                        HStack(alignment:.center)
+                        {
+
+                            Spacer()
+
+                            Text("\(parsePFCscDataItem.sCurrentLocationName), \(parsePFCscDataItem.sCurrentCity) \(parsePFCscDataItem.sCurrentPostalCode)")
+                                .font(.caption)
+
+                            Spacer()
+
+                        }
+
+                        HStack(alignment:.center)
+                        {
+
+                            Spacer()
+
+                            Text(parsePFCscDataItem.sPFCscParseLastLocDate)
+                                .gridColumnAlignment(.center)
+                                .font(.caption)
+                            Text(" @ ")
+                                .gridColumnAlignment(.center)
+                                .font(.caption)
+                            Text(parsePFCscDataItem.sPFCscParseLastLocTime)
+                                .gridColumnAlignment(.center)
+                                .font(.caption)
+
+                            Spacer()
+
+                        }
 
                     }
 
-                    HStack(alignment:.center)
+                #if os(iOS)
+
+                    Spacer()
+
+                    Button
                     {
 
-                        Spacer()
+                        self.cAppTidScheduleViewButtonPresses += 1
 
-                        Text(parsePFCscDataItem.sPFCscParseLastLocDate)
-                            .gridColumnAlignment(.center)
-                            .font(.caption)
-                        Text(" @ ")
-                            .gridColumnAlignment(.center)
-                            .font(.caption)
-                        Text(parsePFCscDataItem.sPFCscParseLastLocTime)
-                            .gridColumnAlignment(.center)
-                            .font(.caption)
+                        let _ = xcgLogMsg("\(ClassInfo.sClsDisp):AppLocationMapView in Button(Xcode).'App TID Schedule View'.#(\(self.cAppTidScheduleViewButtonPresses))...")
 
-                        Spacer()
+                        self.isAppTidScheduleViewModal.toggle()
 
                     }
+                    label:
+                    {
+
+                        VStack(alignment:.center)
+                        {
+
+                            Label("", systemImage: "doc.text.magnifyingglass")
+                                .help(Text("App TID/Patient Schedule Viewer"))
+                                .imageScale(.large)
+
+                            Text("Schedule")
+                                .font(.caption)
+
+                        }
+
+                    }
+                    .fullScreenCover(isPresented:$isAppTidScheduleViewModal)
+                    {
+
+                        AppTidScheduleView(listScheduledPatientLocationItems:listScheduledPatientLocationItems)
+
+                    }
+                    .padding()
+
+                #endif
+
+                }
+
+                VStack
+                {
 
                     let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).VStack - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(parsePFCscDataItem.clLocationCoordinate2D)]...")
 
@@ -145,9 +237,6 @@ struct AppLocationMapView: View
                                    coordinate: parsePFCscDataItem.clLocationCoordinate2D)
                                 .tint(.red)
 
-                            let listScheduledPatientLocationItems:[ScheduledPatientLocationItem] 
-                                = self.getScheduledPatientLocationItemsForPFCscDataItem(pfCscDataItem:parsePFCscDataItem)
-
                             if (listScheduledPatientLocationItems.count > 0)
                             {
 
@@ -156,11 +245,8 @@ struct AppLocationMapView: View
 
                                     Marker(scheduledPatientLocationItem.sVDateStartTime,
                                            systemImage:"cross.case.circle",
-                                       //  systemImage:"pin.circle",
                                            coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
                                     .tint(.yellow)
-                                //  .tint(.purple)
-                                //  .tint(.red)
 
                                 }
                             
