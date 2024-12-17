@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0715"
+        static let sClsVers      = "v1.0805"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -143,7 +143,7 @@ struct AppLocationMapView: View
                             Marker("+", 
                                    systemImage:"mappin.and.ellipse", 
                                    coordinate: parsePFCscDataItem.clLocationCoordinate2D)
-                                .tag(0)
+                            //  .tag(0)
 
                             let listScheduledPatientLocationItems:[ScheduledPatientLocationItem] 
                                 = self.getScheduledPatientLocationItemsForPFCscDataItem(pfCscDataItem:parsePFCscDataItem)
@@ -151,48 +151,53 @@ struct AppLocationMapView: View
                             if (listScheduledPatientLocationItems.count > 0)
                             {
 
-                            //  ForEach(listScheduledPatientLocationItems, id:\.id)
                                 ForEach(listScheduledPatientLocationItems)
                                 { scheduledPatientLocationItem in
 
-                                    AppLocationMapPatLocView(scheduledPatientLocationItem:scheduledPatientLocationItem)
+                                    Marker(scheduledPatientLocationItem.sVDateStartTime,
+                                           systemImage:"pin.circle",
+                                           coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
+                                    .tint(.red)
+                                
+                                //  AppLocationMapPatLocView(scheduledPatientLocationItem:scheduledPatientLocationItem)
+                                //  AppLocationMapPatLocView(scheduledPatientLocationItem:Binding<scheduledPatientLocationItem>)
 
                                 }
                             
                             }
 
                         }
-                        .onTapGesture 
-                        { position in
-
-                            self.cAppMapTapPresses   += 1
-                            let coordinate            = proxy.convert(position, from:.local)
-                            let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] tapped at 'position' [\(position)] 'coordinate' at [\(String(describing: coordinate))]..."
-                            self.sMapTapMsg           = "\(parsePFCscDataItem.sPFCscParseName) at \(parsePFCscDataItem.sCurrentLocationName),\(parsePFCscDataItem.sCurrentCity) on \(parsePFCscDataItem.sPFCscParseLastLocDate)::\(parsePFCscDataItem.sPFCscParseLastLocTime)"
-
-                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(self.sMapTapMsg)...")
-                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(sMapTapLogMsg)...")
-                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(parsePFCscDataItem.clLocationCoordinate2D)]...")
-
-                            let bIsTapClose:Bool = self.checkIfAppLocationIsCloseToCoordinate(location:  parsePFCscDataItem.clLocationCoordinate2D, 
-                                                                                              coordinate:(coordinate ?? CLLocationCoordinate2D(latitude: 0.0000,
-                                                                                                                                               longitude:0.0000)))
-
-                            if (bIsTapClose == true)
-                            {
-
-                                self.isAppMapTapAlertShowing.toggle()
-
-                            }
-
-                        }
-                        .alert(self.sMapTapMsg, isPresented:$isAppMapTapAlertShowing)
-                        {
-                            Button("Ok", role:.cancel)
-                            {
-                                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).MapReader.Map.onTapGesture User pressed 'Ok' to the Map 'tap' alert...")
-                            }
-                        }
+                    //  .onTapGesture 
+                    //  { position in
+                    //
+                    //      self.cAppMapTapPresses   += 1
+                    //      let coordinate            = proxy.convert(position, from:.local)
+                    //      let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] tapped at 'position' [\(position)] 'coordinate' at [\(String(describing: coordinate))]..."
+                    //      self.sMapTapMsg           = "\(parsePFCscDataItem.sPFCscParseName) at \(parsePFCscDataItem.sCurrentLocationName),\(parsePFCscDataItem.sCurrentCity) on \(parsePFCscDataItem.sPFCscParseLastLocDate)::\(parsePFCscDataItem.sPFCscParseLastLocTime)"
+                    //
+                    //      let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(self.sMapTapMsg)...")
+                    //      let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(sMapTapLogMsg)...")
+                    //      let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(parsePFCscDataItem.clLocationCoordinate2D)]...")
+                    //
+                    //      let bIsTapClose:Bool = self.checkIfAppLocationIsCloseToCoordinate(location:  parsePFCscDataItem.clLocationCoordinate2D, 
+                    //                                                                        coordinate:(coordinate ?? CLLocationCoordinate2D(latitude: 0.0000,
+                    //                                                                                                                         longitude:0.0000)))
+                    //
+                    //      if (bIsTapClose == true)
+                    //      {
+                    //
+                    //          self.isAppMapTapAlertShowing.toggle()
+                    //
+                    //      }
+                    //
+                    //  }
+                    //  .alert(self.sMapTapMsg, isPresented:$isAppMapTapAlertShowing)
+                    //  {
+                    //      Button("Ok", role:.cancel)
+                    //      {
+                    //          let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).MapReader.Map.onTapGesture User pressed 'Ok' to the Map 'tap' alert...")
+                    //      }
+                    //  }
 
                     }
 
