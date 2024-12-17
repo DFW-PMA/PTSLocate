@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0805"
+        static let sClsVers      = "v1.0808"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -143,6 +143,7 @@ struct AppLocationMapView: View
                             Marker("+", 
                                    systemImage:"mappin.and.ellipse", 
                                    coordinate: parsePFCscDataItem.clLocationCoordinate2D)
+                                .tint(.red)
 
                             let listScheduledPatientLocationItems:[ScheduledPatientLocationItem] 
                                 = self.getScheduledPatientLocationItemsForPFCscDataItem(pfCscDataItem:parsePFCscDataItem)
@@ -154,9 +155,12 @@ struct AppLocationMapView: View
                                 { scheduledPatientLocationItem in
 
                                     Marker(scheduledPatientLocationItem.sVDateStartTime,
-                                           systemImage:"pin.circle",
+                                           systemImage:"cross.case.circle",
+                                       //  systemImage:"pin.circle",
                                            coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
-                                    .tint(.red)
+                                    .tint(.yellow)
+                                //  .tint(.purple)
+                                //  .tint(.red)
 
                                 }
                             

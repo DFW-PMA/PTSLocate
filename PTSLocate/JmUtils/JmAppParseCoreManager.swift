@@ -20,7 +20,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1704"
+        static let sClsVers      = "v1.1705"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -411,36 +411,41 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     }
 
-                    // Build the Tid/TherapistName Xref dictionary...
-
-                    let sPFTherapistParseNameLower:String = sPFTherapistParseName.lowercased()
-
-                    self.dictTherapistTidXref[sPFTherapistParseTID]       = sPFTherapistParseName
-                    self.dictTherapistTidXref[sPFTherapistParseName]      = sPFTherapistParseTID
-                    self.dictTherapistTidXref[sPFTherapistParseNameLower] = sPFTherapistParseTID
-
-                    // Track the Therapist in the dictionary of Scheduled Patient 'location' item(s)...
-
-                    if (self.dictSchedPatientLocItems[sPFTherapistParseTID] == nil)
+                    DispatchQueue.main.async
                     {
-                
-                        let scheduledPatientLocationItem:ScheduledPatientLocationItem =
-                                ScheduledPatientLocationItem(pfTherapistFileItem:pfTherapistObject)
-                
-                        var listScheduledPatientLocationItems:[ScheduledPatientLocationItem] = [ScheduledPatientLocationItem]()
-                
-                        listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
-                
-                        self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
-                
-                        self.xcgLogMsg("\(sCurrMethodDisp) Added an initial Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] as a 'placeholder'...")
-                
-                    }
-                    else
-                    {
-                
-                        self.xcgLogMsg("\(sCurrMethodDisp) Skipped adding an initial Item 'ScheduledPatientLocationItem' (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) - key 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] already exists...")
-                
+                    
+                        // Build the Tid/TherapistName Xref dictionary...
+
+                        let sPFTherapistParseNameLower:String = sPFTherapistParseName.lowercased()
+
+                        self.dictTherapistTidXref[sPFTherapistParseTID]       = sPFTherapistParseName
+                        self.dictTherapistTidXref[sPFTherapistParseName]      = sPFTherapistParseTID
+                        self.dictTherapistTidXref[sPFTherapistParseNameLower] = sPFTherapistParseTID
+
+                        // Track the Therapist in the dictionary of Scheduled Patient 'location' item(s)...
+
+                        if (self.dictSchedPatientLocItems[sPFTherapistParseTID] == nil)
+                        {
+                    
+                            let scheduledPatientLocationItem:ScheduledPatientLocationItem =
+                                    ScheduledPatientLocationItem(pfTherapistFileItem:pfTherapistObject)
+                    
+                            var listScheduledPatientLocationItems:[ScheduledPatientLocationItem] = [ScheduledPatientLocationItem]()
+                    
+                            listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
+                    
+                            self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
+                    
+                            self.xcgLogMsg("\(sCurrMethodDisp) Added an initial Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] as a 'placeholder'...")
+                    
+                        }
+                        else
+                        {
+                    
+                            self.xcgLogMsg("\(sCurrMethodDisp) Skipped adding an initial Item 'ScheduledPatientLocationItem' (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) - key 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)] already exists...")
+                    
+                        }
+                    
                     }
 
                     // Track the Therapist 'name' in the PFAdminsDataItem(s) dictionary...
