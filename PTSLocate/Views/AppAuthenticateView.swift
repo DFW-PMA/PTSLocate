@@ -17,7 +17,7 @@ struct AppAuthenticateView: View
     {
         
         static let sClsId        = "AppAuthenticateView"
-        static let sClsVers      = "v1.1201"
+        static let sClsVers      = "v1.1402"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -271,6 +271,7 @@ struct AppAuthenticateView: View
                             }
 
                         TextField("Username", text: $sLoginUsername)
+                            .keyboardType(.default)
                             .focused($focusedField, equals: .fieldUsername)
                             .onSubmit
                             {
@@ -278,6 +279,7 @@ struct AppAuthenticateView: View
                             }
 
                         SecureField("Password", text: $sLoginPassword)
+                            .keyboardType(.default)
                             .focused($focusedField, equals: .fieldPassword)
                             .onSubmit
                             {
@@ -984,39 +986,6 @@ struct AppAuthenticateView: View
         self.jmAppSwiftDataManager.detailAppSwiftDataToLog()
 
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked  'self.jmAppSwiftDataManager.detailAppSwiftDataToLog()'...")
-
-    //  if (self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count > 0)
-    //  {
-    //
-    //      var cPFAdminsSwiftDataItems:Int = 0
-    //
-    //      for currentSwiftDataItem:PFAdminsSwiftDataItem in self.pfAdminsSwiftDataItems
-    //      {
-    //
-    //          cPFAdminsSwiftDataItems += 1
-    //
-    //          if (cPFAdminsSwiftDataItems == 1) 
-    //          {
-    //
-    //              currentSwiftDataItem.displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:true)
-    //
-    //          }
-    //          else
-    //          {
-    //
-    //              currentSwiftDataItem.displayPFAdminsSwiftDataItemWithLocalStore(bShowLocalStore:false)
-    //
-    //          }
-    //
-    //      }
-    //
-    //  }
-    //  else
-    //  {
-    //
-    //      self.xcgLogMsg("\(sCurrMethodDisp) Unable to dump the SwiftData item(s) - the list is 'empty' - Warning!")
-    //
-    //  }
 
         // Dump the User data in PFAdminsDataItems to the Log...
 

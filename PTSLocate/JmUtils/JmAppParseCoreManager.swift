@@ -20,7 +20,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1804"
+        static let sClsVers      = "v1.1807"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -30,12 +30,25 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
     // App Data field(s):
 
-                    let timerPublisher                                                   = Timer.publish(every: (3 * 60), on: .main, in: .common).autoconnect()
+                    let timerPublisherTherapistLocations                                 = Timer.publish(every: (3 * 60), on: .main, in: .common).autoconnect()
+                                                                                           // TIMER to update Therapist location(s):
                                                                                            // Note: implement .onReceive() on a field within the displaying 'View'...
                                                                                            // 
                                                                                            // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
                                                                                            // ...
-                                                                                           // .onReceive(jmAppParseCoreManager.timerPublisher,
+                                                                                           // .onReceive(jmAppParseCoreManager.timerPublisherTherapistLocations,
+                                                                                           //     perform:
+                                                                                           //     { dtObserved in
+                                                                                           //         ...
+                                                                                           //     })
+
+                    let timerPublisherScheduleLocations                                  = Timer.publish(every: (25 * 60), on: .main, in: .common).autoconnect()
+                                                                                           // TIMER to update (Patient) Schedule(d) location(s):
+                                                                                           // Note: implement .onReceive() on a field within the displaying 'View'...
+                                                                                           // 
+                                                                                           // @ObservedObject var jmAppParseCoreManager:JmAppParseCoreManager
+                                                                                           // ...
+                                                                                           // .onReceive(jmAppParseCoreManager.timerPublisherScheduleLocations,
                                                                                            //     perform:
                                                                                            //     { dtObserved in
                                                                                            //         ...
@@ -44,6 +57,8 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
        public       var parseConfig:ParseClientConfiguration?                            = nil       
        public       var pfInstallationCurrent:PFInstallation?                            = nil
        public       var bPFInstallationHasBeenEnumerated:Bool                            = false
+
+       private      var cPFQueryCSCs:Int                                                 = 0
 
     @Published      var cPFCscObjectsRefresh:Int                                         = 0
     @Published      var cPFCscObjects:Int                                                = 0
@@ -147,8 +162,13 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         asToString.append("'parseConfig': [\(String(describing: self.parseConfig))]")
         asToString.append("'pfInstallationCurrent': [\(String(describing: self.pfInstallationCurrent))]")
         asToString.append("'bPFInstallationHasBeenEnumerated': [\(String(describing: self.bPFInstallationHasBeenEnumerated))]")
-        asToString.append("'cPFCscObjectsRefresh': [\(String(describing: self.cPFCscObjectsRefresh))]")
-        asToString.append("'cPFCscObjects': [\(String(describing: self.cPFCscObjects))]")
+        asToString.append("],")
+        asToString.append("[")
+        asToString.append("'cPFQueryCSCs': (\(String(describing: self.cPFQueryCSCs)))")
+        asToString.append("],")
+        asToString.append("[")
+        asToString.append("'cPFCscObjectsRefresh': (\(String(describing: self.cPFCscObjectsRefresh)))")
+        asToString.append("'cPFCscObjects': (\(String(describing: self.cPFCscObjects)))")
         asToString.append("'listPFCscDataItems': [\(String(describing: self.listPFCscDataItems))]")
         asToString.append("'listPFCscNameItems': [\(String(describing: self.listPFCscNameItems))]")
         asToString.append("],")
@@ -562,8 +582,10 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         
         let sCurrMethod:String = #function
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.cPFQueryCSCs += 1
         
-        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - 'self.cPFQueryCSCs' is [\(self.cPFQueryCSCs)]...")
 
         // Issue a PFQuery for the 'CSC' class...
 
@@ -621,13 +643,19 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                 }
 
-                // Gather the PFQueries to construct the new ScheduledPatientLocationItem(s) in the background...
+                // Gather the PFQueries to construct the new ScheduledPatientLocationItem(s) in the background
+                // (ONLY on the 1st call to this function - after that this fires from a View on a Timer)
 
-                self.xcgLogMsg("\(sCurrMethodDisp) Calling 'self.gatherJmAppParsePFQueriesForScheduledLocationsInBackground()' to gather 'scheduled' Patient location data...")
+                if (self.cPFQueryCSCs == 1)
+                {
 
-                self.gatherJmAppParsePFQueriesForScheduledLocationsInBackground()
-                
-                self.xcgLogMsg("\(sCurrMethodDisp) Called  'self.gatherJmAppParsePFQueriesForScheduledLocationsInBackground()' to gather 'scheduled' Patient location data...")
+                    self.xcgLogMsg("\(sCurrMethodDisp) <1st Run> Calling 'self.gatherJmAppParsePFQueriesForScheduledLocationsInBackground()' to gather 'scheduled' Patient location data...")
+
+                    self.gatherJmAppParsePFQueriesForScheduledLocationsInBackground()
+
+                    self.xcgLogMsg("\(sCurrMethodDisp) <1st Run> Called  'self.gatherJmAppParsePFQueriesForScheduledLocationsInBackground()' to gather 'scheduled' Patient location data...")
+
+                }
 
             //  Thread.sleep(forTimeInterval: 0.2)  // This 'sleeps' but did NOT work to fix the location issue(s)...
 
@@ -838,35 +866,6 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                     self.jmAppSwiftDataManager.detailAppSwiftDataToLog()
 
                     self.xcgLogMsg("\(sCurrMethodDisp) Invoked  'self.jmAppSwiftDataManager.detailAppSwiftDataToLog()'...")
-
-                //  do
-                //  {
-                //
-                //      try self.jmAppSwiftDataManager.modelContext!.save()
-                //
-                //      self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has been saved after adding PFQuery 'Admins' item(s)...")
-                //
-                //      self.jmAppSwiftDataManager.pfAdminsSwiftDataItems   = try self.jmAppSwiftDataManager.modelContext!.fetch(pfAdminsSwiftDataItemsDescriptor)
-                //  //  self.jmAppSwiftDataManager?.cPFAdminsSwiftDataItems = self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count
-                //
-                //      if (self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count > 0)
-                //      {
-                //
-                //          self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable = true
-                //      //  self.jmAppSwiftDataManager?.bArePFAdminsSwiftDataItemsAvailable.toggle()
-                //
-                //      }
-                //
-                //      self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppSwiftDataManager?.pfAdminsSwiftDataItems' has (\(String(describing: self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count))) 'login' item(s)...")
-                //      self.xcgLogMsg("\(ClassInfo.sClsDisp) Toggling SwiftData 'self.jmAppSwiftDataManager?.bArePFAdminsSwiftDataItemsAvailable' is [\(String(describing: self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable))]...")
-                //
-                //  }
-                //  catch
-                //  {
-                //
-                //      self.xcgLogMsg("\(sCurrMethodDisp) SwiftData ModelContext has failed to save after adding PFQuery 'Admins' item(s) - Details: \(error) - Error!")
-                //
-                //  }
 
                 }
 
