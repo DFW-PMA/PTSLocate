@@ -16,7 +16,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ScheduledPatientLocationItem"
-        static let sClsVers      = "v1.0602"
+        static let sClsVers      = "v1.0603"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -280,7 +280,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
 
             (self.sVDateStartTime24h, self.iVDateStartTime24h) = self.convertVDateStartTimeTo24Hour(sVDateStartTime:self.sVDateStartTime)
 
-            self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'self.sVDateStartTime24h' is [\(self.sVDateStartTime24h)] - 'self.iVDateStartTime24h' is [\(self.iVDateStartTime24h)]...")
+            self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'self.sVDateStartTime24h' is [\(self.sVDateStartTime24h)] - 'self.iVDateStartTime24h' is (\(self.iVDateStartTime24h))...")
 
         }
   
@@ -484,11 +484,11 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         }
 
         sVDateStartTime24h = "\(iVDateStartTimeHH):\(sVDateStartTimeMM)"
-        iVDateStartTimeHH  = Int("\(iVDateStartTimeHH)\(sVDateStartTimeMM)") ?? 0
+        iVDateStartTime24h = Int("\(iVDateStartTimeHH)\(sVDateStartTimeMM)") ?? 0
 
         // Exit:
 
-        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'sVDateStartTime24h' is [\(sVDateStartTime24h)] - 'iVDateStartTime24h' is [\(iVDateStartTime24h)]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'sVDateStartTime24h' is [\(sVDateStartTime24h)] - 'iVDateStartTime24h' is (\(iVDateStartTime24h))...")
 
         return (sVDateStartTime24h, iVDateStartTime24h)
 

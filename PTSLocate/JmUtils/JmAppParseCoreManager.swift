@@ -20,7 +20,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1802"
+        static let sClsVers      = "v1.1804"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -1126,7 +1126,14 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                                 listScheduledPatientLocationItems.sort
                                 { (scheduledPatientLocationItem1, scheduledPatientLocationItem2) in
 
-                                    return scheduledPatientLocationItem1.iVDateStartTime24h > scheduledPatientLocationItem1.iVDateStartTime24h
+                                //  Compare for Sort: '<' sorts 'ascending' and '>' sorts 'descending'...
+
+                                //  let bIsItem1GreaterThanItem2:Bool = (scheduledPatientLocationItem1.iVDateStartTime24h > scheduledPatientLocationItem2.iVDateStartTime24h)
+                                    let bIsItem1GreaterThanItem2:Bool = (scheduledPatientLocationItem1.iVDateStartTime24h < scheduledPatientLocationItem2.iVDateStartTime24h)
+
+                                //  self.xcgLogMsg("\(sCurrMethodDisp) Sort <OP> Returning 'bIsItem1GreaterThanItem2' of [\(bIsItem1GreaterThanItem2)] because 'scheduledPatientLocationItem1.iVDateStartTime24h' is [\(scheduledPatientLocationItem1.iVDateStartTime24h)] and is less than 'scheduledPatientLocationItem2.iVDateStartTime24h' is [\(scheduledPatientLocationItem2.iVDateStartTime24h)] for 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
+
+                                    return bIsItem1GreaterThanItem2
 
                                 }
 
