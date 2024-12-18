@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0904"
+        static let sClsVers      = "v1.0910"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -243,10 +243,44 @@ struct AppLocationMapView: View
                                 ForEach(listScheduledPatientLocationItems)
                                 { scheduledPatientLocationItem in
 
-                                    Marker(scheduledPatientLocationItem.sVDateStartTime,
-                                           systemImage:"cross.case.circle",
-                                           coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
-                                    .tint(.yellow)
+                                    Annotation(scheduledPatientLocationItem.sVDateStartTime, 
+                                               coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
+                                    {
+
+                                        Label("", systemImage: "cross.case.circle")
+                                            .help(Text("Scheduled Patient visit"))
+                                            .imageScale(.large)
+                                            .tint(.yellow)
+
+                                        Text("*")
+                                            .onTapGesture
+                                            { position in
+
+                                                self.cAppMapTapPresses   += 1
+                                                let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Marker for TID #(\(scheduledPatientLocationItem.sTid)) for PID #(\(scheduledPatientLocationItem.sPid)) Patient [\(scheduledPatientLocationItem.sPtName)] on [\(scheduledPatientLocationItem.sVDate)] at [\(scheduledPatientLocationItem.sVDateStartTime)] at address [\(scheduledPatientLocationItem.sLastVDateAddress)]..."
+
+                                                let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).Map.Annotation.onTapGesture - <Annotation> - \(sMapTapLogMsg)...")
+
+                                            }
+
+                                    }
+
+                                //  AppLocationMapPidMarkerView(scheduledPatientLocationItem:scheduledPatientLocationItem)
+
+                                //  Marker(scheduledPatientLocationItem.sVDateStartTime,
+                                //         systemImage:"cross.case.circle",
+                                //         coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
+                                //  .tint(.yellow)
+                                //  .onTapGesture
+                                //  { position in
+                                //
+                                //      self.cAppMapTapPresses   += 1
+                                //      let coordinate            = proxy.convert(position, from:.local)
+                                //      let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] Patient [\(scheduledPatientLocationItem.sPtName)] tapped at 'position' [\(position)] 'coordinate' at [\(String(describing: coordinate))]..."
+                                //
+                                //      let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(sMapTapLogMsg)...")
+                                //
+                                //  }
 
                                 }
                             

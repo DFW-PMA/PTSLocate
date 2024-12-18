@@ -119,6 +119,8 @@
 		F0C6A9012C4AA2A40004606A /* XCGLogger in Frameworks */ = {isa = PBXBuildFile; productRef = F0C6A9002C4AA2A40004606A /* XCGLogger */; };
 		F0CBE9002CEBDD6E00B0625E /* AppLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBE8FF2CEBDD6E00B0625E /* AppLocationMapView.swift */; };
 		F0CBE9012CEBDD6E00B0625E /* AppLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBE8FF2CEBDD6E00B0625E /* AppLocationMapView.swift */; };
+		F0D09A4F2D13769F009E4CF2 /* AppLocationMapPidMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D09A4E2D13769F009E4CF2 /* AppLocationMapPidMarkerView.swift */; };
+		F0D09A502D13769F009E4CF2 /* AppLocationMapPidMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D09A4E2D13769F009E4CF2 /* AppLocationMapPidMarkerView.swift */; };
 		F0D17B892C52E414000E5A52 /* JmFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B872C52E414000E5A52 /* JmFileIO.swift */; };
 		F0D17B8A2C52E414000E5A52 /* JmStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B882C52E414000E5A52 /* JmStringExtensions.swift */; };
 		F0D17B8D2C52E572000E5A52 /* AppInfoCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D17B8C2C52E572000E5A52 /* AppInfoCommands.swift */; };
@@ -211,6 +213,7 @@
 		F0BCCC4F2C820ECB007EA382 /* PTSLocateUIAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTSLocateUIAppDelegate.swift; sourceTree = "<group>"; };
 		F0BCCC762C820EF1007EA382 /* PTSLocate_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PTSLocate_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBE8FF2CEBDD6E00B0625E /* AppLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationMapView.swift; sourceTree = "<group>"; };
+		F0D09A4E2D13769F009E4CF2 /* AppLocationMapPidMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationMapPidMarkerView.swift; sourceTree = "<group>"; };
 		F0D17B872C52E414000E5A52 /* JmFileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmFileIO.swift; sourceTree = "<group>"; };
 		F0D17B882C52E414000E5A52 /* JmStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JmStringExtensions.swift; sourceTree = "<group>"; };
 		F0D17B8C2C52E572000E5A52 /* AppInfoCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoCommands.swift; sourceTree = "<group>"; };
@@ -339,6 +342,7 @@
 		F028C5BF2C486134007C459E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F0D09A4E2D13769F009E4CF2 /* AppLocationMapPidMarkerView.swift */,
 				F08A94752D11F1A900B69C3C /* AppTidScheduleView.swift */,
 				F029E0B92C823ACB00FC96B9 /* AppAboutView.swift */,
 				F069E2AE2CEFADE5001F0A5E /* AppAuthenticateView.swift */,
@@ -560,6 +564,7 @@
 				F06C01BA2CFE0A16007703E2 /* PFAdminsSwiftDataItem.swift in Sources */,
 				F04D88A22CDAA8A00002AA0B /* MultipartZipFileCreator.swift in Sources */,
 				F08A94772D11F1A900B69C3C /* AppTidScheduleView.swift in Sources */,
+				F0D09A4F2D13769F009E4CF2 /* AppLocationMapPidMarkerView.swift in Sources */,
 				F0D17B932C52E951000E5A52 /* LogFileView.swift in Sources */,
 				F0786E462CE68E9E0052A534 /* CoreLocationModelObservable2.swift in Sources */,
 				F069E2B02CEFADE5001F0A5E /* AppAuthenticateView.swift in Sources */,
@@ -595,6 +600,7 @@
 				F091A28B2C8F73DD00FB85D5 /* RestURLResponse.swift in Sources */,
 				F069E2AF2CEFADE5001F0A5E /* AppAuthenticateView.swift in Sources */,
 				F00619A72C94A8060094614E /* MultipartRequestInfo.swift in Sources */,
+				F0D09A502D13769F009E4CF2 /* AppLocationMapPidMarkerView.swift in Sources */,
 				F0BCCC572C820EF1007EA382 /* ContentView.swift in Sources */,
 				F0BCCC582C820EF1007EA382 /* HelpBasicMode.swift in Sources */,
 				F0BCCC592C820EF1007EA382 /* PTSLocateUIAppDelegate.swift in Sources */,
@@ -878,7 +884,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 19.11.24C353;
+				CURRENT_PROJECT_VERSION = 19.15.24C353;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
@@ -928,7 +934,7 @@
 				CODE_SIGN_ENTITLEMENTS = PTSLocate/PTSLocate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 19.11.24C353;
+				CURRENT_PROJECT_VERSION = 19.15.24C353;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PTSLocate/Preview Content\"";
