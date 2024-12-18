@@ -16,7 +16,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ScheduledPatientLocationItem"
-        static let sClsVers      = "v1.0505"
+        static let sClsVers      = "v1.0602"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -40,6 +40,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
     var sVDate:String                             = ""   // From 'PFQuery::PatientCalDay["VDate"]'
     var sVDateStartTime:String                    = ""   // From 'PFQuery::PatientCalDay["startTime"]'
     var sVDateStartTime24h:String                 = ""   // Converted from 'sVDateStartTime'
+    var iVDateStartTime24h:Int                    = 0    // Converted from 'sVDateStartTime24h'
 
     var sLastVDate:String                         = ""   // From 'PFQuery::BackupVisit["VDate"]'
     var sLastVDateType:String                     = "-1" // From 'PFQuery::BackupVisit["type"]'
@@ -83,6 +84,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         self.sVDate              = ""
         self.sVDateStartTime     = ""
         self.sVDateStartTime24h  = ""
+        self.iVDateStartTime24h  = 0
 
         self.sLastVDate          = ""
         self.sLastVDateType      = "-1"
@@ -123,6 +125,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         self.sVDate              = scheduledPatientLocationItem.sVDate             
         self.sVDateStartTime     = scheduledPatientLocationItem.sVDateStartTime    
         self.sVDateStartTime24h  = scheduledPatientLocationItem.sVDateStartTime24h
+        self.iVDateStartTime24h  = scheduledPatientLocationItem.iVDateStartTime24h
                                                                                    
         self.sLastVDate          = scheduledPatientLocationItem.sLastVDate         
         self.sLastVDateType      = scheduledPatientLocationItem.sLastVDateType     
@@ -263,20 +266,21 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
 
         }
 
-        // Convert the VDate 'startTime' from 12-hour to 24-hour...
+        // Convert the VDate 'startTime' from 12-hour to 24-hour (String and Int <for Sort>)...
 
         if (self.sVDateStartTime.count < 1)
         {
 
             self.sVDateStartTime24h = ""
+            self.iVDateStartTime24h = 0
 
         }
         else
         {
 
-            self.sVDateStartTime24h = self.convertVDateStartTimeTo24Hour(sVDateStartTime:self.sVDateStartTime)
+            (self.sVDateStartTime24h, self.iVDateStartTime24h) = self.convertVDateStartTimeTo24Hour(sVDateStartTime:self.sVDateStartTime)
 
-            self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'self.sVDateStartTime24h' is [\(self.sVDateStartTime24h)]...")
+            self.xcgLogMsg("\(sCurrMethodDisp) Cleaning - 'self.sVDateStartTime24h' is [\(self.sVDateStartTime24h)] - 'self.iVDateStartTime24h' is [\(self.iVDateStartTime24h)]...")
 
         }
   
@@ -352,22 +356,23 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         asToString.append("[")
         asToString.append("'id': [\(String(describing: self.id))],")
         asToString.append("'sTid': [\(String(describing: self.sTid))],")
-        asToString.append("'iTid': [\(String(describing: self.iTid))],")
+        asToString.append("'iTid': (\(String(describing: self.iTid))),")
         asToString.append("'sTName': [\(String(describing: self.sTName))],")
         asToString.append("'sTherapistName': [\(String(describing: self.sTherapistName))],")
         asToString.append("'sPid': [\(String(describing: self.sPid))],")
-        asToString.append("'iPid': [\(String(describing: self.iPid))],")
+        asToString.append("'iPid': (\(String(describing: self.iPid))),")
         asToString.append("'sPtName': [\(String(describing: self.sPtName))],")
         asToString.append("],")
         asToString.append("[")
         asToString.append("'sVDate': [\(String(describing: self.sVDate))],")
         asToString.append("'sVDateStartTime': [\(String(describing: self.sVDateStartTime))],")
         asToString.append("'sVDateStartTime24h': [\(String(describing: self.sVDateStartTime24h))],")
+        asToString.append("'iVDateStartTime24h': (\(String(describing: self.iVDateStartTime24h))),")
         asToString.append("],")
         asToString.append("[")
         asToString.append("'sLastVDate': [\(String(describing: self.sLastVDate))],")
         asToString.append("'sLastVDateType': [\(String(describing: self.sLastVDateType))],")
-        asToString.append("'iLastVDateType': [\(String(describing: self.iLastVDateType))],")
+        asToString.append("'iLastVDateType': (\(String(describing: self.iLastVDateType))),")
         asToString.append("'sLastVDateAddress': [\(String(describing: self.sLastVDateAddress))],")
         asToString.append("'sLastVDateLatitude': [\(String(describing: self.sLastVDateLatitude))],")
         asToString.append("'sLastVDateLongitude': [\(String(describing: self.sLastVDateLongitude))],")
@@ -395,20 +400,21 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
 
         self.xcgLogMsg("\(sCurrMethodDisp) 'id'                  is [\(String(describing: self.id))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sTid'                is [\(String(describing: self.sTid))]...")
-        self.xcgLogMsg("\(sCurrMethodDisp) 'iTid'                is [\(String(describing: self.iTid))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) 'iTid'                is (\(String(describing: self.iTid)))...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sTName'              is [\(String(describing: self.sTName))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sTherapistName'      is [\(String(describing: self.sTherapistName))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sPid'                is [\(String(describing: self.sPid))]...")
-        self.xcgLogMsg("\(sCurrMethodDisp) 'iPid'                is [\(String(describing: self.iPid))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) 'iPid'                is (\(String(describing: self.iPid)))...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sPtName'             is [\(String(describing: self.sPtName))]...")
 
         self.xcgLogMsg("\(sCurrMethodDisp) 'sVDate'              is [\(String(describing: self.sVDate))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sVDateStartTime'     is [\(String(describing: self.sVDateStartTime))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sVDateStartTime24h'  is [\(String(describing: self.sVDateStartTime24h))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) 'iVDateStartTime24h'  is (\(String(describing: self.iVDateStartTime24h)))...")
 
         self.xcgLogMsg("\(sCurrMethodDisp) 'sLastVDate'          is [\(String(describing: self.sLastVDate))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sLastVDateType'      is [\(String(describing: self.sLastVDateType))]...")
-        self.xcgLogMsg("\(sCurrMethodDisp) 'iLastVDateType'      is [\(String(describing: self.iLastVDateType))]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) 'iLastVDateType'      is (\(String(describing: self.iLastVDateType)))...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sLastVDateAddress'   is [\(String(describing: self.sLastVDateAddress))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sLastVDateLatitude'  is [\(String(describing: self.sLastVDateLatitude))]...")
         self.xcgLogMsg("\(sCurrMethodDisp) 'sLastVDateLongitude' is [\(String(describing: self.sLastVDateLongitude))]...")
@@ -421,7 +427,7 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
 
     }   // END of public func displayScheduledPatientLocationItemToLog().
     
-    public func convertVDateStartTimeTo24Hour(sVDateStartTime:String)->String
+    public func convertVDateStartTimeTo24Hour(sVDateStartTime:String)->(String, Int)
     {
 
         let sCurrMethod:String = #function
@@ -432,15 +438,16 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         // Convert the VDate 'startTime' from 12-hour to 24-hour time...
 
         var sVDateStartTime24h:String = ""
+        var iVDateStartTime24h:Int    = 0
         
         if (sVDateStartTime.count < 1)
         {
 
             // Exit:
 
-            self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'sVDateStartTime24h' is [\(sVDateStartTime24h)]...")
+            self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'sVDateStartTime24h' is [\(sVDateStartTime24h)] - 'iVDateStartTime24h' is [\(iVDateStartTime24h)]...")
 
-            return sVDateStartTime24h
+            return (sVDateStartTime24h, iVDateStartTime24h)
             
         }
         
@@ -477,14 +484,15 @@ class ScheduledPatientLocationItem: NSObject, Identifiable
         }
 
         sVDateStartTime24h = "\(iVDateStartTimeHH):\(sVDateStartTimeMM)"
+        iVDateStartTimeHH  = Int("\(iVDateStartTimeHH)\(sVDateStartTimeMM)") ?? 0
 
         // Exit:
 
-        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'sVDateStartTime24h' is [\(sVDateStartTime24h)]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'sVDateStartTime24h' is [\(sVDateStartTime24h)] - 'iVDateStartTime24h' is [\(iVDateStartTime24h)]...")
 
-        return sVDateStartTime24h
+        return (sVDateStartTime24h, iVDateStartTime24h)
 
-    }   // END of convertVDateStartTimeTo24Hour(sVDateStartTime:String)->String.
+    }   // END of convertVDateStartTimeTo24Hour(sVDateStartTime:String)->(String, Int).
     
 }   // END of class ScheduledPatientLocationItem(NSObject, Identifiable).
 

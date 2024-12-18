@@ -20,7 +20,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1801"
+        static let sClsVers      = "v1.1802"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -1111,7 +1111,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                             listScheduledPatientLocationItems.append(scheduledPatientLocationItem)
 
-                            self.xcgLogMsg("\(sCurrMethodDisp) Added an updated Item #(\(cPFPatientCalDayObjects)) 'scheduledPatientLocationItem' of [\(scheduledPatientLocationItem)] to the list 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)]...")
+                            self.xcgLogMsg("\(sCurrMethodDisp) Added an updated Item #(\(cPFPatientCalDayObjects)) 'scheduledPatientLocationItem' of [\(scheduledPatientLocationItem)] to the list 'listScheduledPatientLocationItems' for 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
 
                         }
 
@@ -1121,12 +1121,16 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                             if (cPFPatientCalDayObjects > 1)
                             {
 
+                                self.xcgLogMsg("\(sCurrMethodDisp) Sorting #(\(cPFPatientCalDayObjects)) Item(s) in the 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] for 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
+
                                 listScheduledPatientLocationItems.sort
                                 { (scheduledPatientLocationItem1, scheduledPatientLocationItem2) in
 
-                                    return scheduledPatientLocationItem1.sVDateStartTime24h > scheduledPatientLocationItem1.sVDateStartTime24h
+                                    return scheduledPatientLocationItem1.iVDateStartTime24h > scheduledPatientLocationItem1.iVDateStartTime24h
 
                                 }
+
+                                self.xcgLogMsg("\(sCurrMethodDisp) Sorted  #(\(cPFPatientCalDayObjects)) Item(s) in the 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] for 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
 
                             }
                         
@@ -1135,7 +1139,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                                 self.dictSchedPatientLocItems[sPFTherapistParseTID] = listScheduledPatientLocationItems
 
-                                self.xcgLogMsg("\(sCurrMethodDisp) Added #(\(cPFPatientCalDayObjects)) updated Item(s) to the Item 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] (in a List) to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
+                                self.xcgLogMsg("\(sCurrMethodDisp) Added #(\(cPFPatientCalDayObjects)) updated Item(s) to the 'listScheduledPatientLocationItems' of [\(listScheduledPatientLocationItems)] to the dictionary of 'dictSchedPatientLocItems' item(s) keyed by 'sPFTherapistParseTID' of [\(sPFTherapistParseTID)]...")
 
                             }
                         
