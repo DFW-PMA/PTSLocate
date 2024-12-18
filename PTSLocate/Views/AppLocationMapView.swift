@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0817"
+        static let sClsVers      = "v1.0904"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -32,15 +32,9 @@ struct AppLocationMapView: View
            private let fMapLatLongTolerance:Double               = 0.0025
 
     @State private var cAppMapTapPresses:Int                     = 0
-
-#if os(iOS)
-
     @State private var cAppTidScheduleViewButtonPresses:Int      = 0
 
     @State private var isAppTidScheduleViewModal:Bool            = false
-
-#endif
-
     @State private var isAppMapTapAlertShowing:Bool              = false
     @State private var sMapTapMsg:String                         = ""
 
@@ -179,8 +173,6 @@ struct AppLocationMapView: View
 
                     }
 
-                #if os(iOS)
-
                     Spacer()
 
                     Button
@@ -209,15 +201,23 @@ struct AppLocationMapView: View
                         }
 
                     }
+                #if os(macOS)
+                    .sheet(isPresented:$isAppTidScheduleViewModal, content:
+                        {
+
+                            AppTidScheduleView(listScheduledPatientLocationItems:listScheduledPatientLocationItems)
+
+                        }
+                    )
+                #elseif os(iOS)
                     .fullScreenCover(isPresented:$isAppTidScheduleViewModal)
                     {
 
                         AppTidScheduleView(listScheduledPatientLocationItems:listScheduledPatientLocationItems)
 
                     }
-                    .padding()
-
                 #endif
+                    .padding()
 
                 }
 
@@ -253,6 +253,14 @@ struct AppLocationMapView: View
                             }
 
                         }
+                    #if os(macOS)
+                        .mapControls
+                        {
+
+                            MapZoomStepper()
+
+                        }
+                    #endif
                         .onTapGesture 
                         { position in
                       

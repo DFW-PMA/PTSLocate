@@ -15,7 +15,7 @@ struct AppLocationView: View
     {
         
         static let sClsId        = "AppLocationView"
-        static let sClsVers      = "v1.0406"
+        static let sClsVers      = "v1.0410"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -224,7 +224,7 @@ struct AppLocationView: View
 
                                                 let _ = xcgLogMsg("\(ClassInfo.sClsDisp):AppLocationView.GridRow.NavigationLink.'.onTapGesture()' received - Map #(\(pfCscObject.idPFCscObject))...")
 
-                                                AppLocationMapView(parsePFCscDataItem:pfCscObject)
+                                                let _ = AppLocationMapView(parsePFCscDataItem:pfCscObject)
 
                                             }
                                         #endif
@@ -517,6 +517,35 @@ struct AppLocationView: View
         {
         
             cScheduledPatientLocationItems = 0
+        
+        }
+
+        if (cScheduledPatientLocationItems == 1)
+        {
+        
+            let scheduledPatientLocationItem:ScheduledPatientLocationItem = listScheduledPatientLocationItems[0]
+
+            self.xcgLogMsg("\(sCurrMethodDisp) <Checking> The ONLY Patient 'visit' for 'sPFTherapistParseTID' of [\(scheduledPatientLocationItem.sTid)] to determine if it is a 'placeholder' object...")
+
+            // If the ONLY Patient 'visit' is a 'placeholder' object (no PID or Date values), reset the returned Visit count to 0...
+
+            if (scheduledPatientLocationItem.iPid                     == -1 &&
+                scheduledPatientLocationItem.sVDate.count              < 1  &&
+                scheduledPatientLocationItem.sVDateStartTime.count     < 1  &&
+                scheduledPatientLocationItem.sVDateStartTime24h.count  < 1)
+            {
+
+                cScheduledPatientLocationItems = 0
+
+                self.xcgLogMsg("\(sCurrMethodDisp) <Checking> The ONLY Patient 'visit' for 'sPFTherapistParseTID' of [\(scheduledPatientLocationItem.sTid)] is a 'placeholder' object - resetting the 'visits' count to 0...")
+
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) <Checking> The ONLY Patient 'visit' for 'sPFTherapistParseTID' of [\(scheduledPatientLocationItem.sTid)] is NOT a 'placeholder' object...")
+
+            }
         
         }
 
