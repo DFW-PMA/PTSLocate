@@ -17,7 +17,7 @@ struct AppAuthenticateView: View
     {
         
         static let sClsId        = "AppAuthenticateView"
-        static let sClsVers      = "v1.1403"
+        static let sClsVers      = "v1.1509"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -46,6 +46,14 @@ struct AppAuthenticateView: View
     @State      private var isUserLoggedIn:Bool                         = false
     @State      private var sLoginUsername:String                       = ""
     @State      private var sLoginPassword:String                       = ""
+
+#if os(iOS)
+
+    @State      private var cAppAboutButtonPresses:Int                  = 0
+
+    @State      private var isAppAboutViewModal:Bool                    = false
+
+#endif
 
                         var jmAppDelegateVisitor:JmAppDelegateVisitor   = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
     @ObservedObject     var jmAppSwiftDataManager:JmAppSwiftDataManager = JmAppSwiftDataManager.ClassSingleton.appSwiftDataManager
@@ -125,27 +133,95 @@ struct AppAuthenticateView: View
 
                 Spacer()
 
-            if #available(iOS 17.0, *)
-            {
+                HStack
+                {
 
-                Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
-                    .resizable()
-                    .scaledToFit()
-                    .containerRelativeFrame(.horizontal)
-                        { size, axis in
-                            size * 0.15
+                    Spacer()
+
+                #if os(iOS)
+
+                    Button
+                    {
+
+                        self.cAppAboutButtonPresses += 1
+
+                        let _ = xcgLogMsg("\(ClassInfo.sClsDisp):SettingsSingleViewCore in Button(Xcode).'App About'.#(\(self.cAppAboutButtonPresses))...")
+
+                        self.isAppAboutViewModal.toggle()
+
+                    }
+                    label:
+                    {
+
+                        VStack(alignment:.center)
+                        {
+
+                            Label("", systemImage: "questionmark.diamond")
+                                .help(Text("App About Information"))
+                                .imageScale(.large)
+
+                            Text("About")
+                                .font(.caption)
+
                         }
 
-            }
-            else
-            {
+                    }
+                    .fullScreenCover(isPresented:$isAppAboutViewModal)
+                    {
 
-                Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width:75, height: 75, alignment:.center)
+                        AppAboutView()
 
-            }
+                    }
+
+                    Spacer()
+
+                #endif
+
+                if #available(iOS 17.0, *)
+                {
+
+                    Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
+                        .resizable()
+                        .scaledToFit()
+                        .containerRelativeFrame(.horizontal)
+                            { size, axis in
+                                size * 0.10
+                            }
+
+                }
+                else
+                {
+
+                    Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width:50, height: 50, alignment:.center)
+
+                }
+
+                    Spacer()
+
+                #if os(iOS)
+
+                    VStack(alignment:.center)
+                    {
+
+                    //  Label("", systemImage: "questionmark.diamond")
+                    //      .help(Text("App About Information"))
+                    //      .imageScale(.large)
+
+                    //  Text: --- (hidden) Horzonital <Spacer> ---
+                        Text("")
+                            .font(.caption)
+                            .opacity(0)
+
+                    }
+
+                    Spacer()
+
+                #endif
+
+                }
 
                 Spacer()
 
@@ -223,27 +299,94 @@ struct AppAuthenticateView: View
 
                         Spacer()
 
-                    if #available(iOS 17.0, *)
-                    {
+                        HStack
+                        {
 
-                        Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
-                            .resizable()
-                            .scaledToFit()
-                            .containerRelativeFrame(.horizontal)
-                                { size, axis in
-                                    size * 0.10
+                        #if os(iOS)
+
+                            Button
+                            {
+
+                                self.cAppAboutButtonPresses += 1
+
+                                let _ = xcgLogMsg("\(ClassInfo.sClsDisp):SettingsSingleViewCore in Button(Xcode).'App About'.#(\(self.cAppAboutButtonPresses))...")
+
+                                self.isAppAboutViewModal.toggle()
+
+                            }
+                            label:
+                            {
+
+                                VStack(alignment:.center)
+                                {
+
+                                    Label("", systemImage: "questionmark.diamond")
+                                        .help(Text("App About Information"))
+                                        .imageScale(.large)
+
+                                    Text("About")
+                                        .font(.caption)
+
                                 }
 
-                    }
-                    else
-                    {
+                            }
+                            .fullScreenCover(isPresented:$isAppAboutViewModal)
+                            {
 
-                        Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width:50, height: 50, alignment:.center)
+                                AppAboutView()
 
-                    }
+                            }
+                            .padding()
+
+                        #endif
+
+                            Spacer()
+
+                        if #available(iOS 17.0, *)
+                        {
+
+                            Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
+                                .resizable()
+                                .scaledToFit()
+                                .containerRelativeFrame(.horizontal)
+                                    { size, axis in
+                                        size * 0.10
+                                    }
+
+                        }
+                        else
+                        {
+
+                            Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width:50, height: 50, alignment:.center)
+
+                        }
+
+                            Spacer()
+
+                        #if os(iOS)
+
+                            VStack(alignment:.center)
+                            {
+
+                                Label("", systemImage: "textformat.size.smaller")
+                                    .help(Text("App Marker"))
+                                    .imageScale(.large)
+                                    .opacity(0)
+
+                            //  Text: --- (hidden) Horzonital <Spacer> ---
+                                Text("")
+                                    .font(.caption)
+                                    .opacity(0)
+
+                            }
+                            .padding()
+
+                        #endif
+
+                        }
 
                         Spacer()
 
