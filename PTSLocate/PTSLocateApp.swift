@@ -18,7 +18,7 @@ struct PTSLocateApp: App
     {
         
         static let sClsId        = "PTSLocateApp"
-        static let sClsVers      = "v1.1601"
+        static let sClsVers      = "v1.1702"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -122,6 +122,35 @@ struct PTSLocateApp: App
       
             SettingsSingleView()
       
+        }
+    #endif
+        
+    #if os(macOS)
+        // This is the Window to diaplay the AppLocationView...this works from MacOS...
+
+        Window("AppLocation", id:"AppLocationView")
+        {
+
+            AppLocationView(jmAppParseCoreManager:jmAppDelegateVisitor.jmAppParseCoreManager!)
+
+        }
+
+        // This is the Window to diaplay the AppLocationMapView...this works from MacOS...
+
+        Window("AppLocationMap", id:"AppLocationMapView")
+        {
+
+            AppLocationMapView(parsePFCscDataItem:ParsePFCscDataItem())
+
+        }
+
+        // This is the Window to diaplay the AppTidScheduleView...this works from MacOS...
+
+        Window("AppTidSchedule", id:"AppTidScheduleView")
+        {
+
+            AppTidScheduleView(listScheduledPatientLocationItems:[ScheduledPatientLocationItem()])
+
         }
     #endif
         
