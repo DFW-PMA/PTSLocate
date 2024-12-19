@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.0910"
+        static let sClsVers      = "v1.1004"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -232,10 +232,30 @@ struct AppLocationMapView: View
                         Map(initialPosition:parsePFCscDataItem.mapPosition)
                         {
 
-                            Marker("+", 
-                                   systemImage:"mappin.and.ellipse", 
-                                   coordinate: parsePFCscDataItem.clLocationCoordinate2D)
-                                .tint(.red)
+                        //  Marker("+", 
+                        //         systemImage:"mappin.and.ellipse", 
+                        //         coordinate: parsePFCscDataItem.clLocationCoordinate2D)
+                        //      .tint(.red)
+
+                            Annotation("+", 
+                                       coordinate:parsePFCscDataItem.clLocationCoordinate2D)
+                            {
+
+                                Image(systemName:"mappin.and.ellipse")
+                                    .help(Text("Therapist 'current' location"))
+                                    .imageScale(.large)
+                                    .foregroundColor(.red)
+                                    .onTapGesture
+                                    { position in
+
+                                        self.cAppMapTapPresses   += 1
+                                        let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - \(parsePFCscDataItem.sPFCscParseName) at \(parsePFCscDataItem.sCurrentLocationName),\(parsePFCscDataItem.sCurrentCity) on \(parsePFCscDataItem.sPFCscParseLastLocDate)::\(parsePFCscDataItem.sPFCscParseLastLocTime)"
+
+                                        let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.Marker.onTapGesture - <Marker> - \(sMapTapLogMsg)...")
+
+                                    }
+
+                            }
 
                             if (listScheduledPatientLocationItems.count > 0)
                             {
@@ -244,24 +264,39 @@ struct AppLocationMapView: View
                                 { scheduledPatientLocationItem in
 
                                     Annotation(scheduledPatientLocationItem.sVDateStartTime, 
-                                               coordinate: scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
+                                               coordinate:scheduledPatientLocationItem.clLocationCoordinate2DPatLoc)
                                     {
 
-                                        Label("", systemImage: "cross.case.circle")
+                                        Image(systemName:"cross.case.circle")
                                             .help(Text("Scheduled Patient visit"))
                                             .imageScale(.large)
-                                            .tint(.yellow)
-
-                                        Text("*")
+                                            .foregroundColor(.yellow)
+                                        //  .tint(.yellow)
                                             .onTapGesture
                                             { position in
 
                                                 self.cAppMapTapPresses   += 1
                                                 let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Marker for TID #(\(scheduledPatientLocationItem.sTid)) for PID #(\(scheduledPatientLocationItem.sPid)) Patient [\(scheduledPatientLocationItem.sPtName)] on [\(scheduledPatientLocationItem.sVDate)] at [\(scheduledPatientLocationItem.sVDateStartTime)] at address [\(scheduledPatientLocationItem.sLastVDateAddress)]..."
 
-                                                let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).Map.Annotation.onTapGesture - <Annotation> - \(sMapTapLogMsg)...")
+                                                let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.Annotation.onTapGesture - <Annotation> - \(sMapTapLogMsg)...")
 
                                             }
+
+                                    //  Label("", systemImage: "cross.case.circle")
+                                    //      .help(Text("Scheduled Patient visit"))
+                                    //      .imageScale(.large)
+                                    //      .tint(.yellow)
+                                    //
+                                    //  Text("*")
+                                    //      .onTapGesture
+                                    //      { position in
+                                    //
+                                    //          self.cAppMapTapPresses   += 1
+                                    //          let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Marker for TID #(\(scheduledPatientLocationItem.sTid)) for PID #(\(scheduledPatientLocationItem.sPid)) Patient [\(scheduledPatientLocationItem.sPtName)] on [\(scheduledPatientLocationItem.sVDate)] at [\(scheduledPatientLocationItem.sVDateStartTime)] at address [\(scheduledPatientLocationItem.sLastVDateAddress)]..."
+                                    //
+                                    //          let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).Map.Annotation.onTapGesture - <Annotation> - \(sMapTapLogMsg)...")
+                                    //
+                                    //      }
 
                                     }
 
@@ -295,30 +330,30 @@ struct AppLocationMapView: View
 
                         }
                     #endif
-                        .onTapGesture 
-                        { position in
-                      
-                            self.cAppMapTapPresses   += 1
-                            let coordinate            = proxy.convert(position, from:.local)
-                            let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] tapped at 'position' [\(position)] 'coordinate' at [\(String(describing: coordinate))]..."
-                            self.sMapTapMsg           = "\(parsePFCscDataItem.sPFCscParseName) at \(parsePFCscDataItem.sCurrentLocationName),\(parsePFCscDataItem.sCurrentCity) on \(parsePFCscDataItem.sPFCscParseLastLocDate)::\(parsePFCscDataItem.sPFCscParseLastLocTime)"
-                      
-                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(self.sMapTapMsg)...")
-                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(sMapTapLogMsg)...")
-                            let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(parsePFCscDataItem.clLocationCoordinate2D)]...")
-                      
-                            let bIsTapClose:Bool = self.checkIfAppLocationIsCloseToCoordinate(location:  parsePFCscDataItem.clLocationCoordinate2D, 
-                                                                                              coordinate:(coordinate ?? CLLocationCoordinate2D(latitude: 0.0000,
-                                                                                                                                               longitude:0.0000)))
-                      
-                            if (bIsTapClose == true)
-                            {
-                      
-                                self.isAppMapTapAlertShowing.toggle()
-                      
-                            }
-                      
-                        }
+                    //  .onTapGesture 
+                    //  { position in
+                    //
+                    //      self.cAppMapTapPresses   += 1
+                    //      let coordinate            = proxy.convert(position, from:.local)
+                    //      let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] tapped at 'position' [\(position)] 'coordinate' at [\(String(describing: coordinate))]..."
+                    //      self.sMapTapMsg           = "\(parsePFCscDataItem.sPFCscParseName) at \(parsePFCscDataItem.sCurrentLocationName),\(parsePFCscDataItem.sCurrentCity) on \(parsePFCscDataItem.sPFCscParseLastLocDate)::\(parsePFCscDataItem.sPFCscParseLastLocTime)"
+                    //
+                    //      let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(self.sMapTapMsg)...")
+                    //      let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - \(sMapTapLogMsg)...")
+                    //      let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.onTapGesture - Map #(\(parsePFCscDataItem.idPFCscObject)) for [\(parsePFCscDataItem.sPFCscParseName)] 'clLocationCoordinate2D' is [\(parsePFCscDataItem.clLocationCoordinate2D)]...")
+                    //
+                    //      let bIsTapClose:Bool = self.checkIfAppLocationIsCloseToCoordinate(location:  parsePFCscDataItem.clLocationCoordinate2D, 
+                    //                                                                        coordinate:(coordinate ?? CLLocationCoordinate2D(latitude: 0.0000,
+                    //                                                                                                                         longitude:0.0000)))
+                    //
+                    //      if (bIsTapClose == true)
+                    //      {
+                    //
+                    //          self.isAppMapTapAlertShowing.toggle()
+                    //
+                    //      }
+                    //
+                    //  }
                         .alert(self.sMapTapMsg, isPresented:$isAppMapTapAlertShowing)
                         {
                             Button("Ok", role:.cancel)
