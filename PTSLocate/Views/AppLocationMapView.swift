@@ -16,7 +16,7 @@ struct AppLocationMapView: View
     {
         
         static let sClsId        = "AppLocationMapView"
-        static let sClsVers      = "v1.1004"
+        static let sClsVers      = "v1.1005"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -250,8 +250,12 @@ struct AppLocationMapView: View
 
                                         self.cAppMapTapPresses   += 1
                                         let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - \(parsePFCscDataItem.sPFCscParseName) at \(parsePFCscDataItem.sCurrentLocationName),\(parsePFCscDataItem.sCurrentCity) on \(parsePFCscDataItem.sPFCscParseLastLocDate)::\(parsePFCscDataItem.sPFCscParseLastLocTime)"
+                                        self.sMapTapMsg           = "\(parsePFCscDataItem.sPFCscParseName) at \(parsePFCscDataItem.sCurrentLocationName),\(parsePFCscDataItem.sCurrentCity) on \(parsePFCscDataItem.sPFCscParseLastLocDate)::\(parsePFCscDataItem.sPFCscParseLastLocTime)"
 
-                                        let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.Marker.onTapGesture - <Marker> - \(sMapTapLogMsg)...")
+                                        let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.Therapist.onTapGesture - <Marker> - \(sMapTapLogMsg)...")
+                                        let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.Therapist.onTapGesture - <Marker> - \(self.sMapTapMsg)...")
+                                      
+                                        self.isAppMapTapAlertShowing.toggle()
 
                                     }
 
@@ -277,8 +281,12 @@ struct AppLocationMapView: View
 
                                                 self.cAppMapTapPresses   += 1
                                                 let sMapTapLogMsg:String  = "Map 'tap' #(\(cAppMapTapPresses)) - Marker for TID #(\(scheduledPatientLocationItem.sTid)) for PID #(\(scheduledPatientLocationItem.sPid)) Patient [\(scheduledPatientLocationItem.sPtName)] on [\(scheduledPatientLocationItem.sVDate)] at [\(scheduledPatientLocationItem.sVDateStartTime)] at address [\(scheduledPatientLocationItem.sLastVDateAddress)]..."
+                                                self.sMapTapMsg           = "\(scheduledPatientLocationItem.sPtName) at \(scheduledPatientLocationItem.sLastVDateAddress) on \(scheduledPatientLocationItem.sVDate)::\(scheduledPatientLocationItem.sVDateStartTime)"
 
-                                                let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.Annotation.onTapGesture - <Annotation> - \(sMapTapLogMsg)...")
+                                                let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.Patient.onTapGesture - <Annotation> - \(sMapTapLogMsg)...")
+                                                let _ = xcgLogMsg("\(ClassInfo.sClsDisp):body(some View).MapReader.Map.Patient.onTapGesture - <Annotation> - \(self.sMapTapMsg)...")
+
+                                                self.isAppMapTapAlertShowing.toggle()
 
                                             }
 
