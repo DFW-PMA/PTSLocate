@@ -18,7 +18,7 @@ class PTSLocateNSAppDelegate: NSObject, NSApplicationDelegate, ObservableObject
     {
         
         static let sClsId        = "PTSLocateNSAppDelegate"
-        static let sClsVers      = "v1.1201"
+        static let sClsVers      = "v1.1401"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -78,6 +78,10 @@ class PTSLocateNSAppDelegate: NSObject, NSApplicationDelegate, ObservableObject
         self.cAppDelegateInitCalls += 1
         
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked - #(\(self.cAppDelegateInitCalls)) time(s) - 'sApplicationName' is [\(self.jmAppDelegateVisitor.sApplicationName)]...")
+
+        // Run the AppDelegateVisitor 'post' initialization Task(s)...
+
+        self.jmAppDelegateVisitor.runPostInitializationTasks()
 
         // Exit:
 

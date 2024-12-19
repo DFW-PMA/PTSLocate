@@ -17,7 +17,7 @@ class ParsePFAdminsDataItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ParsePFAdminsDataItem"
-        static let sClsVers      = "v1.0102"
+        static let sClsVers      = "v1.0201"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -27,9 +27,9 @@ class ParsePFAdminsDataItem: NSObject, Identifiable
 
     // Item Data field(s):
     
-    var id                                      = UUID()
+    var id                                        = UUID()
 
-    var idPFAdminsObject:Int                    = 0
+    var idPFAdminsObject:Int                      = 0
 
     // ------------------------------------------------------------------------------------------
     //  'pfAdminsObject' is [<Admins: 0x301e16700, objectId: qpp1fxx68P, localId: (null)> 
@@ -41,7 +41,7 @@ class ParsePFAdminsDataItem: NSObject, Identifiable
     //  }]...
     // ------------------------------------------------------------------------------------------
 
-    var pfAdminsObject:PFObject?                = nil
+    var pfAdminsObject:PFObject?                  = nil
 
     // ----------------------------------------------------------------------------------------------------------------
     //  TYPE of 'pfAdminsObject'                 is [PFObject]         - value is [<Admins: 0x302ee1080, objectId: ...
@@ -57,14 +57,14 @@ class ParsePFAdminsDataItem: NSObject, Identifiable
 
     // Item 'discrete' field(s):
 
-    var sPFAdminsParseClassName:String          = ""
-    var sPFAdminsParseObjectId:String?          = nil
-    var datePFAdminsParseCreatedAt:Date?        = nil
-    var datePFAdminsParseUpdatedAt:Date?        = nil
-    var aclPFAdminsParse:PFACL?                 = nil
-    var bPFAdminsParseIsDataAvailable:Bool      = false
-    var bPFAdminsParseIdDirty:Bool              = false
-    var sPFAdminsParseAllKeys:[String]          = []
+    var sPFAdminsParseClassName:String            = ""
+    var sPFAdminsParseObjectId:String?            = nil
+    var datePFAdminsParseCreatedAt:Date?          = nil
+    var datePFAdminsParseUpdatedAt:Date?          = nil
+    var aclPFAdminsParse:PFACL?                   = nil
+    var bPFAdminsParseIsDataAvailable:Bool        = false
+    var bPFAdminsParseIdDirty:Bool                = false
+    var sPFAdminsParseAllKeys:[String]            = []
 
     // ----------------------------------------------------------------------------------------------------------------
     //     TYPE of 'pfTherapistObject[name]'  is [Optional<Any>] - value is [Optional(xxx)]...
@@ -76,11 +76,11 @@ class ParsePFAdminsDataItem: NSObject, Identifiable
 
     // Item 'keyed' field(s):
 
-    var sPFAdminsParseName:String               = "-N/A-"  // This will come from 'tid' lookup in 'TherapistFile'...
-    var sPFAdminsParseTID:String                = "-N/A-"
-    var sPFAdminsParsePassword:String           = ""
-    var sPFAdminsParseNewLvl:String             = "-N/A-"
-    var sPFAdminsParseLevel:String              = "-N/A-"
+    var sPFAdminsParseName:String                 = "-N/A-"  // This will come from 'tid' lookup in 'TherapistFile'...
+    var sPFAdminsParseTID:String                  = "-N/A-"
+    var sPFAdminsParsePassword:String             = ""
+    var sPFAdminsParseNewLvl:String               = "-N/A-"
+    var sPFAdminsParseLevel:String                = "-N/A-"
 
     // App Data field(s):
 

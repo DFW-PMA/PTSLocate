@@ -1,6 +1,6 @@
 //
 //  AppAuthenticateView.swift
-//  JustALoginAppTest1
+//  PTSLocate
 //
 //  Created by Daryl Cox on 11/21/2024.
 //  Copyright © JustMacApps 2023-2024. All rights reserved.
@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct AppAuthenticateView: View
 {
@@ -16,7 +17,7 @@ struct AppAuthenticateView: View
     {
         
         static let sClsId        = "AppAuthenticateView"
-        static let sClsVers      = "v1.0416"
+        static let sClsVers      = "v1.1403"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -26,15 +27,28 @@ struct AppAuthenticateView: View
 
     // App Data field(s):
 
-    @State private var shouldContentViewChange:Bool              = false
-    @State private var isUserAuthenicationAvailable:Bool         = false
-    @State private var sCredentialsCheckReason:String            = ""
-    @State private var isUserLoginFailureShowing:Bool            = false
-    @State private var isUserLoggedIn:Bool                       = false
-    @State private var sLoginUsername:String                     = ""
-    @State private var sLoginPassword:String                     = ""
+//  @Environment(\.modelContext) var modelContext
 
-                   var jmAppDelegateVisitor:JmAppDelegateVisitor = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
+    enum FocusedFields: Hashable
+    {
+       case fieldUsername
+       case fieldPassword
+    }
+
+    @FocusState private var focusedField:FocusedFields?
+
+    @Query              var pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem]
+
+    @State      private var shouldContentViewChange:Bool                = false
+    @State      private var isUserAuthenticationAvailable:Bool          = false
+    @State      private var sCredentialsCheckReason:String              = ""
+    @State      private var isUserLoginFailureShowing:Bool              = false
+    @State      private var isUserLoggedIn:Bool                         = false
+    @State      private var sLoginUsername:String                       = ""
+    @State      private var sLoginPassword:String                       = ""
+
+                        var jmAppDelegateVisitor:JmAppDelegateVisitor   = JmAppDelegateVisitor.ClassSingleton.appDelegateVisitor
+    @ObservedObject     var jmAppSwiftDataManager:JmAppSwiftDataManager = JmAppSwiftDataManager.ClassSingleton.appSwiftDataManager
 
     init()
     {
@@ -43,10 +57,20 @@ struct AppAuthenticateView: View
         let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
         
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+        
+        // Check if we have SwiftData 'login' item(s)...
+        
+        if (self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count > 0)
+        {
+            
+            self.isUserAuthenticationAvailable.toggle()
+            
+            self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) Toggling 'isUserAuthenticationAvailable' to 'true' - SwiftData has (\(self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count)) 'login' item(s) - value is \(isUserAuthenticationAvailable)...")
+
+        }
 
         // Continue App 'initialization'...
 
-    //  let _ = checkIfAppParseCoreHasPFInstallationCurrent()
         let _ = self.finishAppInitializationInBackground()
 
         // Exit...
@@ -82,10 +106,19 @@ struct AppAuthenticateView: View
     var body: some View
     {
         
-        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) \(ClassInfo.sClsId)...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'jmAppSwiftDataManager.pfAdminsSwiftDataItems.count' is (\(self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count))...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable' is [\(self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable)]...")
+        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #1 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
 
-        if (isUserAuthenicationAvailable == false)
+        // Check if we have 'login' data available from SwiftData...
+
+        if (self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable == false &&
+            isUserAuthenticationAvailable                                  == false)
         {
+
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'jmAppSwiftDataManager.pfAdminsSwiftDataItems.count' is (\(self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count))...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable' is [\(self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable)]...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #2 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
 
             VStack(alignment:.center)
             {
@@ -127,11 +160,32 @@ struct AppAuthenticateView: View
                             { bChange in
                                 if (bChange == true)
                                 {
-                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Received a 'view(s)' SHOULD Change...")
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Received a 'view(s)' SHOULD Change - 'self.shouldContentViewChange' is [\(self.shouldContentViewChange)]...")
 
-                                //  self.shouldContentViewChange = true
                                     self.shouldContentViewChange.toggle()
-                                    self.isUserAuthenicationAvailable.toggle()
+
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Toggled 'self.shouldContentViewChange' which is now [\(self.shouldContentViewChange)]...")
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - 'self.isUserAuthenticationAvailable' is [\(self.isUserAuthenticationAvailable)]...")
+
+                                    if (isUserAuthenticationAvailable                           == false &&
+                                        self.jmAppDelegateVisitor.isUserAuthenticationAvailable == true)
+                                    {
+
+                                        self.isUserAuthenticationAvailable.toggle()
+
+                                        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Toggled 'self.isUserAuthenticationAvailable' value is now [\(self.isUserAuthenticationAvailable)]...")
+
+                                    }
+
+                                    if (self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count         > 0 &&
+                                        self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable == false)
+                                    {
+
+                                        self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable.toggle()
+
+                                        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).onReceive #1 - Toggled 'self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable' value is now [\(self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable)]...")
+
+                                    }
 
                                     self.jmAppDelegateVisitor.resetAppDelegateVisitorSignalSwiftViewsShouldChange()
                                 }
@@ -152,15 +206,17 @@ struct AppAuthenticateView: View
         else
         {
 
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'jmAppSwiftDataManager.pfAdminsSwiftDataItems.count' is (\(self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count))...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable' is [\(self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable)]...")
+            let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
+
             if (isUserLoggedIn == false)
             {
 
-                Spacer()
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #3 Toggle 'isUserLoggedIn' is \(isUserLoggedIn)...")
 
-                NavigationStack
+                ScrollView
                 {
-
-                    Spacer()
 
                     VStack(alignment:.center)
                     {
@@ -175,7 +231,7 @@ struct AppAuthenticateView: View
                             .scaledToFit()
                             .containerRelativeFrame(.horizontal)
                                 { size, axis in
-                                    size * 0.15
+                                    size * 0.10
                                 }
 
                     }
@@ -185,7 +241,7 @@ struct AppAuthenticateView: View
                         Image(ImageResource(name: "Gfx/AppIcon", bundle: Bundle.main))
                             .resizable()
                             .scaledToFit()
-                            .frame(width:75, height: 75, alignment:.center)
+                            .frame(width:50, height: 50, alignment:.center)
 
                     }
 
@@ -199,106 +255,91 @@ struct AppAuthenticateView: View
 
                         Spacer()
 
-                        Form
-                        {
-
-                            Text("Enter your Login information:")
-
-                            TextField("Username", text: $sLoginUsername)
-                                .onSubmit
-                                {
-                                    let _ = self.isUserPasswordValidForLogin()
-                                }
-
-                            SecureField("Password", text: $sLoginPassword)
-                                .onSubmit
-                                {
-                                    let _ = self.isUserPasswordValidForLogin()
-                                }
-                                .alert("\(self.sCredentialsCheckReason) - try again...", isPresented:$isUserLoginFailureShowing)
-                                {
-                                    Button("Ok", role:.cancel)
-                                    {
-                                        let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp) User pressed 'Ok' to attempt the 'login' again...")
-                                    }
-                                }
-
-                            HStack
+                        Text("Enter your Login information:")
+                            .onAppear
                             {
+                                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp).Text #1 - Received an .onAppear()...")
 
-                                Spacer()
-
-                                Button("Login")
+                                if sLoginUsername.isEmpty
                                 {
-                                    let _ = self.isUserPasswordValidForLogin()
+                                    focusedField = .fieldUsername
                                 }
-                                .buttonStyle(.borderedProminent)
-
-                                Spacer()
-
+                                else
+                                {
+                                    focusedField = .fieldPassword
+                                }
                             }
 
+                        TextField("Username", text: $sLoginUsername)
+                        //  .keyboardType(.default)
+                            .focused($focusedField, equals: .fieldUsername)
+                            .onSubmit
+                            {
+                                focusedField = .fieldPassword
+                            }
+
+                        SecureField("Password", text: $sLoginPassword)
+                        //  .keyboardType(.default)
+                            .focused($focusedField, equals: .fieldPassword)
+                            .onSubmit
+                            {
+                                let _ = self.isUserPasswordValidForLogin()
+                            }
+                            .alert("\(self.sCredentialsCheckReason) - try again...", isPresented:$isUserLoginFailureShowing)
+                            {
+                                Button("Ok", role:.cancel)
+                                {
+                                    let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp) User pressed 'Ok' to attempt the 'login' again...")
+                                    focusedField = .fieldPassword
+                                }
+                            }
+
+                        HStack
+                        {
+
+                            Spacer()
+
+                            Button("Login")
+                            {
+                                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp) User pressed the 'Login' button...")
+
+                                if sLoginUsername.isEmpty
+                                {
+                                    focusedField = .fieldUsername
+                                }
+                                else
+                                {
+                                    if sLoginPassword.isEmpty
+                                    {
+                                        focusedField = .fieldPassword
+                                    }
+                                    else
+                                    {
+                                        let _ = self.isUserPasswordValidForLogin()
+                                    }
+                                }
+                            }
+                            .buttonStyle(.borderedProminent)
+
+                            Spacer()
+
                         }
-                        .padding()
 
                     }
                     .padding()
 
                 }
-                .padding()
 
             }
             else
             {
 
-                ContentView(isUserLoggedIn:$isUserLoggedIn, sLoginUsername: $sLoginUsername, sLoginPassword: $sLoginPassword)
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'jmAppSwiftDataManager.pfAdminsSwiftDataItems.count' is (\(self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count))...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable' is [\(self.jmAppSwiftDataManager.bArePFAdminsSwiftDataItemsAvailable)]...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'isUserAuthenticationAvailable' is [\(isUserAuthenticationAvailable)]...")
+                let _ = self.xcgLogMsg("\(ClassInfo.sClsDisp):body(some Scene) #4 Toggle 'isUserLoggedIn' is [\(isUserLoggedIn)]...")
 
-            //  VStack
-            //  {
-            //      
-            //      Spacer()
-            //      
-            //      Image(systemName: "person.badge.key")
-            //          .imageScale(.large)
-            //          .foregroundStyle(.tint)
-            //      
-            //      Text("")
-            //      
-            //      Divider()
-            //      
-            //      Text(" - - - - - ")
-            //      Text("\(ClassInfo.sClsDisp)")
-            //      Text(" - - - - - ")
-            //      Text("You are 'logged' in:")
-            //      Text("UserName -> '\(sLoginUsername)'")
-            //      Text("Password -> [\(sLoginPassword)]")
-            //      Text(" - - - - - ")
-            //      
-            //      Divider()
-            //      
-            //      HStack
-            //      {
-            //
-            //          Spacer()
-            //
-            //          Button("Logout")
-            //          {
-            //
-            //              self.sLoginPassword = ""
-            //              
-            //              isUserLoggedIn.toggle()
-            //
-            //          }
-            //          .buttonStyle(.borderedProminent)
-            //
-            //          Spacer()
-            //
-            //      }
-            //
-            //      Spacer()
-            //
-            //  }
-            //  .padding()
+                ContentView(isUserLoggedIn:$isUserLoggedIn, sLoginUsername:$sLoginUsername, sLoginPassword:$sLoginPassword)
 
             }
 
@@ -333,27 +374,23 @@ struct AppAuthenticateView: View
                 if (isPFAdminsAvailable == true)
                 {
 
-                    self.xcgLogMsg("\(sCurrMethodDisp) Toggling the 'isUserAuthenicationAvailable' flag...");
+                    self.xcgLogMsg("\(sCurrMethodDisp) Toggling the 'isUserAuthenticationAvailable' flag...");
 
                     dispatchGroup.notify(queue: DispatchQueue.main, execute:
                     {
                     
-                        self.isUserAuthenicationAvailable.toggle()
+                        self.isUserAuthenticationAvailable.toggle()
 
-                        self.xcgLogMsg("\(sCurrMethodDisp) Toggled  the 'isUserAuthenicationAvailable' flag - value is now [\(self.isUserAuthenicationAvailable)]...");
+                        self.xcgLogMsg("\(sCurrMethodDisp) Toggled  the 'isUserAuthenticationAvailable' flag - value is now [\(self.isUserAuthenticationAvailable)]...");
+
+                        self.jmAppDelegateVisitor.isUserAuthenticationAvailable = true
+
+                        self.xcgLogMsg("\(sCurrMethodDisp) Set the 'self.jmAppDelegateVisitor.isUserAuthenticationAvailable' flag 'true' - value is now [\(self.jmAppDelegateVisitor.isUserAuthenticationAvailable)]...");
 
                         self.jmAppDelegateVisitor.setAppDelegateVisitorSignalSwiftViewsShouldChange()
 
-                        self.xcgLogMsg("\(sCurrMethodDisp) Toggled  the 'jmAppDelegateVisitor.setAppDelegateVisitorSignalSwiftViewsShouldChange()' method - value is now [\(self.jmAppDelegateVisitor.appDelegateVisitorSwiftViewsShouldChange)]...");
+                        self.xcgLogMsg("\(sCurrMethodDisp) Toggled  the 'self.jmAppDelegateVisitor.setAppDelegateVisitorSignalSwiftViewsShouldChange()' method - value is now [\(self.jmAppDelegateVisitor.appDelegateVisitorSwiftViewsShouldChange)]...");
 
-                    //  self.objectWillChange.send()    // NOT available in a View...
-
-                    //  NOTE: Directly setting the variable outside of 'init()' fails in the compiler...
-                    //
-                    //  self._isUserAuthenicationAvailable = true
-                    //
-                    //  self.xcgLogMsg("\(sCurrMethodDisp) Hard-set the '_isUserAuthenicationAvailable' flag to 'true' - value is now [\(self.isUserAuthenicationAvailable)]...");
-                    
                     })
 
                 }
@@ -639,6 +676,19 @@ struct AppAuthenticateView: View
 
         let jmAppParseCoreManager:JmAppParseCoreManager = self.getAppParseCoreManagerInstance()
 
+        if (jmAppParseCoreManager.dictPFAdminsDataItems.count < 1)
+        {
+
+            // Exit...
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'jmAppParseCoreManager.dictPFAdminsDataItems' is nil or Empty - can NOT be 'validated' - Error!")
+
+            pfAdminsDataItem = nil   
+
+            return pfAdminsDataItem
+
+        }
+
         for (_, parsePFAdminsDataItem) in jmAppParseCoreManager.dictPFAdminsDataItems
         {
 
@@ -648,11 +698,17 @@ struct AppAuthenticateView: View
                 sComparePFAdminsParseName       == sLookupUserName)
             {
 
-                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName'  of [\(sLookupUserName)]matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'pfAdminsDataItem' to this item...")
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'pfAdminsDataItem' to this item...")
 
                 pfAdminsDataItem = parsePFAdminsDataItem   
 
                 break
+
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] does NOT match the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - continuing search...")
 
             }
 
@@ -661,7 +717,7 @@ struct AppAuthenticateView: View
         if (pfAdminsDataItem == nil)
         {
 
-            self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] can NOT be found in the valid login(s) dictionary - User can NOT be 'validated' - Warning!")
+            self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] can NOT be found in the valid (\(jmAppParseCoreManager.dictPFAdminsDataItems.count)) login(s) dictionary - User can NOT be 'validated' - Warning!")
 
             pfAdminsDataItem = nil   
 
@@ -674,6 +730,80 @@ struct AppAuthenticateView: View
         return pfAdminsDataItem
   
     }   // End of private func locateUserDataInPFAdmins()->ParsePFAdminsDataItem?.
+
+    private func locateUserDataInSwiftData()->PFAdminsSwiftDataItem?
+    {
+  
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - 'sLoginUsername' is [\(self.sLoginUsername)] - 'sLoginPassword' is [\(self.sLoginPassword)]...")
+
+        // Attempt to locate the User data in SwiftData...
+
+        var pfAdminsSwiftDataItem:PFAdminsSwiftDataItem? = nil
+        var sLookupUserName:String                       = ""
+
+        if (self.sLoginUsername.count > 0)
+        {
+
+            sLookupUserName = self.sLoginUsername.lowercased()
+
+        }
+        else
+        {
+
+            // Exit...
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'self.sLoginUsername' is nil or Empty - can NOT be 'validated' - Error!")
+
+            pfAdminsSwiftDataItem = nil   
+
+            return pfAdminsSwiftDataItem
+
+        }
+
+        for listSwiftDataItem in self.jmAppSwiftDataManager.pfAdminsSwiftDataItems
+        {
+
+            let sComparePFAdminsParseName:String = listSwiftDataItem.sPFAdminsParseName.lowercased()
+
+            if (sComparePFAdminsParseName.count  > 0 &&
+                sComparePFAdminsParseName       == sLookupUserName)
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] matches the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - setting 'pfAdminsSwiftDataItem' to this item...")
+
+                pfAdminsSwiftDataItem = listSwiftDataItem   
+
+                break
+
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] does NOT match the 'sComparePFAdminsParseName' of [\(sComparePFAdminsParseName)] - continuing search...")
+
+            }
+
+        }
+
+        if (pfAdminsSwiftDataItem == nil)
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] can NOT be found in the valid SwiftData (\(self.jmAppSwiftDataManager.pfAdminsSwiftDataItems.count)) login(s) list - User can NOT be 'validated' - Warning!")
+
+            pfAdminsSwiftDataItem = nil   
+
+        }
+        
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'pfAdminsSwiftDataItem' is [\(String(describing: pfAdminsSwiftDataItem))]...")
+  
+        return pfAdminsSwiftDataItem
+  
+    }   // End of private func locateUserDataInSwiftData()->PFAdminsSwiftDataItem?.
 
     private func isUserPasswordValidForLogin()->Bool
     {
@@ -696,6 +826,73 @@ struct AppAuthenticateView: View
             sValidUserName  = self.sLoginUsername
 
         }
+
+        // Check SwiftData (1st) for a match on the User...
+
+        let pfAdminsSwiftDataItem:PFAdminsSwiftDataItem? = self.locateUserDataInSwiftData()
+
+        if (pfAdminsSwiftDataItem == nil)
+        {
+
+            self.sCredentialsCheckReason = "The Username '\(sValidUserName)' is 'invalid'"
+
+            bUserLoginValidated          = false
+
+        }
+        else
+        {
+
+            if let sValidUserPassword:String = pfAdminsSwiftDataItem?.sPFAdminsParsePassword
+            {
+
+                if (sValidUserPassword.count  > 0 &&
+                    sValidUserPassword       == self.sLoginPassword)
+                {
+
+                    self.sCredentialsCheckReason = "User credential(s) are 'valid'"
+
+                    bUserLoginValidated          = true
+
+                }
+                else
+                {
+
+                    self.sCredentialsCheckReason = "For the Username '\(sValidUserName)', the password is 'invalid'"
+
+                    bUserLoginValidated          = false
+
+                }
+
+            }
+            else
+            {
+
+                self.sCredentialsCheckReason = "The Username '\(sValidUserName)' is 'invalid'"
+
+                bUserLoginValidated          = false
+
+            }
+
+        }
+        
+        // Handle the SwiftData valid credentials(s) action/response...
+
+        if (bUserLoginValidated == true)
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Supplied credential(s) have been successfully 'validated'- credential(s) are good - reason [\(sCredentialsCheckReason)]...")
+
+            self.isUserLoggedIn.toggle()
+
+            // Exit...
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Exiting - 'bUserLoginValidated' is [\(String(describing: bUserLoginValidated))]...")
+
+            return bUserLoginValidated
+
+        }
+
+        // SwiftData didn't have a match on the User - try PFAdmins...
 
         let pfAdminsDataItem:ParsePFAdminsDataItem? = self.locateUserDataInPFAdmins()
 
@@ -758,6 +955,8 @@ struct AppAuthenticateView: View
 
             self.xcgLogMsg("\(sCurrMethodDisp) Supplied credential(s) have NOT been successfully 'validated' - credential(s) failure - reason [\(sCredentialsCheckReason)] - Error!")
 
+            self.dumpUserAuthenticationDataToLog()
+
             self.sLoginPassword = ""
 
             self.isUserLoginFailureShowing.toggle()
@@ -772,6 +971,52 @@ struct AppAuthenticateView: View
   
     }   // End of private func isUserPasswordValidForLogin()->Bool.
 
+    private func dumpUserAuthenticationDataToLog()
+    {
+  
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+        
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
+
+        // Dump the User data in SwiftData to the Log...
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoking 'self.jmAppSwiftDataManager.detailAppSwiftDataToLog()'...")
+
+        self.jmAppSwiftDataManager.detailAppSwiftDataToLog()
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked  'self.jmAppSwiftDataManager.detailAppSwiftDataToLog()'...")
+
+        // Dump the User data in PFAdminsDataItems to the Log...
+
+        let jmAppParseCoreManager:JmAppParseCoreManager = self.getAppParseCoreManagerInstance()
+
+        if (jmAppParseCoreManager.dictPFAdminsDataItems.count > 0)
+        {
+
+            for (_, parsePFAdminsDataItem) in jmAppParseCoreManager.dictPFAdminsDataItems
+            {
+
+                parsePFAdminsDataItem.displayParsePFAdminsDataItemToLog()
+
+            }
+
+        }
+        else
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Unable to dump the PFAdminsData item(s) - the list is 'empty' - Warning!")
+
+        }
+
+        // Exit...
+  
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+  
+        return
+  
+    }   // End of private func dumpUserAuthenticationDataToLog().
+
 }   // END of struct AppAuthenticateView(View).
 
 #Preview
@@ -780,3 +1025,47 @@ struct AppAuthenticateView: View
     AppAuthenticateView()
     
 }
+
+// --------------------------------------------------------------------------------------------------
+//
+// NOTES: Sample...   
+//
+//     let today         = Date()
+//     let tripPredicate = #Predicate<Trip> 
+//                             { 
+//                               $0.destination == "New York" &&
+//                               $0.name.contains("birthday") &&
+//                               $0.startDate > today
+//                             }
+//
+//     let descriptor    = FetchDescriptor<Trip>(predicate:tripPredicate)
+//     let trips         = try context.fetch(descriptor)
+//
+//     --- OR ---
+//
+//     let descriptor        = FetchDescriptor<Student>()
+//     var totalResults      = 0
+//     var totalDistinctions = 0
+//     var totalPasses       = 0
+//
+//     do 
+//     {
+//
+//         try modelContext.enumerate(descriptor) 
+//             { student in
+//                 totalResults      += student.scores.count
+//                 totalDistinctions += student.scores.filter { $0 >= 85 }.count
+//                 totalPasses       += student.scores.filter { $0 >= 70 && $0 < 85 }.count
+//             }
+//     } 
+//     catch 
+//     {
+//         print("Unable to calculate student results.")
+//     }
+//
+//     print("Total test results: \(totalResults)")
+//     print("Distinctions: \(totalDistinctions)")
+//     print("Passes: \(totalPasses)")
+//
+// --------------------------------------------------------------------------------------------------
+

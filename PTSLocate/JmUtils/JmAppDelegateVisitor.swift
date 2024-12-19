@@ -8,12 +8,14 @@
 
 import Foundation
 import SwiftUI
+//import SwiftData
 import XCGLogger
 
 #if os(iOS)
 import UIKit
 #endif
 
+//@available(macOS 15, *)
 @available(iOS 14.0, *)
 @objc(JmAppDelegateVisitor)
 public class JmAppDelegateVisitor: NSObject, ObservableObject
@@ -23,7 +25,7 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     {
         
         static let sClsId        = "JmAppDelegateVisitor"
-        static let sClsVers      = "v1.2001"
+        static let sClsVers      = "v1.2602"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -73,10 +75,10 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     var sAppDelegateVisitorLogFilepath:String!                     = nil
     var xcgLogger:XCGLogger?                                       = XCGLogger.default
     
-    // Swift/ObjC Bridge:
+    // App <global> 'Authentication' control(s):
 
-    @objc 
-    var jmObjCSwiftEnvBridge:JmObjCSwiftEnvBridge?                 = nil
+    public
+    var isUserAuthenticationAvailable:Bool                         = false
 
     // App <global> 'Alert' control(s):
 
@@ -111,6 +113,25 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     var sAppDelegateVisitorGlobalAlertMessage:String?              = nil
     var sAppDelegateVisitorGlobalAlertButtonText:String?           = nil
 
+    // App <global> 'Alert' control(s) with (optional) 'completion' closure:
+
+    @Published 
+    var isAppDelegateVisitorShowingCompletionAlert:Bool            = false
+    {
+
+        didSet
+        {
+
+            objectWillChange.send()
+
+        }
+
+    }
+
+    var sAppDelegateVisitorCompletionAlertMessage:String?          = nil
+    var sAppDelegateVisitorCompletionAlertButtonText:String?       = nil
+    var appDelegateVisitorCompletionClosure:(()->())?              = nil
+
     // App <global> 'state' control(s):
 
     var bWasAppLogFilePresentAtStartup:Bool                        = false
@@ -123,6 +144,26 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
     var sAppDelegateVisitorCrashMarkerFilepath:String!             = nil
     var urlAppDelegateVisitorLogToSaveFilespec:URL?                = nil
     var sAppDelegateVisitorLogToSaveFilespec:String!               = nil
+
+//  // Various App SwiftData field(s):
+//  
+//  var modelConfiguration:ModelConfiguration                      = ModelConfiguration(isStoredInMemoryOnly:false, allowsSave:true)
+//  var modelContainer:ModelContainer?                             = nil
+//  var modelContext:ModelContext?                                 = nil
+//  var pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem]             = []
+//  @Published 
+//  var cPFAdminsSwiftDataItems:Int                                = 0
+//  @Published 
+//  var bArePFAdminsSwiftDataItemsAvailable:Bool                   = false
+    
+    // App <possible> JmAppSwiftData Manager instance:
+
+    var jmAppSwiftDataManager:JmAppSwiftDataManager?               = nil
+
+    // Swift/ObjC Bridge:
+
+    @objc 
+    var jmObjCSwiftEnvBridge:JmObjCSwiftEnvBridge?                 = nil
 
     // App <possible> (Apple) MetricKitManager instance:
 
@@ -160,8 +201,6 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("],")
         asToString.append("[")
         asToString.append("sApplicationName': [\(self.sApplicationName)],")
-        asToString.append("],")
-        asToString.append("[")
         asToString.append("cAppDelegateVisitorInitCalls': (\(self.cAppDelegateVisitorInitCalls)),")
         asToString.append("],")
         asToString.append("[")
@@ -188,12 +227,18 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("xcgLogger': [\(String(describing: self.xcgLogger))],")
         asToString.append("],")
         asToString.append("[")
-        asToString.append("jmObjCSwiftEnvBridge': [\(String(describing: self.jmObjCSwiftEnvBridge))],")
+        asToString.append("appDelegateVisitorSwiftViewsShouldChange': [\(String(describing: self.appDelegateVisitorSwiftViewsShouldChange))],")
         asToString.append("],")
         asToString.append("[")
         asToString.append("isAppDelegateVisitorShowingAlert': [\(self.isAppDelegateVisitorShowingAlert)],")
         asToString.append("sAppDelegateVisitorGlobalAlertMessage': [\(String(describing: self.sAppDelegateVisitorGlobalAlertMessage))],")
         asToString.append("sAppDelegateVisitorGlobalAlertButtonText': [\(String(describing: self.sAppDelegateVisitorGlobalAlertButtonText))],")
+        asToString.append("],")
+        asToString.append("[")
+        asToString.append("isAppDelegateVisitorShowingCompletionAlert': [\(self.isAppDelegateVisitorShowingCompletionAlert)],")
+        asToString.append("sAppDelegateVisitorCompletionAlertMessage': [\(String(describing: self.sAppDelegateVisitorCompletionAlertMessage))],")
+        asToString.append("sAppDelegateVisitorCompletionAlertButtonText': [\(String(describing: self.sAppDelegateVisitorCompletionAlertButtonText))],")
+        asToString.append("appDelegateVisitorCompletionClosure': [\(String(describing: self.appDelegateVisitorCompletionClosure))],")
         asToString.append("],")
         asToString.append("[")
         asToString.append("bWasAppLogFilePresentAtStartup': [\(self.bWasAppLogFilePresentAtStartup)],")
@@ -208,6 +253,16 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         asToString.append("sAppDelegateVisitorLogToSaveFilespec': [\(String(describing: self.sAppDelegateVisitorLogToSaveFilespec))],")
         asToString.append("],")
         asToString.append("[")
+    //  asToString.append("SwiftData 'modelConfiguration': (\(self.modelConfiguration)),")
+    //  asToString.append("SwiftData 'modelContainer': (\(String(describing: self.modelContainer))),")
+    //  asToString.append("SwiftData 'modelContext': (\(String(describing: self.modelContext))),")
+    //  asToString.append("SwiftData 'pfAdminsSwiftDataItems': (\(String(describing: self.pfAdminsSwiftDataItems))),")
+    //  asToString.append("SwiftData 'cPFAdminsSwiftDataItems': (\(String(describing: self.cPFAdminsSwiftDataItems))),")
+    //  asToString.append("SwiftData 'bArePFAdminsSwiftDataItemsAvailable': (\(String(describing: self.bArePFAdminsSwiftDataItemsAvailable))),")
+    //  asToString.append("],")
+    //  asToString.append("[")
+        asToString.append("jmAppSwiftDataManager': [\(String(describing: self.jmAppSwiftDataManager))],")
+        asToString.append("jmObjCSwiftEnvBridge': [\(String(describing: self.jmObjCSwiftEnvBridge))],")
         asToString.append("jmAppMetricKitManager': [\(String(describing: self.jmAppMetricKitManager))],")
         asToString.append("jmAppUserNotificationManager': [\(String(describing: self.jmAppUserNotificationManager))],")
         asToString.append("jmAppParseCoreManager': [\(String(describing: self.jmAppParseCoreManager))],")
@@ -254,6 +309,39 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
         // Dump the App 'Info.plist':
 
         let _ = self.dumpAppInfoPlistToLog()
+
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - #(\(self.cAppDelegateVisitorInitCalls)) time(s) - 'sApplicationName' is [\(self.sApplicationName)]...")
+
+        return
+
+    }   // End of private override init().
+        
+    public func runPostInitializationTasks()
+    {
+        
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - 'self' is [\(self)]...")
+
+        // Initialize SwiftData Manager <maybe>:
+
+        if (AppGlobalInfo.bInstantiateAppSwiftDataManager == true)
+        {
+
+            // Instantiate the JmAppSwiftDataManager...
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Instantiating the 'self.jmAppSwiftDataManager' instance...")
+
+            self.jmAppSwiftDataManager = JmAppSwiftDataManager.ClassSingleton.appSwiftDataManager
+
+            self.jmAppSwiftDataManager?.setJmAppDelegateVisitorInstance(jmAppDelegateVisitor:self)
+          
+            self.xcgLogMsg("\(sCurrMethodDisp) Instantiated  the 'self.jmAppSwiftDataManager' instance...")
+            
+        }
 
         // Setup the Objective-C/Swift Bridge:
   
@@ -382,11 +470,11 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
 
         // Exit:
 
-        self.xcgLogMsg("\(sCurrMethodDisp) Exiting - #(\(self.cAppDelegateVisitorInitCalls)) time(s) - 'sApplicationName' is [\(self.sApplicationName)]...")
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
 
         return
 
-    }   // End of private init().
+    }   // End of public func runPostInitializationTasks().
         
     @objc public func xcgLogMsg(_ sMessage:String)
     {
@@ -1196,7 +1284,9 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
 
         // Reset the signal of the Global Alert...
 
-        self.isAppDelegateVisitorShowingAlert = false
+        self.sAppDelegateVisitorGlobalAlertMessage    = "-N/A-"
+        self.sAppDelegateVisitorGlobalAlertButtonText = "-N/A-"
+        self.isAppDelegateVisitorShowingAlert         = false
 
         // Exit:
 
@@ -1206,16 +1296,117 @@ public class JmAppDelegateVisitor: NSObject, ObservableObject
 
     }   // End of @objc public func resetAppDelegateVisitorSignalGlobalAlert().
 
+    public func setAppDelegateVisitorSignalCompletionAlert(_ alertMsg:String? = nil, alertButtonText:String? = nil, withCompletion completionHandler:(()->())?)
+    {
+
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - parameter(s) 'alertMsg' is [\(String(describing: alertMsg))] - 'alertButtonText' is [\(String(describing: alertButtonText))] - 'completionHandler' is [\(String(describing: completionHandler))]...")
+
+        // Set the Alert fields (Message and Button Text) and then signal the Global Alert...
+
+        if (alertMsg        == nil ||
+            alertMsg!.count  < 1)
+        {
+
+            self.sAppDelegateVisitorCompletionAlertMessage = "-N/A-"
+
+        }
+        else
+        {
+
+            self.sAppDelegateVisitorCompletionAlertMessage = alertMsg
+
+        }
+
+        if (alertButtonText        == nil ||
+            alertButtonText!.count  < 1)
+        {
+
+            self.sAppDelegateVisitorCompletionAlertButtonText = "-N/A-"
+
+        }
+        else
+        {
+
+            self.sAppDelegateVisitorCompletionAlertButtonText = alertButtonText
+
+        }
+        
+        if completionHandler != nil
+        {
+            
+            self.appDelegateVisitorCompletionClosure = completionHandler
+            
+        }
+        else
+        {
+            
+            self.appDelegateVisitorCompletionClosure = nil
+            
+        }
+
+        self.isAppDelegateVisitorShowingCompletionAlert = true
+
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+
+        return
+
+    }   // End of @objc public func setAppDelegateVisitorSignalCompletionAlert(_ alertMsg:String? = nil, alertButtonText:String? = nil, withCompletion completionHandler:@escaping(Void)->(Void)?)
+
+    @objc public func resetAppDelegateVisitorSignalCompletionAlert()
+    {
+
+        let sCurrMethod:String = #function
+        let sCurrMethodDisp    = "\(ClassInfo.sClsDisp)'"+sCurrMethod+"':"
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Invoked - 'self' is [\(self)]...")
+
+        // (Optionally) call the 'completion' handler and reset the signal of the 'completion' Alert...
+
+        if self.appDelegateVisitorCompletionClosure != nil
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Calling the 'completion' closure - 'appDelegateVisitorCompletionClosure' is [\(String(describing: self.appDelegateVisitorCompletionClosure))]...")
+
+            self.appDelegateVisitorCompletionClosure!()
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Called  the 'completion' closure - 'appDelegateVisitorCompletionClosure' is [\(String(describing: self.appDelegateVisitorCompletionClosure))]...")
+
+        }
+        else
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Bypassing calling the 'completion' closure - 'appDelegateVisitorCompletionClosure' is nil...")
+
+        }
+
+        self.sAppDelegateVisitorCompletionAlertMessage    = "-N/A-"
+        self.sAppDelegateVisitorCompletionAlertButtonText = "-N/A-"
+        self.appDelegateVisitorCompletionClosure          = nil
+        self.isAppDelegateVisitorShowingCompletionAlert   = false
+
+        // Exit:
+
+        self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+
+        return
+
+    }   // End of @objc public func resetAppDelegateVisitorSignalCompletionAlert().
+
     // Method(s) to assist with sending Email with a File upload (and 'optional' Alert message)...
 
     @objc public func appDelegateVisitorSendEmailUpload(_ emailAddressTo:String,
-                                                        emailAddressCc:String,  
-                                                        emailSourceFilespec:String,
-                                                        emailSourceFilename:String,
-                                                        emailZipFilename:String,
-                                                        emailSaveAsFilename:String,
-                                                        emailFileMimeType:String,
-                                                        emailFileData:NSData)
+                                                          emailAddressCc:String,  
+                                                          emailSourceFilespec:String,
+                                                          emailSourceFilename:String,
+                                                          emailZipFilename:String,
+                                                          emailSaveAsFilename:String,
+                                                          emailFileMimeType:String,
+                                                          emailFileData:NSData)
     {
 
         let sCurrMethod:String = #function

@@ -17,7 +17,7 @@ public class JmXcodeBuildSettings
     {
 
         static let sClsId        = "JmXcodeBuildSettings"
-        static let sClsVers      = "v1.0401"
+        static let sClsVers      = "v1.0501"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -62,7 +62,6 @@ public class JmXcodeBuildSettings
     static var jmAppCopyright:String
     {
 
-    //  return getAppCopyright()
         return getAppInfoPlistString(for: "NSHumanReadableCopyright")
 
     }

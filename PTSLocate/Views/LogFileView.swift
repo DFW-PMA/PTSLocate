@@ -17,7 +17,7 @@ struct LogFileView: View
     {
         
         static let sClsId          = "LogFileView"
-        static let sClsVers        = "v1.1203"
+        static let sClsVers        = "v1.1501"
         static let sClsDisp        = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight   = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace       = true
@@ -91,14 +91,15 @@ struct LogFileView: View
         VStack
         {
 
-        #if os(iOS)
-
-            HStack(alignment:.center)           // HStack #1.3
+            HStack(alignment:.center)
             {
 
-            //  Spacer()
+            #if os(macOS)
 
-            //  Button("Preview Log file") 
+                Spacer()
+
+            #endif
+
                 Button
                 {
 
@@ -165,6 +166,8 @@ struct LogFileView: View
 
                 Spacer()
 
+            #if os(iOS)
+
                 Button
                 {
 
@@ -193,9 +196,9 @@ struct LogFileView: View
                 }
                 .padding()
 
-            }   // End of HStack #1.1
+            #endif
 
-        #endif
+            }
 
             Spacer()
 
@@ -270,7 +273,7 @@ struct LogFileView: View
         
     }   // End of func copyLogFilespecToClipboard().
     
-}
+}   // END of struct LogFileView(View). 
 
 #Preview 
 {

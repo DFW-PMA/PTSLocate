@@ -7,16 +7,8 @@
 //
 
 import Foundation
-import Combine
 import SwiftUI
-
-#if os(iOS)
-import UIKit
-#endif
-
-#if canImport(TipKit)
-import TipKit
-#endif
+import SwiftData
 
 struct ContentView: View 
 {
@@ -25,7 +17,7 @@ struct ContentView: View
     {
         
         static let sClsId        = "ContentView"
-        static let sClsVers      = "v1.2303"
+        static let sClsVers      = "v1.2506"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -33,7 +25,9 @@ struct ContentView: View
         
     }
 
-    @Environment(\.openURL) var openURL
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.openWindow)   var openWindow
+    @Environment(\.openURL)      var openURL
 
     // App Data field(s):
 
@@ -92,10 +86,6 @@ struct ContentView: View
         // Continue with 'init()'...
         
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
-
-    //  // Check if we have a JmAppParseCoreManager...
-    //
-    //  let _ = checkIfAppParseCoreHasPFInstallationCurrent()
 
         // Get some 'internal' Dev Detail(s)...
 
@@ -423,8 +413,6 @@ struct ContentView: View
 
                     let _ = self.xcgLogMsg("...\(ClassInfo.sClsDisp)ContentView in Button(Xcode).'Refresh'.#(\(self.cContentViewRefreshButtonPresses))...")
 
-                //  let _ = self.checkIfAppParseCoreHasPFInstallationCurrent()
-
                 }
                 label:
                 {
@@ -454,6 +442,16 @@ struct ContentView: View
 
                     self.isAppLocationViewModal.toggle()
 
+            //  #if os(macOS)
+            //
+            //      // Using -> @Environment(\.openWindow)var openWindow and 'openWindow(id:"...")' on MacOS...
+            //      openWindow(id:"AppLocationView", value:self.getAppParseCoreManagerInstance())
+            //
+            //      //  ERROR: Instance method 'callAsFunction(id:value:)' requires that 'JmAppParseCoreManager' conform to 'Encodable'
+            //      //  ERROR: Instance method 'callAsFunction(id:value:)' requires that 'JmAppParseCoreManager' conform to 'Decodable'
+            //
+            //  #endif
+            //
                 }
                 label:
                 {
@@ -474,12 +472,13 @@ struct ContentView: View
             #if os(macOS)
                 .sheet(isPresented:$isAppLocationViewModal, content:
                     {
-
+          
                         AppLocationView(jmAppParseCoreManager:getAppParseCoreManagerInstance())
-
+          
                     }
                 )
-            #elseif os(iOS)
+            #endif
+            #if os(iOS)
                 .fullScreenCover(isPresented:$isAppLocationViewModal)
                 {
 
@@ -525,27 +524,6 @@ struct ContentView: View
             
         }
         .padding()
-    //  .task 
-    //  {
-    //
-    //      // Configure and load your tips at app launch...
-    //
-    //      do
-    //      {
-    //
-    //          try Tips.configure([.displayFrequency(.immediate), .datastoreLocation(.applicationDefault)])
-    //
-    //      } 
-    //      catch 
-    //      {
-    //
-    //          // Handle TipKit errors
-    //
-    //          let _ = self.xcgLogMsg("...\(ClassInfo.sClsDisp)ContentView - Failed to initialize the TipKit framework - Detail(s) are [\(error.localizedDescription)] - Error!")
-    //
-    //      }
-    //
-    //  }
         
     }
 
@@ -845,4 +823,5 @@ struct ContentView: View
   
     }   // End of getAppParseCoreManagerInstance()->jmAppParseCoreManager.
 
-}
+}   // END of struct ContentView(View).
+
