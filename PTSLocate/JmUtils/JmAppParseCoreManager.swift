@@ -261,6 +261,33 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
         
         self.xcgLogMsg("\(sCurrMethodDisp) Invoked...")
 
+        // If we already have a dictionary of PFAdmins item(s), then display them and skip the PFQuery...
+
+        if (self.dictPFAdminsDataItems.count > 0)
+        {
+
+            self.xcgLogMsg("\(sCurrMethodDisp) The (existing) dictionary of 'parsePFAdminsDataItem' item(s) has #(\(self.dictPFAdminsDataItems.count)) object(s) - skipping the PFQuery...")
+            self.xcgLogMsg("\(sCurrMethodDisp) Displaying the (existing) dictionary of 'parsePFAdminsDataItem' item(s)...")
+
+            for (_, parsePFAdminsDataItem) in self.dictPFAdminsDataItems
+            {
+
+                parsePFAdminsDataItem.displayParsePFAdminsDataItemToLog()
+
+            }
+
+        //  self.xcgLogMsg("\(sCurrMethodDisp) Copying the item(s) from the dictionary of 'parsePFAdminsDataItem' to SwiftData...")
+        //
+        //  self.copyJmAppParsePFAdminsToSwiftData()
+
+            // Exit:
+
+            self.xcgLogMsg("\(sCurrMethodDisp) Exiting...")
+
+            return
+
+        }
+
         // Issue a PFQuery for the 'Admins' class...
 
         self.xcgLogMsg("\(sCurrMethodDisp) Calling PFQuery to construct an instance for the 'Admins' class...")
@@ -636,6 +663,8 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                     parsePFCscDataItem.constructParsePFCscDataItemFromPFObject(idPFCscObject:cPFCscObjects, pfCscObject:pfCscObject)
 
+                    parsePFCscDataItem.sPFTherapistParseTID = self.convertTherapistNameToTid(sPFTherapistParseName:parsePFCscDataItem.sPFCscParseName)
+
                     self.listPFCscNameItems.append(parsePFCscDataItem.sPFCscParseName)
                     self.listPFCscDataItems.append(parsePFCscDataItem)
 
@@ -657,7 +686,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
                 }
 
-            //  Thread.sleep(forTimeInterval: 0.2)  // This 'sleeps' but did NOT work to fix the location issue(s)...
+                // After a 6/10th of a second delay (for location information gathering), display the list of item(s)...
 
                 DispatchQueue.main.asyncAfter(deadline:(.now() + 0.6))
                 {
@@ -1424,7 +1453,8 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
         var sPFTherapistParseName:String = ""
 
-        if (sPFTherapistParseTID.count > 0)
+        if (sPFTherapistParseTID.count      > 0 &&
+            self.dictTherapistTidXref.count > 0)
         {
         
             if (self.dictTherapistTidXref[sPFTherapistParseTID] != nil)
@@ -1456,7 +1486,8 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
         var sPFTherapistParseTID:String = ""
 
-        if (sPFTherapistParseName.count > 0)
+        if (sPFTherapistParseName.count     > 0 &&
+            self.dictTherapistTidXref.count > 0)
         {
 
             let sPFTherapistParseNameLower:String = sPFTherapistParseName.lowercased()
