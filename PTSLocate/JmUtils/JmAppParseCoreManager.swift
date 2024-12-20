@@ -20,7 +20,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
     {
 
         static let sClsId        = "JmAppParseCoreManager"
-        static let sClsVers      = "v1.1902"
+        static let sClsVers      = "v1.1903"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = false
@@ -66,6 +66,8 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
                     var listPFCscNameItems:[String]                                      = []
 
     @Published      var dictPFAdminsDataItems:[String:ParsePFAdminsDataItem]             = [:]
+                                                                                           // [String:ParsePFAdminsDataItem]
+                                                                                           // Key:PFAdminsParseTID(String)
 
     @Published      var dictTherapistTidXref:[String:String]                             = [String:String]()
                                                                                            // [String:String]
@@ -75,6 +77,7 @@ public class JmAppParseCoreManager: NSObject, ObservableObject
 
     @Published      var dictSchedPatientLocItems:[String:[ScheduledPatientLocationItem]] = [String:[ScheduledPatientLocationItem]]()
                                                                                            // [String:[ScheduledPatientLocationItem]]
+                                                                                           // Key:sPFTherapistParseTID(String)
 
        private      var bHasDictSchedPatientLocItemsBeenDisplayed:Bool                   = false
 

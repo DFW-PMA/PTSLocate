@@ -17,7 +17,7 @@ public class JmAppSwiftDataManager: NSObject, ObservableObject
     {
         
         static let sClsId        = "JmAppSwiftDataManager"
-        static let sClsVers      = "v1.0202"
+        static let sClsVers      = "v1.0301"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -46,6 +46,7 @@ public class JmAppSwiftDataManager: NSObject, ObservableObject
            public   var modelConfiguration:ModelConfiguration?         = nil
            public   var modelContainer:ModelContainer?                 = nil
            public   var modelContext:ModelContext?                     = nil
+
     @Published      var pfAdminsSwiftDataItems:[PFAdminsSwiftDataItem] = []
     @Published      var bArePFAdminsSwiftDataItemsAvailable:Bool       = false
     
@@ -141,6 +142,8 @@ public class JmAppSwiftDataManager: NSObject, ObservableObject
         asToString.append("SwiftData 'modelConfiguration': (\(String(describing: self.modelConfiguration))),")
         asToString.append("SwiftData 'modelContainer': (\(String(describing: self.modelContainer))),")
         asToString.append("SwiftData 'modelContext': (\(String(describing: self.modelContext))),")
+        asToString.append("],")
+        asToString.append("[")
         asToString.append("SwiftData 'pfAdminsSwiftDataItems': (\(String(describing: self.pfAdminsSwiftDataItems))),")
         asToString.append("SwiftData 'bArePFAdminsSwiftDataItemsAvailable': (\(String(describing: self.bArePFAdminsSwiftDataItemsAvailable))),")
         asToString.append("],")
@@ -230,7 +233,7 @@ public class JmAppSwiftDataManager: NSObject, ObservableObject
         //  self.modelContainer = try ModelContainer(configurations:modelConfiguration!)
             self.modelContainer = try ModelContainer(for:self.schema!, configurations:modelConfiguration!)
             
-            self.xcgLogMsg("\(sCurrMethodDisp) SwiftDataManager ModelContainer has been constructed on the ModelConfiguration...")
+            self.xcgLogMsg("\(sCurrMethodDisp) SwiftDataManager ModelContainer has been constructed on the Schema/ModelConfiguration...")
 
         //  self.modelContext   = self.modelContainer!.mainContext
             self.modelContext   = ModelContext(self.modelContainer!)
