@@ -17,7 +17,7 @@ struct AppAuthenticateView: View
     {
         
         static let sClsId        = "AppAuthenticateView"
-        static let sClsVers      = "v1.1509"
+        static let sClsVers      = "v1.1702"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -855,6 +855,26 @@ struct AppAuthenticateView: View
 
             }
 
+            let sComparePFTherapistParseTID:String = parsePFAdminsDataItem.sPFAdminsParseTID.lowercased()
+
+            if (sComparePFTherapistParseTID.count  > 0 &&
+                sComparePFTherapistParseTID       == sLookupUserName)
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] matches the 'sComparePFTherapistParseTID' of [\(sComparePFTherapistParseTID)] - setting 'pfAdminsDataItem' to this item...")
+
+                pfAdminsDataItem = parsePFAdminsDataItem   
+
+                break
+
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] does NOT match the 'sComparePFTherapistParseTID' of [\(sComparePFTherapistParseTID)] - continuing search...")
+
+            }
+
         }
 
         if (pfAdminsDataItem == nil)
@@ -929,6 +949,26 @@ struct AppAuthenticateView: View
 
             }
 
+            let sComparePFTherapistParseTID:String = listSwiftDataItem.sPFAdminsParseTID.lowercased()
+
+            if (sComparePFTherapistParseTID.count  > 0 &&
+                sComparePFTherapistParseTID       == sLookupUserName)
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] matches the 'sComparePFTherapistParseTID' of [\(sComparePFTherapistParseTID)] - setting 'pfAdminsSwiftDataItem' to this item...")
+
+                pfAdminsSwiftDataItem = listSwiftDataItem   
+
+                break
+
+            }
+            else
+            {
+
+                self.xcgLogMsg("\(sCurrMethodDisp) 'sLookupUserName' of [\(sLookupUserName)] does NOT match the 'sComparePFTherapistParseTID' of [\(sComparePFTherapistParseTID)] - continuing search...")
+
+            }
+
         }
 
         if (pfAdminsSwiftDataItem == nil)
@@ -966,7 +1006,7 @@ struct AppAuthenticateView: View
         if (self.sLoginUsername.count > 0)
         {
 
-            sValidUserName  = self.sLoginUsername
+            sValidUserName = self.sLoginUsername
 
         }
 
