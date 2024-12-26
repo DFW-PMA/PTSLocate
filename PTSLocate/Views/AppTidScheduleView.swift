@@ -18,7 +18,7 @@ struct AppTidScheduleView: View
     {
         
         static let sClsId        = "AppTidScheduleView"
-        static let sClsVers      = "v1.0105"
+        static let sClsVers      = "v1.0205"
         static let sClsDisp      = sClsId+".("+sClsVers+"): "
         static let sClsCopyRight = "Copyright © JustMacApps 2023-2024. All rights reserved."
         static let bClsTrace     = true
@@ -86,64 +86,76 @@ struct AppTidScheduleView: View
     //  BLOCKED: Note - This would write a message into the log on EVERY tick of the timer...
     //  let _ = self.xcgLogMsg("...'AppTidScheduleView(.swift):body' \(JmXcodeBuildSettings.jmAppVersionAndBuildNumber)...")
 
+        VStack(alignment:.center)
+        {
+
+            HStack(alignment:.center)
+            {
+
+                Spacer()
+
+                Button
+                {
+
+                    let _ = xcgLogMsg("\(ClassInfo.sClsDisp):SettingsSingleViewCore.Button(Xcode).'Dismiss' pressed...")
+
+                    self.presentationMode.wrappedValue.dismiss()
+
+                //  dismiss()
+
+                }
+                label:
+                {
+
+                    VStack(alignment:.center)
+                    {
+
+                        Label("", systemImage: "xmark.circle")
+                            .help(Text("Dismiss this Screen"))
+                            .imageScale(.large)
+
+                        Text("Dismiss")
+                            .font(.caption)
+
+                    }
+
+                }
+                .padding()
+
+            }
+
+        }
+
         if (listScheduledPatientLocationItems.count < 1)
         {
 
-            EmptyView()
+            Spacer()
 
+            VStack(alignment:.center)
+            {
+            
+                Text("There are NO Scheduled visit(s)...")
+                    .bold()
+                    .italic()
+                    .underline()
+
+            }
+
+            Spacer()
+        
         }
         else
         {
 
-            VStack(alignment:.center)
-            {
-
-                HStack(alignment:.center)
-                {
-
-                    Spacer()
-
-                    Button
-                    {
-
-                        let _ = xcgLogMsg("\(ClassInfo.sClsDisp):SettingsSingleViewCore.Button(Xcode).'Dismiss' pressed...")
-
-                        self.presentationMode.wrappedValue.dismiss()
-
-                    //  dismiss()
-
-                    }
-                    label:
-                    {
-
-                        VStack(alignment:.center)
-                        {
-
-                            Label("", systemImage: "xmark.circle")
-                                .help(Text("Dismiss this Screen"))
-                                .imageScale(.large)
-
-                            Text("Dismiss")
-                                .font(.caption)
-
-                        }
-
-                    }
-                    .padding()
-
-                }
-
-                Text("Schedule::\(listScheduledPatientLocationItems[0].sTName)  TID #(\(listScheduledPatientLocationItems[0].sTid))  Visits #(\(listScheduledPatientLocationItems.count))")
-                    .underline()
-                Text("")
-
-            }
-            
             ScrollView
             {
 
                 VStack(alignment:.center)
                 {
+
+                    Text("Schedule::\(listScheduledPatientLocationItems[0].sTName) TID #(\(listScheduledPatientLocationItems[0].sTid)) Visits #(\(listScheduledPatientLocationItems.count))")
+                        .underline()
+                    Text("")
 
                     Grid(alignment:.leadingFirstTextBaseline, horizontalSpacing:5, verticalSpacing: 3)
                     {

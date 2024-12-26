@@ -18,7 +18,7 @@ class ParsePFCscDataItem: NSObject, Identifiable
     {
         
         static let sClsId        = "ParsePFCscDataItem"
-        static let sClsVers      = "v1.0402"
+        static let sClsVers      = "v1.0501"
         static let sClsDisp      = sClsId+"(.swift).("+sClsVers+"):"
         static let sClsCopyRight = "Copyright (C) JustMacApps 2023-2024. All Rights Reserved."
         static let bClsTrace     = true
@@ -138,6 +138,8 @@ class ParsePFCscDataItem: NSObject, Identifiable
         return MapCameraPosition.region(self.mapCoordinateRegion)
 
     }
+
+    var sPFTherapistParseTID:String               = "-N/A-"
 
     // Item address 'lookup' completed flag:
 
